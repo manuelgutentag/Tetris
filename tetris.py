@@ -12,13 +12,52 @@ class Blocks():
         self.placed_blocks = []
         self.block_placed = False
 
+        self.left_collision = False
+        self.right_collision = False
+        self.bottom_collision = False
+
+    def check_collision(self):
+        if self.random == 1:
+             for placedblock in self.placed_blocks:
+                if int(self.twobytwo[0].x - 1) == placedblock.x and int(self.twobytwo[0].y) == placedblock.y:
+                    self.left_collision = True
+                elif int(self.twobytwo[1].x - 1) == placedblock.x and int(self.twobytwo[1].y) == placedblock.y:
+                    self.left_collision = True
+
+                elif int(self.twobytwo[2].x + 1) == placedblock.x and int(self.twobytwo[2].y) == placedblock.y:
+                    self.right_collision = True
+                elif int(self.twobytwo[3].x + 1) == placedblock.x and int(self.twobytwo[3].y) == placedblock.y:
+                    self.right_collision = True
+
+                elif int(self.twobytwo[0].y + 1) == placedblock.y and int(self.twobytwo[0].x) == placedblock.x:
+                    self.bottom_collision = True
+                elif int(self.twobytwo[2].y + 1) == placedblock.y and int(self.twobytwo[2].x) == placedblock.x:
+                    self.bottom_collision = True
+
+        if self.random == 2: #default rotation
+            for placedblock in self.placed_blocks:
+                if int(self.ll[0].x - 1) == placedblock.x and int(self.ll[0].y) == placedblock.y:
+                    self.left_collision = True
+                elif int(self.ll[1].x - 1) == placedblock.x and int(self.ll[1].y) == placedblock.y:
+                    self.left_collision = True
+
+                elif int(self.ll[3].x + 1) == placedblock.x and int(self.ll[3].y) == placedblock.y:
+                    self.right_collision = True
+
+                elif int(self.ll[1].y + 1) == placedblock.y and int(self.ll[1].x) == placedblock.x:
+                    self.bottom_collision = True
+                elif int(self.ll[2].y + 1) == placedblock.y and int(self.ll[2].x) == placedblock.x:
+                    self.bottom_collision = True
+                elif int(self.ll[3].y + 1) == placedblock.y and int(self.ll[3].x) == placedblock.x:
+                    self.bottom_collision = True
+
+
+
     def move_block_auto(self):
         if self.random == 1:
             for block in self.twobytwo:
-                if block.y < 19.0:
+                if block.y < 19.0 and not self.bottom_collision:
                     block.y += 1
-                    twobytwo_rect = pygame.Rect(int(block.x * cell_size), int(block.y * cell_size), cell_size, cell_size)
-                    pygame.draw.rect(screen, (0, 250, 0), twobytwo_rect)
                 else:
                     self.block_placed = True
                     self.placed_blocks += self.twobytwo
@@ -29,8 +68,6 @@ class Blocks():
             for block in self.ll:
                 if self.ll[3].y < 19.0:
                     block.y += 1
-                    ll_rect = pygame.Rect(int(block.x * cell_size), int(block.y * cell_size), cell_size, cell_size)
-                    pygame.draw.rect(screen, (0, 250, 0), ll_rect)
                 else:
                     self.block_placed = True
                     self.placed_blocks += self.ll
@@ -42,9 +79,18 @@ class Blocks():
         self.ll = [Vector2(8, 0), Vector2(8, 1), Vector2(9, 1), Vector2(10, 1)]
         self.lr = [Vector2(11, 0), Vector2(11, 1), Vector2(10, 1), Vector2(9, 1)]
 
+        self.left_collision = False
+        self.right_collision = False
+        self.bottom_collision = False
+
+    def collision_reset(self):
+        self.left_collision = False
+        self.right_collision = False
+        self.bottom_collision = False
+
     def move_block_left(self):
         if self.random == 1:
-            if self.twobytwo[0].x > 5 and self.twobytwo[0].y < 19.0:
+            if self.twobytwo[0].x > 5 and self.twobytwo[0].y < 19.0 and not self.left_collision:
                 self.twobytwo[0].x -= 1
                 self.twobytwo[1].x -= 1
                 self.twobytwo[2].x -= 1
@@ -53,7 +99,7 @@ class Blocks():
                 print('move_block_left')
 
         if self.random == 2:
-            if self.ll[0].x > 5 and self.ll[1].y < 19.0:
+            if self.ll[0].x > 5 and self.ll[1].y < 19.0 and not self.left_collision:
                 self.ll[0].x -= 1
                 self.ll[1].x -= 1
                 self.ll[2].x -= 1
@@ -63,7 +109,7 @@ class Blocks():
 
     def move_block_right(self):
         if self.random == 1:
-            if self.twobytwo[2].x < 14 and self.twobytwo[0].y < 19.0:
+            if self.twobytwo[2].x < 14 and self.twobytwo[0].y < 19.0 and not self.right_collision:
                 self.twobytwo[0].x += 1
                 self.twobytwo[1].x += 1
                 self.twobytwo[2].x += 1
@@ -72,7 +118,7 @@ class Blocks():
                 print('move_block_right')
 
         if self.random == 2:
-            if self.ll[3].x < 14 and self.ll[1].y < 19.0:
+            if self.ll[3].x < 14 and self.ll[1].y < 19.0 and not self.right_collision:
                 self.ll[0].x += 1
                 self.ll[1].x += 1
                 self.ll[2].x += 1
@@ -82,12 +128,15 @@ class Blocks():
 
     def move_block_down(self):
         if self.random == 1:
-            if self.twobytwo[0].y < 19.0:
+            if self.twobytwo[0].y < 19.0 and not self.bottom_collision:
                 self.twobytwo[0].y += 1
                 self.twobytwo[1].y += 1
                 self.twobytwo[2].y += 1
                 self.twobytwo[3].y += 1
             else:
+                self.block_placed = True
+                self.placed_blocks += self.ll
+                print(self.placed_blocks)
                 print('move_block_down')
 
         if self.random == 2:
@@ -114,8 +163,26 @@ class Blocks():
             placed_blocks_rect = pygame.Rect(int(block.x * cell_size), int(block.y * cell_size), cell_size, cell_size)
             pygame.draw.rect(screen, (0,240,100), placed_blocks_rect)
 
-    def fast(self):
-        pass
+    def fast_feedback(self):
+        if self.random == 1:
+            for block in self.twobytwo:
+                if block.y < 19.0 and not self.bottom_collision:
+                    pass
+                else:
+                    self.block_placed = True
+                    self.placed_blocks += self.twobytwo
+                    print(self.placed_blocks)
+                    break
+
+        if self.random == 2:
+            for block in self.ll:
+                if self.ll[3].y < 19.0 and not self.bottom_collision:
+                    pass
+                else:
+                    self.block_placed = True
+                    self.placed_blocks += self.ll
+                    print(self.placed_blocks)
+                    break
 
 class Main():
     def __init__(self):
@@ -124,13 +191,19 @@ class Main():
     def update(self):
         if not self.block.block_placed:
             self.block.move_block_auto()
+            self.block.collision_reset()
+
+    def faster_update(self):
+        if not self.block.block_placed:
+            self.block.fast_feedback()
+            self.block.check_collision()
+            print('left: ' , self.block.left_collision)
+            print('right: ' , self.block.right_collision)
+            print('bottom: ' , self.block.bottom_collision)
         else:
             self.block.reset()
             self.block.random = random.randint(1,2)
             self.block.block_placed = False
-
-    def faster_update(self):
-        self.block.fast()
 
     def draw_game_elements(self):
         self.block.draw_block()
