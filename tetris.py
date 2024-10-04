@@ -184,6 +184,31 @@ class Blocks():
                     print(self.placed_blocks)
                     break
 
+    def check_row(self):
+        # checks for filled rows
+        self.x = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+
+        for j in range(20):
+            for i in range(len(self.placed_blocks)):
+                if self.placed_blocks[i].y == j:
+                    self.x[j] += self.placed_blocks[i].x
+
+        for j in range(20):
+            for i in range(len(self.placed_blocks)):
+                if self.x[j] == 95 and self.placed_blocks[i].y == j:
+                    self.placed_blocks[i].x = 0
+                    self.placed_blocks[i].y = 0
+
+        for j in range(20):
+            for i in range(len(self.placed_blocks)):
+                if self.x[j] == 95 and self.placed_blocks[i].y < j and self.placed_blocks[i].y > 0:
+                    self.placed_blocks[i].y += 1
+        print(self.x)
+        for j in range(20):
+            self.x[j] = 0
+
+
+
 class Main():
     def __init__(self):
         self.block = Blocks()
@@ -197,9 +222,10 @@ class Main():
         if not self.block.block_placed:
             self.block.fast_feedback()
             self.block.check_collision()
-            print('left: ' , self.block.left_collision)
-            print('right: ' , self.block.right_collision)
-            print('bottom: ' , self.block.bottom_collision)
+            self.block.check_row()
+            #print('left: ' , self.block.left_collision)
+            #print('right: ' , self.block.right_collision)
+            #print('bottom: ' , self.block.bottom_collision)
         else:
             self.block.reset()
             self.block.random = random.randint(1,2)
