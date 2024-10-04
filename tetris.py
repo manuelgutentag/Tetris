@@ -76,7 +76,7 @@ while True:
                 main.block.move_block_left()
             if event.key == pygame.K_d:
                 main.block.move_block_right()
-    '''
+    '''Todo: bei konstantem knopf pressen schneller bewegen
     keys = pygame.key.get_pressed()
     if keys[pygame.K_a]:
         clock2.tick(10)
