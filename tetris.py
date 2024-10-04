@@ -12,7 +12,21 @@ class Blocks():
             block.y += 1
             twobytwo_rect = pygame.Rect(int(block.x * cell_size), int(block.y * cell_size), cell_size, cell_size)
             pygame.draw.rect(screen, (0,250,0), twobytwo_rect)
-            print(block.y)
+
+    def move_block_left(self):
+        if self.twobytwo[0].x > 5 and self.twobytwo[0].y < 19.0:
+            self.twobytwo[0].x -= 1
+            self.twobytwo[1].x -= 1
+            self.twobytwo[2].x -= 1
+            self.twobytwo[3].x -= 1
+
+    def move_block_right(self):
+        if self.twobytwo[2].x < 14 and self.twobytwo[0].y < 19.0:
+            print(self.twobytwo[2].x)
+            self.twobytwo[0].x += 1
+            self.twobytwo[1].x += 1
+            self.twobytwo[2].x += 1
+            self.twobytwo[3].x += 1
 
     def draw_newblock(self):
         for block in self.twobytwo:
@@ -43,6 +57,7 @@ cell_count_vert = 20
 cell_count_hor = 20
 screen = pygame.display.set_mode((cell_size*cell_count_hor, cell_size*cell_count_vert))
 clock = pygame.time.Clock()
+clock2 = pygame.time.Clock()
 
 screen_update = pygame.USEREVENT
 pygame.time.set_timer(screen_update, 500)
@@ -56,6 +71,22 @@ while True:
             sys.exit()
         if event.type == screen_update:
             main.update()
+        if event.type == pygame.KEYDOWN:
+            if event.key == pygame.K_a:
+                main.block.move_block_left()
+            if event.key == pygame.K_d:
+                main.block.move_block_right()
+    '''
+    keys = pygame.key.get_pressed()
+    if keys[pygame.K_a]:
+        clock2.tick(10)
+        main.block.move_block_left()
+        clock2.tick(10)
+    if keys[pygame.K_d]:
+        clock2.tick(10)
+        main.block.move_block_right()
+        clock2.tick(10)
+    '''
 
     screen.fill((0,0,0))
     main.draw_game_elements()
