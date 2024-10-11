@@ -3,7 +3,7 @@ from pygame.math import Vector2
 
 class Blocks():
     def __init__(self):
-        #self.random = random.randint(1,3)
+        self.blocksfrozen = True
         self.random = random.randint(1,2)
         self.twobytwo = [Vector2(9, 1), Vector2(9, 0), Vector2(10, 1), Vector2(10, 0)]
         self.ll = [Vector2(8, 0), Vector2(8, 1), Vector2(9, 1), Vector2(10, 1)]
@@ -61,7 +61,6 @@ class Blocks():
                 else:
                     self.block_placed = True
                     self.placed_blocks += self.twobytwo
-                    print(self.placed_blocks)
                     break
 
         if self.random == 2:
@@ -71,7 +70,6 @@ class Blocks():
                 else:
                     self.block_placed = True
                     self.placed_blocks += self.ll
-                    print(self.placed_blocks)
                     break
 
     def reset(self):
@@ -95,8 +93,6 @@ class Blocks():
                 self.twobytwo[1].x -= 1
                 self.twobytwo[2].x -= 1
                 self.twobytwo[3].x -= 1
-            else:
-                print('move_block_left')
 
         if self.random == 2:
             if self.ll[0].x > 5 and self.ll[1].y < 19.0 and not self.left_collision:
@@ -104,8 +100,6 @@ class Blocks():
                 self.ll[1].x -= 1
                 self.ll[2].x -= 1
                 self.ll[3].x -= 1
-            else:
-                print('move_block_left')
 
     def move_block_right(self):
         if self.random == 1:
@@ -114,8 +108,6 @@ class Blocks():
                 self.twobytwo[1].x += 1
                 self.twobytwo[2].x += 1
                 self.twobytwo[3].x += 1
-            else:
-                print('move_block_right')
 
         if self.random == 2:
             if self.ll[3].x < 14 and self.ll[1].y < 19.0 and not self.right_collision:
@@ -123,8 +115,6 @@ class Blocks():
                 self.ll[1].x += 1
                 self.ll[2].x += 1
                 self.ll[3].x += 1
-            else:
-                print('move_block_right')
 
     def move_block_down(self):
         if self.random == 1:
@@ -135,18 +125,17 @@ class Blocks():
                 self.twobytwo[3].y += 1
             else:
                 self.block_placed = True
-                self.placed_blocks += self.ll
-                print(self.placed_blocks)
-                print('move_block_down')
+                self.placed_blocks += self.twobytwo
 
         if self.random == 2:
-            if self.ll[1].y < 19.0:
+            if self.ll[1].y < 19.0 and not self.bottom_collision:
                 self.ll[0].y += 1
                 self.ll[1].y += 1
                 self.ll[2].y += 1
                 self.ll[3].y += 1
             else:
-                print('move_block_down')
+                self.block_placed = True
+                self.placed_blocks += self.ll
 
     def draw_block(self):
         if self.random == 1:
@@ -171,7 +160,6 @@ class Blocks():
                 else:
                     self.block_placed = True
                     self.placed_blocks += self.twobytwo
-                    print(self.placed_blocks)
                     break
 
         if self.random == 2:
@@ -181,32 +169,54 @@ class Blocks():
                 else:
                     self.block_placed = True
                     self.placed_blocks += self.ll
-                    print(self.placed_blocks)
                     break
 
     def check_row(self):
         # checks for filled rows
         self.x = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
 
+        # lots of room for better runtime here...
+
+        #tracks how many blocks are in every row
         for j in range(20):
             for i in range(len(self.placed_blocks)):
                 if self.placed_blocks[i].y == j:
                     self.x[j] += self.placed_blocks[i].x
 
+        # reset the vectors of the blocks that are removed
+        # if a variable in the list = 95 then this row is full
         for j in range(20):
             for i in range(len(self.placed_blocks)):
                 if self.x[j] == 95 and self.placed_blocks[i].y == j:
                     self.placed_blocks[i].x = 0
                     self.placed_blocks[i].y = 0
 
+        # let all blocks above the removed row "fall down"
         for j in range(20):
             for i in range(len(self.placed_blocks)):
                 if self.x[j] == 95 and self.placed_blocks[i].y < j and self.placed_blocks[i].y > 0:
                     self.placed_blocks[i].y += 1
-        print(self.x)
         for j in range(20):
             self.x[j] = 0
 
+    def check_game_over(self):
+        for j in range(4):
+            for i in range(len(self.placed_blocks)):
+                if self.twobytwo[j].x == self.placed_blocks[i].x and self.twobytwo[j].y == self.placed_blocks[i].y:
+                    self.placed_blocks = []
+                    self.blocksfrozen = True
+                    print('game over')
+                    break
+
+    def draw_controls(self):
+        controls_text = 'Use A,S,D to move'
+        game_font = pygame.font.Font(None, 90)
+        controls_surface = game_font.render(controls_text, True, (56,74,12))
+        controls_x = int(cell_size * cell_count_hor/2)
+        controls_y = int(cell_size * cell_count_vert/2) - 150
+        controls_rect = controls_surface.get_rect(center = (controls_x, controls_y))
+
+        screen.blit(controls_surface, controls_rect)
 
 
 class Main():
@@ -214,27 +224,28 @@ class Main():
         self.block = Blocks()
 
     def update(self):
-        if not self.block.block_placed:
+        if not self.block.block_placed and not self.block.blocksfrozen:
             self.block.move_block_auto()
             self.block.collision_reset()
+            print(self.block.random)
 
     def faster_update(self):
         if not self.block.block_placed:
             self.block.fast_feedback()
             self.block.check_collision()
             self.block.check_row()
-            #print('left: ' , self.block.left_collision)
-            #print('right: ' , self.block.right_collision)
-            #print('bottom: ' , self.block.bottom_collision)
         else:
             self.block.reset()
             self.block.random = random.randint(1,2)
+            self.block.check_game_over()
             self.block.block_placed = False
 
     def draw_game_elements(self):
         self.block.draw_block()
         self.block.draw_placed_blocks()
         self.draw_sidelines()
+        if self.block.blocksfrozen:
+            self.block.draw_controls()
 
     def draw_sidelines(self):
         sideline_rect_l = pygame.Rect(0,0, cell_size * 5, cell_size * 20)
@@ -266,6 +277,7 @@ while True:
         if event.type == screen_update:
             main.update()
         if event.type == pygame.KEYDOWN:
+            main.block.blocksfrozen = False
             if event.key == pygame.K_a and not main.block.block_placed:
                 main.block.move_block_left()
             if event.key == pygame.K_d and not main.block.block_placed:
