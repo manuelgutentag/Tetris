@@ -16,6 +16,8 @@ class Blocks():
         self.right_collision = False
         self.bottom_collision = False
 
+        self.tick = False
+
     def check_collision(self):
         if self.random == 1:
              for placedblock in self.placed_blocks:
@@ -51,23 +53,27 @@ class Blocks():
                 elif int(self.ll[3].y + 1) == placedblock.y and int(self.ll[3].x) == placedblock.x:
                     self.bottom_collision = True
 
-
+        print(self.bottom_collision)
 
     def move_block_auto(self):
+        self.tick = True
+
         if self.random == 1:
             for block in self.twobytwo:
                 if block.y < 19.0 and not self.bottom_collision:
                     block.y += 1
                 else:
+                    print('move block auto')
                     self.block_placed = True
                     self.placed_blocks += self.twobytwo
                     break
 
         if self.random == 2:
             for block in self.ll:
-                if self.ll[3].y < 19.0:
+                if self.ll[3].y < 19.0 and not self.bottom_collision:
                     block.y += 1
                 else:
+                    print('move block auto')
                     self.block_placed = True
                     self.placed_blocks += self.ll
                     break
@@ -86,6 +92,7 @@ class Blocks():
         self.right_collision = False
         self.bottom_collision = False
 
+
     def move_block_left(self):
         if self.random == 1:
             if self.twobytwo[0].x > 5 and self.twobytwo[0].y < 19.0 and not self.left_collision:
@@ -93,6 +100,8 @@ class Blocks():
                 self.twobytwo[1].x -= 1
                 self.twobytwo[2].x -= 1
                 self.twobytwo[3].x -= 1
+            else:
+                print('cant move left')
 
         if self.random == 2:
             if self.ll[0].x > 5 and self.ll[1].y < 19.0 and not self.left_collision:
@@ -158,18 +167,24 @@ class Blocks():
                 if block.y < 19.0 and not self.bottom_collision:
                     pass
                 else:
-                    self.block_placed = True
-                    self.placed_blocks += self.twobytwo
-                    break
+                    if self.tick:
+                        print('fast feedback')
+                        self.block_placed = True
+                        self.placed_blocks += self.twobytwo
+                        break
 
         if self.random == 2:
             for block in self.ll:
                 if self.ll[3].y < 19.0 and not self.bottom_collision:
                     pass
                 else:
-                    self.block_placed = True
-                    self.placed_blocks += self.ll
-                    break
+                    if self.tick:
+                        print('fast feedback')
+                        self.block_placed = True
+                        self.placed_blocks += self.ll
+                        break
+
+        self.tick = False
 
     def check_row(self):
         # checks for filled rows
@@ -194,7 +209,7 @@ class Blocks():
         # let all blocks above the removed row "fall down"
         for j in range(20):
             for i in range(len(self.placed_blocks)):
-                if self.x[j] == 95 and self.placed_blocks[i].y < j and self.placed_blocks[i].y > 0:
+                if self.x[j] == 95 and j > self.placed_blocks[i].y > 0:
                     self.placed_blocks[i].y += 1
         for j in range(20):
             self.x[j] = 0
@@ -227,7 +242,6 @@ class Main():
         if not self.block.block_placed and not self.block.blocksfrozen:
             self.block.move_block_auto()
             self.block.collision_reset()
-            print(self.block.random)
 
     def faster_update(self):
         if not self.block.block_placed:
@@ -266,6 +280,9 @@ pygame.key.set_repeat(200, 40) # für Taste gedrückt halten
 
 screen_update = pygame.USEREVENT
 pygame.time.set_timer(screen_update, 900)
+
+
+
 
 main = Main()
 
