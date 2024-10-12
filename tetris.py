@@ -19,6 +19,7 @@ class Blocks():
         self.tick = False
 
     def check_collision(self):
+        self.bottom_collision = False
         if self.random == 1:
              for placedblock in self.placed_blocks:
                 if int(self.twobytwo[0].x - 1) == placedblock.x and int(self.twobytwo[0].y) == placedblock.y:
@@ -26,12 +27,12 @@ class Blocks():
                 elif int(self.twobytwo[1].x - 1) == placedblock.x and int(self.twobytwo[1].y) == placedblock.y:
                     self.left_collision = True
 
-                elif int(self.twobytwo[2].x + 1) == placedblock.x and int(self.twobytwo[2].y) == placedblock.y:
+                if int(self.twobytwo[2].x + 1) == placedblock.x and int(self.twobytwo[2].y) == placedblock.y:
                     self.right_collision = True
                 elif int(self.twobytwo[3].x + 1) == placedblock.x and int(self.twobytwo[3].y) == placedblock.y:
                     self.right_collision = True
 
-                elif int(self.twobytwo[0].y + 1) == placedblock.y and int(self.twobytwo[0].x) == placedblock.x:
+                if int(self.twobytwo[0].y + 1) == placedblock.y and int(self.twobytwo[0].x) == placedblock.x:
                     self.bottom_collision = True
                 elif int(self.twobytwo[2].y + 1) == placedblock.y and int(self.twobytwo[2].x) == placedblock.x:
                     self.bottom_collision = True
@@ -43,17 +44,15 @@ class Blocks():
                 elif int(self.ll[1].x - 1) == placedblock.x and int(self.ll[1].y) == placedblock.y:
                     self.left_collision = True
 
-                elif int(self.ll[3].x + 1) == placedblock.x and int(self.ll[3].y) == placedblock.y:
+                if int(self.ll[3].x + 1) == placedblock.x and int(self.ll[3].y) == placedblock.y:
                     self.right_collision = True
 
-                elif int(self.ll[1].y + 1) == placedblock.y and int(self.ll[1].x) == placedblock.x:
+                if int(self.ll[1].y + 1) == placedblock.y and int(self.ll[1].x) == placedblock.x:
                     self.bottom_collision = True
                 elif int(self.ll[2].y + 1) == placedblock.y and int(self.ll[2].x) == placedblock.x:
                     self.bottom_collision = True
                 elif int(self.ll[3].y + 1) == placedblock.y and int(self.ll[3].x) == placedblock.x:
                     self.bottom_collision = True
-
-        print(self.bottom_collision)
 
     def move_block_auto(self):
         self.tick = True
@@ -233,6 +232,33 @@ class Blocks():
 
         screen.blit(controls_surface, controls_rect)
 
+    def draw_score(self):
+        score_text = 'Score'
+        score_font = pygame.font.Font(None, 60)
+        score_surface = score_font.render(score_text, True,(255,255,255))
+        score_x = 17.5 * cell_size
+        score_y = 2 * cell_size
+        score_rect = score_surface.get_rect(center=(score_x, score_y))
+        background_rect = pygame.rect.Rect(score_rect.left - 90, score_rect.top - 20, 300, 200)
+
+        pygame.draw.rect(screen, (0,0,0), background_rect)
+        screen.blit(score_surface, score_rect)
+
+    def draw_level(self):
+        level_text = 'Level'
+        level_font = pygame.font.Font(None, 60)
+        level_surface = level_font.render(level_text, True, (255,255,255))
+        level_x = 17.5 * cell_size
+        level_y = 14 * cell_size
+        level_rect = level_surface.get_rect(center=(level_x, level_y))
+        background_rect = pygame.rect.Rect(level_rect.left - 45, level_rect.top - 20, 200, 200)
+
+        pygame.draw.rect(screen, (0,0,0), background_rect)
+        screen.blit(level_surface, level_rect)
+
+
+
+
 
 class Main():
     def __init__(self):
@@ -258,6 +284,8 @@ class Main():
         self.block.draw_block()
         self.block.draw_placed_blocks()
         self.draw_sidelines()
+        self.block.draw_score()
+        self.block.draw_level()
         if self.block.blocksfrozen:
             self.block.draw_controls()
 
@@ -297,10 +325,13 @@ while True:
             main.block.blocksfrozen = False
             if event.key == pygame.K_a and not main.block.block_placed:
                 main.block.move_block_left()
+                main.block.check_collision()
             if event.key == pygame.K_d and not main.block.block_placed:
                 main.block.move_block_right()
+                main.block.check_collision()
             if event.key == pygame.K_s and not main.block.block_placed:
                 main.block.move_block_down()
+                main.block.check_collision()
 
     screen.fill((0,0,0))
     main.draw_game_elements()
