@@ -8,13 +8,13 @@ class Blocks():
         self.level = 0
         self.current_block = random.randint(1,2)
         self.next_block = random.randint(1,2)
+        self.current_rotation = 1
         self.twobytwo = [Vector2(9, 1), Vector2(9, 0), Vector2(10, 1), Vector2(10, 0)]
         self.ll = [Vector2(8, 0), Vector2(8, 1), Vector2(9, 1), Vector2(10, 1)]
         self.lr = [Vector2(11, 0), Vector2(11, 1), Vector2(10, 1), Vector2(9, 1)]
 
         self.twobytwo_next = [Vector2(9, 1), Vector2(9, 0), Vector2(10, 1), Vector2(10, 0)]
         self.ll_next = [Vector2(8, 0), Vector2(8, 1), Vector2(9, 1), Vector2(10, 1)]
-        self.lr_next = [Vector2(11, 0), Vector2(11, 1), Vector2(10, 1), Vector2(9, 1)]
 
         self.placed_blocks = []
         self.block_placed = False
@@ -28,6 +28,32 @@ class Blocks():
         self.totalblockscleared = 0
         self.firstclear = False
         self.settimerflag = False
+
+    def rotate(self):
+        if self.current_block == 2:
+            if self.current_rotation == 1:
+                self.ll[0] += Vector2(2,0)
+                self.ll[1] += Vector2(1,-1)
+                self.ll[2] += Vector2(0,0)
+                self.ll[3] += Vector2(-1,1)
+
+            if self.current_rotation == 2:
+                self.ll[0] += Vector2(0,2)
+                self.ll[1] += Vector2(1,1)
+                self.ll[2] += Vector2(0,0)
+                self.ll[3] += Vector2(-1,-1)
+
+            if self.current_rotation == 3:
+                self.ll[0] += Vector2(-2,0)
+                self.ll[1] += Vector2(-1,1)
+                self.ll[2] += Vector2(0,0)
+                self.ll[3] += Vector2(1,-1)
+
+            if self.current_rotation == 4:
+                self.ll[0] += Vector2(0,-2)
+                self.ll[1] += Vector2(-1,-1)
+                self.ll[2] += Vector2(0,0)
+                self.ll[3] += Vector2(1,1)
 
     def check_collision(self):
         self.bottom_collision = False
@@ -49,21 +75,83 @@ class Blocks():
                     self.bottom_collision = True
 
         if self.current_block == 2: #default rotation
-            for placedblock in self.placed_blocks:
-                if int(self.ll[0].x - 1) == placedblock.x and int(self.ll[0].y) == placedblock.y:
-                    self.left_collision = True
-                elif int(self.ll[1].x - 1) == placedblock.x and int(self.ll[1].y) == placedblock.y:
-                    self.left_collision = True
+            if self.current_rotation == 1:
+                for placedblock in self.placed_blocks:
+                    if int(self.ll[0].x - 1) == placedblock.x and int(self.ll[0].y) == placedblock.y:
+                        self.left_collision = True
+                    elif int(self.ll[1].x - 1) == placedblock.x and int(self.ll[1].y) == placedblock.y:
+                        self.left_collision = True
 
-                if int(self.ll[3].x + 1) == placedblock.x and int(self.ll[3].y) == placedblock.y:
-                    self.right_collision = True
+                    if int(self.ll[3].x + 1) == placedblock.x and int(self.ll[3].y) == placedblock.y:
+                        self.right_collision = True
 
-                if int(self.ll[1].y + 1) == placedblock.y and int(self.ll[1].x) == placedblock.x:
-                    self.bottom_collision = True
-                elif int(self.ll[2].y + 1) == placedblock.y and int(self.ll[2].x) == placedblock.x:
-                    self.bottom_collision = True
-                elif int(self.ll[3].y + 1) == placedblock.y and int(self.ll[3].x) == placedblock.x:
-                    self.bottom_collision = True
+                    if int(self.ll[1].y + 1) == placedblock.y and int(self.ll[1].x) == placedblock.x:
+                        self.bottom_collision = True
+                    elif int(self.ll[2].y + 1) == placedblock.y and int(self.ll[2].x) == placedblock.x:
+                        self.bottom_collision = True
+                    elif int(self.ll[3].y + 1) == placedblock.y and int(self.ll[3].x) == placedblock.x:
+                        self.bottom_collision = True
+
+            if self.current_rotation == 2:
+                for placedblock in self.placed_blocks:
+                    if int(self.ll[1].x - 1) == placedblock.x and int(self.ll[1].y) == placedblock.y:
+                        self.left_collision = True
+                    elif int(self.ll[2].x - 1) == placedblock.x and int(self.ll[2].y) == placedblock.y:
+                        self.left_collision = True
+                    elif int(self.ll[3].x - 1) == placedblock.x and int(self.ll[3].y) == placedblock.y:
+                        self.left_collision = True
+
+                    if int(self.ll[0].x + 1) == placedblock.x and int(self.ll[0].y) == placedblock.y:
+                        self.right_collision = True
+                    elif int(self.ll[2].x + 1) == placedblock.x and int(self.ll[2].y) == placedblock.y:
+                        self.right_collision = True
+                    elif int(self.ll[3].x + 1) == placedblock.x and int(self.ll[3].y) == placedblock.y:
+                        self.right_collision = True
+
+                    if int(self.ll[3].y + 1) == placedblock.y and int(self.ll[3].x) == placedblock.x:
+                        self.bottom_collision = True
+                    elif int(self.ll[0].y + 1) == placedblock.y and int(self.ll[0].x) == placedblock.x:
+                        self.bottom_collision = True
+
+            if self.current_rotation == 3:
+                for placedblock in self.placed_blocks:
+                    if int(self.ll[3].x - 1) == placedblock.x and int(self.ll[3].y) == placedblock.y:
+                        self.left_collision = True
+                    elif int(self.ll[0].x - 1) == placedblock.x and int(self.ll[0].y) == placedblock.y:
+                        self.left_collision = True
+
+                    if int(self.ll[1].x + 1) == placedblock.x and int(self.ll[1].y) == placedblock.y:
+                        self.right_collision = True
+                    elif int(self.ll[0].x + 1) == placedblock.x and int(self.ll[0].y) == placedblock.y:
+                        self.right_collision = True
+
+                    if int(self.ll[0].y + 1) == placedblock.y and int(self.ll[0].x) == placedblock.x:
+                        self.bottom_collision = True
+                    elif int(self.ll[2].y + 1) == placedblock.y and int(self.ll[2].x) == placedblock.x:
+                        self.bottom_collision = True
+                    elif int(self.ll[3].y + 1) == placedblock.y and int(self.ll[3].x) == placedblock.x:
+                        self.bottom_collision = True
+
+            if self.current_rotation == 4:
+                for placedblock in self.placed_blocks:
+                    if int(self.ll[0].x - 1) == placedblock.x and int(self.ll[0].y) == placedblock.y:
+                        self.left_collision = True
+                    elif int(self.ll[2].x - 1) == placedblock.x and int(self.ll[2].y) == placedblock.y:
+                        self.left_collision = True
+                    elif int(self.ll[3].x - 1) == placedblock.x and int(self.ll[3].y) == placedblock.y:
+                        self.left_collision = True
+
+                    if int(self.ll[1].x + 1) == placedblock.x and int(self.ll[1].y) == placedblock.y:
+                        self.right_collision = True
+                    elif int(self.ll[2].x + 1) == placedblock.x and int(self.ll[2].y) == placedblock.y:
+                        self.right_collision = True
+                    elif int(self.ll[3].x + 1) == placedblock.x and int(self.ll[3].y) == placedblock.y:
+                        self.right_collision = True
+
+                    if int(self.ll[0].y + 1) == placedblock.y and int(self.ll[0].x) == placedblock.x:
+                        self.bottom_collision = True
+                    if int(self.ll[1].y + 1) == placedblock.y and int(self.ll[1].x) == placedblock.x:
+                        self.bottom_collision = True
 
     def move_block_auto(self):
         self.tick = True
@@ -75,16 +163,29 @@ class Blocks():
                 else:
                     self.block_placed = True
                     self.placed_blocks += self.twobytwo
+                    self.current_rotation = 1
                     break
 
         if self.current_block == 2:
-            for block in self.ll:
-                if self.ll[3].y < 19.0 and not self.bottom_collision:
-                    block.y += 1
-                else:
-                    self.block_placed = True
-                    self.placed_blocks += self.ll
-                    break
+            if self.current_rotation == 1 or self.current_rotation == 2:
+                for block in self.ll:
+                    if self.ll[3].y < 19.0 and not self.bottom_collision:
+                        block.y += 1
+                    else:
+                        self.block_placed = True
+                        self.placed_blocks += self.ll
+                        self.current_rotation = 1
+                        break
+
+            elif self.current_rotation == 3 or self.current_rotation == 4:
+                for block in self.ll:
+                    if self.ll[0].y < 20.0 and not self.bottom_collision:
+                        block.y += 1
+                    else:
+                        self.block_placed = True
+                        self.placed_blocks += self.ll
+                        self.current_rotation = 1
+                        break
 
         self.tick = True
 
@@ -144,6 +245,7 @@ class Blocks():
             else:
                 self.block_placed = True
                 self.placed_blocks += self.twobytwo
+                self.current_rotation = 1
 
         if self.current_block == 2:
             if self.ll[1].y < 19.0 and not self.bottom_collision:
@@ -154,28 +256,7 @@ class Blocks():
             else:
                 self.block_placed = True
                 self.placed_blocks += self.ll
-
-
-    def fast_feedback(self):
-        if self.current_block == 1:
-            if self.twobytwo[0].y < 19.0 and not self.bottom_collision:
-                pass
-            else:
-                if self.tick:
-                    print('called')
-                    self.block_placed = True
-                    self.placed_blocks += self.twobytwo
-
-        if self.current_block == 2:
-            if self.ll[3].y < 19.0 and not self.bottom_collision:
-                pass
-            else:
-                if self.tick:
-                    print('called')
-                    self.block_placed = True
-                    self.placed_blocks += self.ll
-
-        self.tick = False
+                self.current_rotation = 1
 
     def check_row(self):
         # checks for filled rows
@@ -239,6 +320,8 @@ class Blocks():
                 if self.twobytwo[j].x == self.placed_blocks[i].x and self.twobytwo[j].y == self.placed_blocks[i].y:
                     self.placed_blocks = []
                     self.blocksfrozen = True
+                    self.score = 0
+                    self.level = 0
                     print('game over')
                     break
 
@@ -332,7 +415,6 @@ class Main():
 
     def faster_update(self):
         if not self.block.block_placed:
-            #self.block.fast_feedback()
             self.block.check_collision()
             self.block.check_row()
         else:
@@ -395,6 +477,25 @@ while True:
             if event.key == pygame.K_s and not main.block.block_placed:
                 main.block.move_block_down()
                 main.block.check_collision()
+            if event.key == pygame.K_SPACE and not main.block.block_placed:
+                # determine the needed rotation and rotate
+                print(main.block.current_rotation)
+                if main.block.current_block == 1:
+                    pass
+
+                elif main.block.current_block == 2:
+                    main.block.rotate()
+                    if main.block.current_rotation == 4:
+                        main.block.current_rotation = 1
+                    else:
+                        main.block.current_rotation += 1
+
+                elif main.block.current_block == 3:
+                    main.block.rotate()
+                    if main.block.current_rotation == 4:
+                        main.block.current_rotation = 1
+                    else:
+                        main.block.current_rotation += 1
 
     if main.block.level == 1 and main.block.settimerflag:
         # settimerflag for the purpose of only calling this timer-update once after a level-up
