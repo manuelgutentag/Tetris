@@ -22,6 +22,7 @@ class Blocks():
         self.left_collision = False
         self.right_collision = False
         self.bottom_collision = False
+        self.rotation_collision = False
 
         self.tick = False
         self.blockscleared = 0
@@ -31,25 +32,25 @@ class Blocks():
 
     def rotate(self):
         if self.current_block == 2:
-            if self.current_rotation == 1:
+            if self.current_rotation == 1 and not self.rotation_collision:
                 self.ll[0] += Vector2(2,0)
                 self.ll[1] += Vector2(1,-1)
                 self.ll[2] += Vector2(0,0)
                 self.ll[3] += Vector2(-1,1)
 
-            if self.current_rotation == 2:
+            if self.current_rotation == 2 and not self.rotation_collision:
                 self.ll[0] += Vector2(0,2)
                 self.ll[1] += Vector2(1,1)
                 self.ll[2] += Vector2(0,0)
                 self.ll[3] += Vector2(-1,-1)
 
-            if self.current_rotation == 3:
+            if self.current_rotation == 3 and not self.rotation_collision:
                 self.ll[0] += Vector2(-2,0)
                 self.ll[1] += Vector2(-1,1)
                 self.ll[2] += Vector2(0,0)
                 self.ll[3] += Vector2(1,-1)
 
-            if self.current_rotation == 4:
+            if self.current_rotation == 4 and not self.rotation_collision:
                 self.ll[0] += Vector2(0,-2)
                 self.ll[1] += Vector2(-1,-1)
                 self.ll[2] += Vector2(0,0)
@@ -155,10 +156,11 @@ class Blocks():
 
     def move_block_auto(self):
         self.tick = True
+        # Important: At the if-statement always use the last element of the block list. If not, the blocks will keep adding
 
         if self.current_block == 1:
             for block in self.twobytwo:
-                if block.y < 19.0 and not self.bottom_collision:
+                if self.twobytwo[3].y < 18.0 and not self.bottom_collision:
                     block.y += 1
                 else:
                     self.block_placed = True
@@ -177,13 +179,25 @@ class Blocks():
                         self.current_rotation = 1
                         break
 
-            elif self.current_rotation == 3 or self.current_rotation == 4:
+            elif self.current_rotation == 3:
                 for block in self.ll:
-                    if self.ll[0].y < 20.0 and not self.bottom_collision:
+                    if self.ll[3].y < 18.0 and not self.bottom_collision:
                         block.y += 1
                     else:
                         self.block_placed = True
                         self.placed_blocks += self.ll
+                        print(self.ll)
+                        self.current_rotation = 1
+                        break
+
+            elif self.current_rotation == 4:
+                for block in self.ll:
+                    if self.ll[3].y < 17.0 and not self.bottom_collision:
+                        block.y += 1
+                    else:
+                        self.block_placed = True
+                        self.placed_blocks += self.ll
+                        print(self.ll)
                         self.current_rotation = 1
                         break
 
@@ -213,11 +227,33 @@ class Blocks():
                 self.twobytwo[3].x -= 1
 
         if self.current_block == 2:
-            if self.ll[0].x > 5 and self.ll[1].y < 20.0 and not self.left_collision:
-                self.ll[0].x -= 1
-                self.ll[1].x -= 1
-                self.ll[2].x -= 1
-                self.ll[3].x -= 1
+            if self.current_rotation == 1:
+                if self.ll[0].x > 5 and self.ll[1].y < 20.0 and not self.left_collision:
+                    self.ll[0].x -= 1
+                    self.ll[1].x -= 1
+                    self.ll[2].x -= 1
+                    self.ll[3].x -= 1
+
+            if self.current_rotation == 2:
+                if self.ll[1].x > 5 and self.ll[3].y < 20.0 and not self.left_collision:
+                    self.ll[0].x -= 1
+                    self.ll[1].x -= 1
+                    self.ll[2].x -= 1
+                    self.ll[3].x -= 1
+
+            if self.current_rotation == 3:
+                if self.ll[3].x > 5 and self.ll[0].y < 20.0 and not self.left_collision:
+                    self.ll[0].x -= 1
+                    self.ll[1].x -= 1
+                    self.ll[2].x -= 1
+                    self.ll[3].x -= 1
+
+            if self.current_rotation == 4:
+                if self.ll[0].x > 5 and self.ll[0].y < 20.0 and not self.left_collision:
+                    self.ll[0].x -= 1
+                    self.ll[1].x -= 1
+                    self.ll[2].x -= 1
+                    self.ll[3].x -= 1
 
     def move_block_right(self):
         if self.current_block == 1:
@@ -228,11 +264,33 @@ class Blocks():
                 self.twobytwo[3].x += 1
 
         if self.current_block == 2:
-            if self.ll[3].x < 14 and self.ll[1].y < 20.0 and not self.right_collision:
-                self.ll[0].x += 1
-                self.ll[1].x += 1
-                self.ll[2].x += 1
-                self.ll[3].x += 1
+            if self.current_rotation == 1:
+                if self.ll[3].x < 14 and self.ll[1].y < 20.0 and not self.right_collision:
+                    self.ll[0].x += 1
+                    self.ll[1].x += 1
+                    self.ll[2].x += 1
+                    self.ll[3].x += 1
+
+            if self.current_rotation == 2:
+                if self.ll[0].x < 14 and self.ll[3].y < 20.0 and not self.right_collision:
+                    self.ll[0].x += 1
+                    self.ll[1].x += 1
+                    self.ll[2].x += 1
+                    self.ll[3].x += 1
+
+            if self.current_rotation == 3:
+                if self.ll[0].x < 14 and self.ll[0].y < 20.0 and not self.right_collision:
+                    self.ll[0].x += 1
+                    self.ll[1].x += 1
+                    self.ll[2].x += 1
+                    self.ll[3].x += 1
+
+            if self.current_rotation == 4:
+                if self.ll[3].x < 14 and self.ll[0].y < 20.0 and not self.right_collision:
+                    self.ll[0].x += 1
+                    self.ll[1].x += 1
+                    self.ll[2].x += 1
+                    self.ll[3].x += 1
 
     def move_block_down(self):
         self.score += 1
@@ -248,15 +306,49 @@ class Blocks():
                 self.current_rotation = 1
 
         if self.current_block == 2:
-            if self.ll[1].y < 19.0 and not self.bottom_collision:
-                self.ll[0].y += 1
-                self.ll[1].y += 1
-                self.ll[2].y += 1
-                self.ll[3].y += 1
-            else:
-                self.block_placed = True
-                self.placed_blocks += self.ll
-                self.current_rotation = 1
+            if self.current_rotation == 1:
+                if self.ll[1].y < 19.0 and not self.bottom_collision:
+                    self.ll[0].y += 1
+                    self.ll[1].y += 1
+                    self.ll[2].y += 1
+                    self.ll[3].y += 1
+                else:
+                    self.block_placed = True
+                    self.placed_blocks += self.ll
+                    self.current_rotation = 1
+
+            if self.current_rotation == 2:
+                if self.ll[3].y < 19.0 and not self.bottom_collision:
+                    self.ll[0].y += 1
+                    self.ll[1].y += 1
+                    self.ll[2].y += 1
+                    self.ll[3].y += 1
+                else:
+                    self.block_placed = True
+                    self.placed_blocks += self.ll
+                    self.current_rotation = 1
+
+            if self.current_rotation == 3:
+                if self.ll[0].y < 19.0 and not self.bottom_collision:
+                    self.ll[0].y += 1
+                    self.ll[1].y += 1
+                    self.ll[2].y += 1
+                    self.ll[3].y += 1
+                else:
+                    self.block_placed = True
+                    self.placed_blocks += self.ll
+                    self.current_rotation = 1
+
+            if self.current_rotation == 4:
+                if self.ll[0].y < 19.0 and not self.bottom_collision:
+                    self.ll[0].y += 1
+                    self.ll[1].y += 1
+                    self.ll[2].y += 1
+                    self.ll[3].y += 1
+                else:
+                    self.block_placed = True
+                    self.placed_blocks += self.ll
+                    self.current_rotation = 1
 
     def check_row(self):
         # checks for filled rows
@@ -488,14 +580,16 @@ while True:
                     if main.block.current_rotation == 4:
                         main.block.current_rotation = 1
                     else:
-                        main.block.current_rotation += 1
+                        if not main.block.rotation_collision:
+                            main.block.current_rotation += 1
 
                 elif main.block.current_block == 3:
                     main.block.rotate()
                     if main.block.current_rotation == 4:
                         main.block.current_rotation = 1
                     else:
-                        main.block.current_rotation += 1
+                        if not main.block.rotation_collision:
+                            main.block.current_rotation += 1
 
     if main.block.level == 1 and main.block.settimerflag:
         # settimerflag for the purpose of only calling this timer-update once after a level-up
