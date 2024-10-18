@@ -42,19 +42,26 @@ class Blocks():
         self.darkblue = pygame.image.load('Graphics/darkblue.png')
         self.darkbluehole = pygame.image.load('Graphics/darkbluehole.png')
         self.lightblue = pygame.image.load('Graphics/lightblue.png')
-        self.snakegreen = pygame.image.load('Graphics/pixil-frame-0.png')
-        self.darkgreen = pygame.image.load('Graphics/pixil-frame-0.png')
-        self.darkgreenhole = pygame.image.load('Graphics/pixil-frame-0.png')
-        self.lightpink = pygame.image.load('Graphics/pixil-frame-0.png')
-        self.darkpink = pygame.image.load('Graphics/pixil-frame-0.png')
-        self.darkpinkhole = pygame.image.load('Graphics/pixil-frame-0.png')
-        self.babyblue = pygame.image.load('Graphics/pixil-frame-0.png')
-        self.mintgreen = pygame.image.load('Graphics/pixil-frame-0.png')
-        self.mintgreenhole = pygame.image.load('Graphics/pixil-frame-0.png')
-        self.purple = pygame.image.load('Graphics/pixil-frame-0.png')
-        self.purplehole = pygame.image.load('Graphics/pixil-frame-0.png')
-        self.forestgreen = pygame.image.load('Graphics/pixil-frame-0.png')
-        self.darkblue = pygame.image.load('Graphics/pixil-frame-0.png')
+
+        self.snakegreen = pygame.image.load('Graphics/snakegreen.png')
+        self.darkgreen = pygame.image.load('Graphics/darkgreen.png')
+        self.darkgreenhole = pygame.image.load('Graphics/darkgreenhole.png')
+
+        self.lightpink = pygame.image.load('Graphics/lightpink.png')
+        self.darkpink = pygame.image.load('Graphics/darkpink.png')
+        self.darkpinkhole = pygame.image.load('Graphics/darkpinkhole.png')
+
+        self.babyblue = pygame.image.load('Graphics/babyblue.png')
+        self.mintgreen = pygame.image.load('Graphics/mintgreen.png')
+        self.mintgreenhole = pygame.image.load('Graphics/mintgreenhole.png')
+
+        self.purple = pygame.image.load('Graphics/purple.png')
+        self.purplehole = pygame.image.load('Graphics/purplehole.png')
+        self.forestgreen = pygame.image.load('Graphics/forestgreen.png')
+
+        self.babyblue = pygame.image.load('Graphics/babyblue.png')
+        self.otherpink = pygame.image.load('Graphics/otherpink.png')
+        self.otherpinkhole = pygame.image.load('Graphics/otherpinkhole.png')
 
     def move_block_auto(self):
         self.tick = True
