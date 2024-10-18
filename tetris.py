@@ -6,20 +6,24 @@ class Blocks():
         self.blocksfrozen = True
         self.score = 0
         self.level = 0
-        self.current_block = random.randint(3,5)
-        self.next_block = random.randint(3,5)
+        self.current_block = random.randint(5,7)
+        self.next_block = random.randint(5,7)
         self.current_rotation = 1
         self.twobytwo = [Vector2(9, 1), Vector2(9, 0), Vector2(10, 1), Vector2(10, 0)]
         self.ll = [Vector2(8, 0), Vector2(8, 1), Vector2(9, 1), Vector2(10, 1)]
         self.lr = [Vector2(10, 0), Vector2(10, 1), Vector2(9, 1), Vector2(8, 1)]
         self.crown = [Vector2(8,1), Vector2(9, 0), Vector2(9, 1), Vector2(10, 1)]
         self.gun_r = [Vector2(8,1), Vector2(9, 1), Vector2(9, 0), Vector2(10, 0)]
+        self.gun_l = [Vector2(10,1), Vector2(9, 1), Vector2(9, 0), Vector2(8, 0)]
+        self.beam = [Vector2(8,1), Vector2(9, 1), Vector2(10, 1), Vector2(11, 1)]
 
         self.twobytwo_next = [Vector2(9, 1), Vector2(9, 0), Vector2(10, 1), Vector2(10, 0)]
         self.ll_next = [Vector2(8, 0), Vector2(8, 1), Vector2(9, 1), Vector2(10, 1)]
         self.lr_next = [Vector2(10, 0), Vector2(10, 1), Vector2(9, 1), Vector2(8, 1)]
         self.crown_next = [Vector2(8,1), Vector2(9, 0), Vector2(9, 1), Vector2(10, 1)]
         self.gun_r_next = [Vector2(8,1), Vector2(9, 1), Vector2(9, 0), Vector2(10, 0)]
+        self.gun_l_next = [Vector2(10,1), Vector2(9, 1), Vector2(9, 0), Vector2(8, 0)]
+        self.beam_next = [Vector2(8,1), Vector2(9, 1), Vector2(10, 1), Vector2(11, 1)]
 
         self.placed_blocks = []
         self.block_placed = False
@@ -164,6 +168,89 @@ class Blocks():
                         self.current_rotation = 1
                         break
 
+        if self.current_block == 5:
+            if self.current_rotation == 1:
+                for block in self.gun_r:
+                    if self.gun_r[3].y < 18.0 and not self.bottom_collision:
+                        block.y += 1
+                    else:
+                        self.block_placed = True
+                        self.placed_blocks += self.gun_r
+                        self.current_rotation = 1
+                        break
+
+            if self.current_rotation == 2:
+                for block in self.gun_r:
+                    if self.gun_r[3].y < 19.0 and not self.bottom_collision:
+                        block.y += 1
+                    else:
+                        self.block_placed = True
+                        self.placed_blocks += self.gun_r
+                        self.current_rotation = 1
+                        break
+
+            if self.current_rotation == 3:
+                for block in self.gun_r:
+                    if self.gun_r[3].y < 19.0 and not self.bottom_collision:
+                        block.y += 1
+                    else:
+                        self.block_placed = True
+                        self.placed_blocks += self.gun_r
+                        self.current_rotation = 1
+                        break
+
+            if self.current_rotation == 4:
+                for block in self.gun_r:
+                    if self.gun_r[3].y < 17.0 and not self.bottom_collision:
+                        block.y += 1
+                    else:
+                        self.block_placed = True
+                        self.placed_blocks += self.gun_r
+                        self.current_rotation = 1
+                        break
+
+        if self.current_block == 6:
+            if self.current_rotation == 1:
+                for block in self.gun_l:
+                    if self.gun_l[3].y < 18.0 and not self.bottom_collision:
+                        block.y += 1
+                    else:
+                        self.block_placed = True
+                        self.placed_blocks += self.gun_l
+                        self.current_rotation = 1
+                        break
+
+            if self.current_rotation == 2:
+                for block in self.gun_l:
+                    if self.gun_l[3].y < 19.0 and not self.bottom_collision:
+                        block.y += 1
+                    else:
+                        self.block_placed = True
+                        self.placed_blocks += self.gun_l
+                        self.current_rotation = 1
+                        break
+
+            if self.current_rotation == 3:
+                for block in self.gun_l:
+                    if self.gun_l[3].y < 19.0 and not self.bottom_collision:
+                        block.y += 1
+                    else:
+                        self.block_placed = True
+                        self.placed_blocks += self.gun_l
+                        self.current_rotation = 1
+                        break
+
+            if self.current_rotation == 4:
+                for block in self.gun_l:
+                    if self.gun_l[3].y < 17.0 and not self.bottom_collision:
+                        block.y += 1
+                    else:
+                        self.block_placed = True
+                        self.placed_blocks += self.gun_l
+                        self.current_rotation = 1
+                        break
+
+
         self.tick = True
 
     def rotate(self):
@@ -266,6 +353,32 @@ class Blocks():
                 self.gun_r[1] += Vector2(0, 0)
                 self.gun_r[2] += Vector2(1, -1)
                 self.gun_r[3] += Vector2(2, 0)
+
+        if self.current_block == 6:
+            if self.current_rotation == 1 and not self.rotation_collision:
+                self.gun_l[0] += Vector2(-1, -1)
+                self.gun_l[1] += Vector2(0, 0)
+                self.gun_l[2] += Vector2(-1, 1)
+                self.gun_l[3] += Vector2(0, 2)
+
+            if self.current_rotation == 2 and not self.rotation_collision:
+                self.gun_l[0] += Vector2(-1, 1)
+                self.gun_l[1] += Vector2(0, 0)
+                self.gun_l[2] += Vector2(1, 1)
+                self.gun_l[3] += Vector2(2, 0)
+
+            if self.current_rotation == 3 and not self.rotation_collision:
+                self.gun_l[0] += Vector2(1, 1)
+                self.gun_l[1] += Vector2(0, 0)
+                self.gun_l[2] += Vector2(1, -1)
+                self.gun_l[3] += Vector2(0, -2)
+
+            if self.current_rotation == 4 and not self.rotation_collision:
+                self.gun_l[0] += Vector2(1, -1)
+                self.gun_l[1] += Vector2(0, 0)
+                self.gun_l[2] += Vector2(1, -1)
+                self.gun_l[3] += Vector2(-2, 0)
+
 
     def check_rotation_collision(self):
         self.rotation_collision = False
@@ -380,6 +493,82 @@ class Blocks():
                         self.rotation_collision = True
                     elif self.crown[3].x + 1 == placedblock.x and self.crown[3].y + 1 == placedblock.y:
                         self.rotation_collision = True
+
+        if self.current_block == 5:
+            if self.current_rotation == 1:
+                for placedblock in self.placed_blocks:
+                    if self.gun_r[0].x + 1 == placedblock.x and self.gun_r[0].y - 1 == placedblock.y:
+                        self.rotation_collision = True
+                    elif self.gun_r[2].x + 1 == placedblock.x and self.gun_r[2].y + 1 == placedblock.y:
+                        self.rotation_collision = True
+                    elif self.gun_r[3].x == placedblock.x and self.gun_r[3].y + 2 == placedblock.y:
+                        self.rotation_collision = True
+
+            if self.current_rotation == 2:
+                for placedblock in self.placed_blocks:
+                    if self.gun_r[0].x + 1 == placedblock.x and self.gun_r[0].y + 1 == placedblock.y:
+                        self.rotation_collision = True
+                    elif self.gun_r[2].x - 1 == placedblock.x and self.gun_r[2].y + 1 == placedblock.y:
+                        self.rotation_collision = True
+                    elif self.gun_r[3].x - 2 == placedblock.x and self.gun_r[3].y == placedblock.y:
+                        self.rotation_collision = True
+
+            if self.current_rotation == 3:
+                for placedblock in self.placed_blocks:
+                    if self.gun_r[0].x - 1 == placedblock.x and self.gun_r[0].y + 1 == placedblock.y:
+                        self.rotation_collision = True
+                    elif self.gun_r[2].x - 1 == placedblock.x and self.gun_r[2].y - 1 == placedblock.y:
+                        self.rotation_collision = True
+                    elif self.gun_r[3].x == placedblock.x and self.gun_r[3].y - 2 == placedblock.y:
+                        self.rotation_collision = True
+
+            if self.current_rotation == 4:
+                for placedblock in self.placed_blocks:
+                    if self.gun_r[0].x - 1 == placedblock.x and self.gun_r[0].y - 1 == placedblock.y:
+                        self.rotation_collision = True
+                    elif self.gun_r[2].x + 1 == placedblock.x and self.gun_r[2].y - 1 == placedblock.y:
+                        self.rotation_collision = True
+                    elif self.gun_r[3].x + 2 == placedblock.x and self.gun_r[3].y == placedblock.y:
+                        self.rotation_collision = True
+
+        if self.current_block == 6:
+            if self.current_rotation == 1:
+                for placedblock in self.placed_blocks:
+                    if self.gun_l[0].x - 1 == placedblock.x and self.gun_l[0].y - 1 == placedblock.y:
+                        self.rotation_collision = True
+                    elif self.gun_l[2].x - 1 == placedblock.x and self.gun_l[2].y + 1 == placedblock.y:
+                        self.rotation_collision = True
+                    elif self.gun_l[3].x == placedblock.x and self.gun_l[3].y + 2 == placedblock.y:
+                        self.rotation_collision = True
+
+            if self.current_rotation == 2:
+                for placedblock in self.placed_blocks:
+                    if self.gun_l[0].x - 1 == placedblock.x and self.gun_l[0].y + 1 == placedblock.y:
+                        self.rotation_collision = True
+                    elif self.gun_l[2].x + 1 == placedblock.x and self.gun_l[2].y + 1 == placedblock.y:
+                        self.rotation_collision = True
+                    elif self.gun_l[3].x + 2 == placedblock.x and self.gun_l[3].y == placedblock.y:
+                        self.rotation_collision = True
+
+            if self.current_rotation == 3:
+                for placedblock in self.placed_blocks:
+                    if self.gun_l[0].x + 1 == placedblock.x and self.gun_l[0].y + 1 == placedblock.y:
+                        self.rotation_collision = True
+                    elif self.gun_l[2].x + 1 == placedblock.x and self.gun_l[2].y - 1 == placedblock.y:
+                        self.rotation_collision = True
+                    elif self.gun_l[3].x == placedblock.x and self.gun_l[3].y - 2 == placedblock.y:
+                        self.rotation_collision = True
+
+            if self.current_rotation == 4:
+                for placedblock in self.placed_blocks:
+                    if self.gun_l[0].x + 1 == placedblock.x and self.gun_l[0].y - 1 == placedblock.y:
+                        self.rotation_collision = True
+                    elif self.gun_l[2].x - 1 == placedblock.x and self.gun_l[2].y - 1 == placedblock.y:
+                        self.rotation_collision = True
+                    elif self.gun_l[3].x - 2 == placedblock.x and self.gun_l[3].y == placedblock.y:
+                        self.rotation_collision = True
+
+
 
     def check_collision(self):
         self.bottom_collision = False
@@ -641,12 +830,178 @@ class Blocks():
                     if int(self.crown[1].y + 1) == placedblock.y and int(self.crown[1].x) == placedblock.x:
                         self.bottom_collision = True
 
+        if self.current_block == 5:
+            if self.current_rotation == 1:
+                for placedblock in self.placed_blocks:
+                    if int(self.gun_r[0].x - 1) == placedblock.x and int(self.gun_r[0].y) == placedblock.y:
+                        self.left_collision = True
+                    elif int(self.gun_r[2].x - 1) == placedblock.x and int(self.gun_r[2].y) == placedblock.y:
+                        self.left_collision = True
+
+                    if int(self.gun_r[3].x + 1) == placedblock.x and int(self.gun_r[3].y) == placedblock.y:
+                        self.right_collision = True
+                    elif int(self.gun_r[1].x + 1) == placedblock.x and int(self.gun_r[1].y) == placedblock.y:
+                        self.right_collision = True
+
+                    if int(self.gun_r[0].y + 1) == placedblock.y and int(self.gun_r[0].x) == placedblock.x:
+                        self.bottom_collision = True
+                    elif int(self.gun_r[1].y + 1) == placedblock.y and int(self.gun_r[1].x) == placedblock.x:
+                        self.bottom_collision = True
+                    elif int(self.gun_r[3].y + 1) == placedblock.y and int(self.gun_r[3].x) == placedblock.x:
+                        self.bottom_collision = True
+
+            if self.current_rotation == 2:
+                for placedblock in self.placed_blocks:
+                    if int(self.gun_r[0].x - 1) == placedblock.x and int(self.gun_r[0].y) == placedblock.y:
+                        self.left_collision = True
+                    elif int(self.gun_r[1].x - 1) == placedblock.x and int(self.gun_r[1].y) == placedblock.y:
+                        self.left_collision = True
+                    elif int(self.gun_r[3].x - 1) == placedblock.x and int(self.gun_r[3].y) == placedblock.y:
+                        self.left_collision = True
+
+                    if int(self.gun_r[2].x + 1) == placedblock.x and int(self.gun_r[2].y) == placedblock.y:
+                        self.right_collision = True
+                    elif int(self.gun_r[0].x + 1) == placedblock.x and int(self.gun_r[0].y) == placedblock.y:
+                        self.right_collision = True
+                    elif int(self.gun_r[3].x + 1) == placedblock.x and int(self.gun_r[3].y) == placedblock.y:
+                        self.right_collision = True
+
+                    if int(self.gun_r[3].y + 1) == placedblock.y and int(self.gun_r[3].x) == placedblock.x:
+                        self.bottom_collision = True
+                    elif int(self.gun_r[1].y + 1) == placedblock.y and int(self.gun_r[1].x) == placedblock.x:
+                        self.bottom_collision = True
+
+            if self.current_rotation == 3:
+                for placedblock in self.placed_blocks:
+                    if int(self.gun_r[1].x - 1) == placedblock.x and int(self.gun_r[1].y) == placedblock.y:
+                        self.left_collision = True
+                    elif int(self.gun_r[3].x - 1) == placedblock.x and int(self.gun_r[3].y) == placedblock.y:
+                        self.left_collision = True
+
+                    if int(self.gun_r[2].x + 1) == placedblock.x and int(self.gun_r[2].y) == placedblock.y:
+                        self.right_collision = True
+                    elif int(self.gun_r[0].x + 1) == placedblock.x and int(self.gun_r[0].y) == placedblock.y:
+                        self.right_collision = True
+
+                    if int(self.gun_r[0].y + 1) == placedblock.y and int(self.gun_r[0].x) == placedblock.x:
+                        self.bottom_collision = True
+                    elif int(self.gun_r[2].y + 1) == placedblock.y and int(self.gun_r[2].x) == placedblock.x:
+                        self.bottom_collision = True
+                    elif int(self.gun_r[3].y + 1) == placedblock.y and int(self.gun_r[3].x) == placedblock.x:
+                        self.bottom_collision = True
+
+            if self.current_rotation == 4:
+                for placedblock in self.placed_blocks:
+                    if int(self.gun_r[2].x - 1) == placedblock.x and int(self.gun_r[2].y) == placedblock.y:
+                        self.left_collision = True
+                    elif int(self.gun_r[0].x - 1) == placedblock.x and int(self.gun_r[0].y) == placedblock.y:
+                        self.left_collision = True
+                    elif int(self.gun_r[3].x - 1) == placedblock.x and int(self.gun_r[3].y) == placedblock.y:
+                        self.left_collision = True
+
+                    if int(self.gun_r[0].x + 1) == placedblock.x and int(self.gun_r[0].y) == placedblock.y:
+                        self.right_collision = True
+                    elif int(self.gun_r[1].x + 1) == placedblock.x and int(self.gun_r[1].y) == placedblock.y:
+                        self.right_collision = True
+                    elif int(self.gun_r[3].x + 1) == placedblock.x and int(self.gun_r[3].y) == placedblock.y:
+                        self.right_collision = True
+
+                    if int(self.gun_r[0].y + 1) == placedblock.y and int(self.gun_r[0].x) == placedblock.x:
+                        self.bottom_collision = True
+                    if int(self.gun_r[2].y + 1) == placedblock.y and int(self.gun_r[2].x) == placedblock.x:
+                        self.bottom_collision = True
+
+        if self.current_block == 6:
+            if self.current_rotation == 1:
+                for placedblock in self.placed_blocks:
+                    if int(self.gun_l[3].x - 1) == placedblock.x and int(self.gun_l[3].y) == placedblock.y:
+                        self.left_collision = True
+                    elif int(self.gun_l[1].x - 1) == placedblock.x and int(self.gun_l[1].y) == placedblock.y:
+                        self.left_collision = True
+
+                    if int(self.gun_l[0].x + 1) == placedblock.x and int(self.gun_l[0].y) == placedblock.y:
+                        self.right_collision = True
+                    elif int(self.gun_l[2].x + 1) == placedblock.x and int(self.gun_l[2].y) == placedblock.y:
+                        self.right_collision = True
+
+                    if int(self.gun_l[0].y + 1) == placedblock.y and int(self.gun_l[0].x) == placedblock.x:
+                        self.bottom_collision = True
+                    elif int(self.gun_l[1].y + 1) == placedblock.y and int(self.gun_l[1].x) == placedblock.x:
+                        self.bottom_collision = True
+                    elif int(self.gun_l[3].y + 1) == placedblock.y and int(self.gun_l[3].x) == placedblock.x:
+                        self.bottom_collision = True
+
+            if self.current_rotation == 2:
+                for placedblock in self.placed_blocks:
+                    if int(self.gun_l[0].x - 1) == placedblock.x and int(self.gun_l[0].y) == placedblock.y:
+                        self.left_collision = True
+                    elif int(self.gun_l[2].x - 1) == placedblock.x and int(self.gun_l[2].y) == placedblock.y:
+                        self.left_collision = True
+                    elif int(self.gun_l[3].x - 1) == placedblock.x and int(self.gun_l[3].y) == placedblock.y:
+                        self.left_collision = True
+
+                    if int(self.gun_l[1].x + 1) == placedblock.x and int(self.gun_l[1].y) == placedblock.y:
+                        self.right_collision = True
+                    elif int(self.gun_l[0].x + 1) == placedblock.x and int(self.gun_l[0].y) == placedblock.y:
+                        self.right_collision = True
+                    elif int(self.gun_l[3].x + 1) == placedblock.x and int(self.gun_l[3].y) == placedblock.y:
+                        self.right_collision = True
+
+                    if int(self.gun_l[3].y + 1) == placedblock.y and int(self.gun_l[3].x) == placedblock.x:
+                        self.bottom_collision = True
+                    elif int(self.gun_l[1].y + 1) == placedblock.y and int(self.gun_l[1].x) == placedblock.x:
+                        self.bottom_collision = True
+
+            if self.current_rotation == 3:
+                for placedblock in self.placed_blocks:
+                    if int(self.gun_l[0].x - 1) == placedblock.x and int(self.gun_l[0].y) == placedblock.y:
+                        self.left_collision = True
+                    elif int(self.gun_l[2].x - 1) == placedblock.x and int(self.gun_l[2].y) == placedblock.y:
+                        self.left_collision = True
+
+                    if int(self.gun_l[3].x + 1) == placedblock.x and int(self.gun_l[3].y) == placedblock.y:
+                        self.right_collision = True
+                    elif int(self.gun_l[1].x + 1) == placedblock.x and int(self.gun_l[1].y) == placedblock.y:
+                        self.right_collision = True
+
+                    if int(self.gun_l[0].y + 1) == placedblock.y and int(self.gun_l[0].x) == placedblock.x:
+                        self.bottom_collision = True
+                    elif int(self.gun_l[2].y + 1) == placedblock.y and int(self.gun_l[2].x) == placedblock.x:
+                        self.bottom_collision = True
+                    elif int(self.gun_l[3].y + 1) == placedblock.y and int(self.gun_l[3].x) == placedblock.x:
+                        self.bottom_collision = True
+
+            if self.current_rotation == 4:
+                for placedblock in self.placed_blocks:
+                    if int(self.gun_l[1].x - 1) == placedblock.x and int(self.gun_l[1].y) == placedblock.y:
+                        self.left_collision = True
+                    elif int(self.gun_l[0].x - 1) == placedblock.x and int(self.gun_l[0].y) == placedblock.y:
+                        self.left_collision = True
+                    elif int(self.gun_l[3].x - 1) == placedblock.x and int(self.gun_l[3].y) == placedblock.y:
+                        self.left_collision = True
+
+                    if int(self.gun_l[0].x + 1) == placedblock.x and int(self.gun_l[0].y) == placedblock.y:
+                        self.right_collision = True
+                    elif int(self.gun_l[2].x + 1) == placedblock.x and int(self.gun_l[2].y) == placedblock.y:
+                        self.right_collision = True
+                    elif int(self.gun_l[3].x + 1) == placedblock.x and int(self.gun_l[3].y) == placedblock.y:
+                        self.right_collision = True
+
+                    if int(self.gun_l[0].y + 1) == placedblock.y and int(self.gun_l[0].x) == placedblock.x:
+                        self.bottom_collision = True
+                    if int(self.gun_l[2].y + 1) == placedblock.y and int(self.gun_l[2].x) == placedblock.x:
+                        self.bottom_collision = True
+
+
     def reset(self):
         self.twobytwo = [Vector2(9, 1), Vector2(9, 0), Vector2(10, 1), Vector2(10, 0)]
         self.ll = [Vector2(8, 0), Vector2(8, 1), Vector2(9, 1), Vector2(10, 1)]
         self.lr = [Vector2(10, 0), Vector2(10, 1), Vector2(9, 1), Vector2(8, 1)]
         self.crown = [Vector2(8,1), Vector2(9, 0), Vector2(9, 1), Vector2(10, 1)]
         self.gun_r = [Vector2(8,1), Vector2(9, 1), Vector2(9, 0), Vector2(10, 0)]
+        self.gun_l = [Vector2(10,1), Vector2(9, 1), Vector2(9, 0), Vector2(8, 0)]
+        self.beam = [Vector2(8,1), Vector2(9, 1), Vector2(10, 1), Vector2(11, 1)]
+
 
         self.left_collision = False
         self.right_collision = False
@@ -726,32 +1081,91 @@ class Blocks():
 
         if self.current_block == 4:
             if self.current_rotation == 1:
-                if self.crown[0].x > 5 and self.lr[0].y < 20.0 and not self.left_collision:
+                if self.crown[0].x > 5 and self.crown[0].y < 20.0 and not self.left_collision:
                     self.crown[0].x -= 1
                     self.crown[1].x -= 1
                     self.crown[2].x -= 1
                     self.crown[3].x -= 1
 
             if self.current_rotation == 2:
-                if self.crown[0].x > 5 and self.lr[3].y < 20.0 and not self.left_collision:
+                if self.crown[0].x > 5 and self.crown[3].y < 20.0 and not self.left_collision:
                     self.crown[0].x -= 1
                     self.crown[1].x -= 1
                     self.crown[2].x -= 1
                     self.crown[3].x -= 1
 
             if self.current_rotation == 3:
-                if self.crown[3].x > 5 and self.lr[1].y < 20.0 and not self.left_collision:
+                if self.crown[3].x > 5 and self.crown[1].y < 20.0 and not self.left_collision:
                     self.crown[0].x -= 1
                     self.crown[1].x -= 1
                     self.crown[2].x -= 1
                     self.crown[3].x -= 1
 
             if self.current_rotation == 4:
-                if self.crown[1].x > 5 and self.lr[0].y < 20.0 and not self.left_collision:
+                if self.crown[1].x > 5 and self.crown[0].y < 20.0 and not self.left_collision:
                     self.crown[0].x -= 1
                     self.crown[1].x -= 1
                     self.crown[2].x -= 1
                     self.crown[3].x -= 1
+
+        if self.current_block == 5:
+            if self.current_rotation == 1:
+                if self.gun_r[0].x > 5 and self.gun_r[0].y < 20.0 and not self.left_collision:
+                    self.gun_r[0].x -= 1
+                    self.gun_r[1].x -= 1
+                    self.gun_r[2].x -= 1
+                    self.gun_r[3].x -= 1
+
+            if self.current_rotation == 2:
+                if self.gun_r[0].x > 5 and self.gun_r[3].y < 20.0 and not self.left_collision:
+                    self.gun_r[0].x -= 1
+                    self.gun_r[1].x -= 1
+                    self.gun_r[2].x -= 1
+                    self.gun_r[3].x -= 1
+
+            if self.current_rotation == 3:
+                if self.gun_r[3].x > 5 and self.gun_r[3].y < 20.0 and not self.left_collision:
+                    self.gun_r[0].x -= 1
+                    self.gun_r[1].x -= 1
+                    self.gun_r[2].x -= 1
+                    self.gun_r[3].x -= 1
+
+            if self.current_rotation == 4:
+                if self.gun_r[3].x > 5 and self.gun_r[0].y < 20.0 and not self.left_collision:
+                    self.gun_r[0].x -= 1
+                    self.gun_r[1].x -= 1
+                    self.gun_r[2].x -= 1
+                    self.gun_r[3].x -= 1
+
+        if self.current_block == 6:
+            if self.current_rotation == 1:
+                if self.gun_l[3].x > 5 and self.gun_l[0].y < 20.0 and not self.left_collision:
+                    self.gun_l[0].x -= 1
+                    self.gun_l[1].x -= 1
+                    self.gun_l[2].x -= 1
+                    self.gun_l[3].x -= 1
+
+            if self.current_rotation == 2:
+                if self.gun_l[2].x > 5 and self.gun_l[3].y < 20.0 and not self.left_collision:
+                    self.gun_l[0].x -= 1
+                    self.gun_l[1].x -= 1
+                    self.gun_l[2].x -= 1
+                    self.gun_l[3].x -= 1
+
+            if self.current_rotation == 3:
+                if self.gun_l[0].x > 5 and self.gun_l[3].y < 20.0 and not self.left_collision:
+                    self.gun_l[0].x -= 1
+                    self.gun_l[1].x -= 1
+                    self.gun_l[2].x -= 1
+                    self.gun_l[3].x -= 1
+
+            if self.current_rotation == 4:
+                if self.gun_l[1].x > 5 and self.gun_l[0].y < 20.0 and not self.left_collision:
+                    self.gun_l[0].x -= 1
+                    self.gun_l[1].x -= 1
+                    self.gun_l[2].x -= 1
+                    self.gun_l[3].x -= 1
+
 
     def move_block_right(self):
         if self.current_block == 1:
@@ -847,6 +1261,65 @@ class Blocks():
                     self.crown[1].x += 1
                     self.crown[2].x += 1
                     self.crown[3].x += 1
+
+        if self.current_block == 5:
+            if self.current_rotation == 1:
+                if self.gun_r[3].x < 14 and self.gun_r[0].y < 20.0 and not self.right_collision:
+                    self.gun_r[0].x += 1
+                    self.gun_r[1].x += 1
+                    self.gun_r[2].x += 1
+                    self.gun_r[3].x += 1
+
+            if self.current_rotation == 2:
+                if self.gun_r[3].x < 14 and self.gun_r[3].y < 20.0 and not self.right_collision:
+                    self.gun_r[0].x += 1
+                    self.gun_r[1].x += 1
+                    self.gun_r[2].x += 1
+                    self.gun_r[3].x += 1
+
+            if self.current_rotation == 3:
+                if self.gun_r[0].x < 14 and self.gun_r[2].y < 20.0 and not self.right_collision:
+                    self.gun_r[0].x += 1
+                    self.gun_r[1].x += 1
+                    self.gun_r[2].x += 1
+                    self.gun_r[3].x += 1
+
+            if self.current_rotation == 4:
+                if self.gun_r[0].x < 14 and self.gun_r[0].y < 20.0 and not self.right_collision:
+                    self.gun_r[0].x += 1
+                    self.gun_r[1].x += 1
+                    self.gun_r[2].x += 1
+                    self.gun_r[3].x += 1
+
+        if self.current_block == 6:
+            if self.current_rotation == 1:
+                if self.gun_l[0].x < 14 and self.gun_l[0].y < 20.0 and not self.right_collision:
+                    self.gun_l[0].x += 1
+                    self.gun_l[1].x += 1
+                    self.gun_l[2].x += 1
+                    self.gun_l[3].x += 1
+
+            if self.current_rotation == 2:
+                if self.gun_l[0].x < 14 and self.gun_l[3].y < 20.0 and not self.right_collision:
+                    self.gun_l[0].x += 1
+                    self.gun_l[1].x += 1
+                    self.gun_l[2].x += 1
+                    self.gun_l[3].x += 1
+
+            if self.current_rotation == 3:
+                if self.gun_l[3].x < 14 and self.gun_l[2].y < 20.0 and not self.right_collision:
+                    self.gun_l[0].x += 1
+                    self.gun_l[1].x += 1
+                    self.gun_l[2].x += 1
+                    self.gun_l[3].x += 1
+
+            if self.current_rotation == 4:
+                if self.gun_l[3].x < 14 and self.gun_l[0].y < 20.0 and not self.right_collision:
+                    self.gun_l[0].x += 1
+                    self.gun_l[1].x += 1
+                    self.gun_l[2].x += 1
+                    self.gun_l[3].x += 1
+
 
     def move_block_down(self):
         self.score += 1
@@ -996,6 +1469,97 @@ class Blocks():
                     self.placed_blocks += self.crown
                     self.current_rotation = 1
 
+        if self.current_block == 5:
+            if self.current_rotation == 1:
+                if self.gun_r[0].y < 19.0 and not self.bottom_collision:
+                    self.gun_r[0].y += 1
+                    self.gun_r[1].y += 1
+                    self.gun_r[2].y += 1
+                    self.gun_r[3].y += 1
+                else:
+                    self.block_placed = True
+                    self.placed_blocks += self.gun_r
+                    self.current_rotation = 1
+
+            if self.current_rotation == 2:
+                if self.gun_r[3].y < 19.0 and not self.bottom_collision:
+                    self.gun_r[0].y += 1
+                    self.gun_r[1].y += 1
+                    self.gun_r[2].y += 1
+                    self.gun_r[3].y += 1
+                else:
+                    self.block_placed = True
+                    self.placed_blocks += self.gun_r
+                    self.current_rotation = 1
+
+            if self.current_rotation == 3:
+                if self.gun_r[3].y < 19.0 and not self.bottom_collision:
+                    self.gun_r[0].y += 1
+                    self.gun_r[1].y += 1
+                    self.gun_r[2].y += 1
+                    self.gun_r[3].y += 1
+                else:
+                    self.block_placed = True
+                    self.placed_blocks += self.gun_r
+                    self.current_rotation = 1
+
+            if self.current_rotation == 4:
+                if self.gun_r[0].y < 19.0 and not self.bottom_collision:
+                    self.gun_r[0].y += 1
+                    self.gun_r[1].y += 1
+                    self.gun_r[2].y += 1
+                    self.gun_r[3].y += 1
+                else:
+                    self.block_placed = True
+                    self.placed_blocks += self.gun_r
+                    self.current_rotation = 1
+
+        if self.current_block == 6:
+            if self.current_rotation == 1:
+                if self.gun_l[0].y < 19.0 and not self.bottom_collision:
+                    self.gun_l[0].y += 1
+                    self.gun_l[1].y += 1
+                    self.gun_l[2].y += 1
+                    self.gun_l[3].y += 1
+                else:
+                    self.block_placed = True
+                    self.placed_blocks += self.gun_l
+                    self.current_rotation = 1
+
+            if self.current_rotation == 2:
+                if self.gun_l[3].y < 19.0 and not self.bottom_collision:
+                    self.gun_l[0].y += 1
+                    self.gun_l[1].y += 1
+                    self.gun_l[2].y += 1
+                    self.gun_l[3].y += 1
+                else:
+                    self.block_placed = True
+                    self.placed_blocks += self.gun_l
+                    self.current_rotation = 1
+
+            if self.current_rotation == 3:
+                if self.gun_l[3].y < 19.0 and not self.bottom_collision:
+                    self.gun_l[0].y += 1
+                    self.gun_l[1].y += 1
+                    self.gun_l[2].y += 1
+                    self.gun_l[3].y += 1
+                else:
+                    self.block_placed = True
+                    self.placed_blocks += self.gun_l
+                    self.current_rotation = 1
+
+            if self.current_rotation == 4:
+                if self.gun_l[0].y < 19.0 and not self.bottom_collision:
+                    self.gun_l[0].y += 1
+                    self.gun_l[1].y += 1
+                    self.gun_l[2].y += 1
+                    self.gun_l[3].y += 1
+                else:
+                    self.block_placed = True
+                    self.placed_blocks += self.gun_l
+                    self.current_rotation = 1
+
+
     def check_row(self):
         # checks for filled rows
         self.x = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
@@ -1090,28 +1654,50 @@ class Blocks():
                     self.level = 0
                     print('game over')
                     break
+                elif self.gun_l[k].x == self.placed_blocks[i].x and self.gun_l[k].y == self.placed_blocks[i].y:
+                    self.placed_blocks = []
+                    self.blocksfrozen = True
+                    self.score = 0
+                    self.level = 0
+                    print('game over')
+                    break
+                elif self.beam[k].x == self.placed_blocks[i].x and self.beam[k].y == self.placed_blocks[i].y:
+                    self.placed_blocks = []
+                    self.blocksfrozen = True
+                    self.score = 0
+                    self.level = 0
+                    print('game over')
+                    break
 
     def draw_block(self):
         if self.current_block == 1:
             for block in self.twobytwo:
                 twobytwo_rect = pygame.Rect(int(block.x * cell_size), int(block.y * cell_size), cell_size-5, cell_size-5)
                 pygame.draw.rect(screen, (250,0,0), twobytwo_rect)
-        if self.current_block == 2:
+        elif self.current_block == 2:
             for block in self.ll:
                 ll_rect = pygame.Rect(int(block.x * cell_size), int(block.y * cell_size), cell_size-5, cell_size-5)
                 pygame.draw.rect(screen, (250,0,0), ll_rect)
-        if self.current_block == 3:
+        elif self.current_block == 3:
             for block in self.lr:
                 lr_rect = pygame.Rect(int(block.x * cell_size), int(block.y * cell_size), cell_size-5, cell_size-5)
                 pygame.draw.rect(screen, (250,0,0), lr_rect)
-        if self.current_block == 4:
+        elif self.current_block == 4:
             for block in self.crown:
                 crown_rect = pygame.Rect(int(block.x * cell_size), int(block.y * cell_size), cell_size-5, cell_size-5)
                 pygame.draw.rect(screen, (250,0,0), crown_rect)
-        if self.current_block == 5:
+        elif self.current_block == 5:
             for block in self.gun_r:
                 gun_r_rect = pygame.Rect(int(block.x * cell_size), int(block.y * cell_size), cell_size-5, cell_size-5)
                 pygame.draw.rect(screen, (250,0,0), gun_r_rect)
+        elif self.current_block == 6:
+            for block in self.gun_l:
+                gun_l_rect = pygame.Rect(int(block.x * cell_size), int(block.y * cell_size), cell_size-5, cell_size-5)
+                pygame.draw.rect(screen, (250,0,0), gun_l_rect)
+        elif self.current_block == 7:
+            for block in self.beam:
+                beam_rect = pygame.Rect(int(block.x * cell_size), int(block.y * cell_size), cell_size-5, cell_size-5)
+                pygame.draw.rect(screen, (250,0,0), beam_rect)
 
     def draw_placed_blocks(self):
         for block in self.placed_blocks:
@@ -1188,7 +1774,14 @@ class Blocks():
             for block in self.gun_r_next:
                 gun_r_rect = pygame.Rect(int((block.x + 8) * cell_size) + 20, int((block.y + 9) * cell_size), cell_size-5, cell_size-5)
                 pygame.draw.rect(screen, (250,0,0), gun_r_rect)
-
+        elif self.next_block == 6:
+            for block in self.gun_l_next:
+                gun_l_rect = pygame.Rect(int((block.x + 8) * cell_size) + 20, int((block.y + 9) * cell_size), cell_size-5, cell_size-5)
+                pygame.draw.rect(screen, (250,0,0), gun_l_rect)
+        elif self.next_block == 7:
+            for block in self.beam_next:
+                beam_rect = pygame.Rect(int((block.x + 8.9) * (cell_size - 7)) + 20, int((block.y + 9) * (cell_size - 7)), cell_size-12, cell_size-12)
+                pygame.draw.rect(screen, (250,0,0), beam_rect)
 
 
 
@@ -1211,7 +1804,7 @@ class Main():
         else:
             self.block.reset()
             self.block.current_block = self.block.next_block
-            self.block.next_block = random.randint(3,5)
+            self.block.next_block = random.randint(5,7)
             self.block.check_game_over()
             self.block.block_placed = False
 
