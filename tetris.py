@@ -6,8 +6,8 @@ class Blocks():
         self.blocksfrozen = True
         self.score = 0
         self.level = 0
-        self.current_block = random.randint(1,4)
-        self.next_block = random.randint(1,4)
+        self.current_block = random.randint(1,7)
+        self.next_block = random.randint(1,7)
         self.current_rotation = 1
         self.twobytwo = [Vector2(9, 1), Vector2(9, 0), Vector2(10, 1), Vector2(10, 0)]
         self.ll = [Vector2(8, 0), Vector2(8, 1), Vector2(9, 1), Vector2(10, 1)]
@@ -38,6 +38,9 @@ class Blocks():
         self.totalblockscleared = 0
         self.firstclear = False
         self.settimerflag = False
+
+        self.colour_rotation_counter = 0
+        self.flag = True
 
         self.darkblue = pygame.image.load('Graphics/darkblue.png')
         self.darkbluehole = pygame.image.load('Graphics/darkbluehole.png')
@@ -1966,9 +1969,15 @@ class Blocks():
 
         # level up every 10 rows cleared
         #if (self.level + 1) * 100 == self.totalblockscleared and self.firstclear:
-        if (self.totalblockscleared == 10 or self.totalblockscleared == 20) and self.firstclear:
-            self.level += 1
+        #if (self.totalblockscleared == 10 or self.totalblockscleared == 20 or self.totalblockscleared == 30 or self.totalblockscleared == 40) and self.firstclear:
+        if len(self.placed_blocks) > 0 and self.flag:
+            self.level += 6
+            self.block_placed = False
+            if self.level == (self.colour_rotation_counter + 1) * 6:
+                self.colour_rotation_counter += 1
             self.firstclear = False
+            self.flag = False
+            print(self.colour_rotation_counter)
 
         # let all blocks above the removed row "fall down"
         for j in range(20):
@@ -2032,40 +2041,257 @@ class Blocks():
                     break
 
     def draw_block(self):
+        print(self.colour_rotation_counter)
         if self.current_block == 1:
             for block in self.twobytwo:
                 twobytwo_rect = pygame.Rect(int(block.x * cell_size), int(block.y * cell_size), cell_size-5, cell_size-5)
-                #pygame.draw.rect(screen, (5, 18, 247), twobytwo_rect)
-                screen.blit(self.darkblue, twobytwo_rect)
+
+                if self.level == (self.colour_rotation_counter * 6) + 0:
+                    screen.blit(self.darkbluehole, twobytwo_rect)
+                if self.level == (self.colour_rotation_counter * 6) + 1:
+                    screen.blit(self.darkgreenhole, twobytwo_rect)
+                if self.level == (self.colour_rotation_counter * 6) + 2:
+                    screen.blit(self.darkpinkhole, twobytwo_rect)
+                if self.level == (self.colour_rotation_counter * 6) + 3:
+                    screen.blit(self.mintgreenhole, twobytwo_rect)
+                if self.level == (self.colour_rotation_counter * 6) + 4:
+                    screen.blit(self.purplehole, twobytwo_rect)
+                if self.level == (self.colour_rotation_counter * 6) + 5:
+                    screen.blit(self.otherpinkhole, twobytwo_rect)
+
+
         elif self.current_block == 2:
             for block in self.ll:
                 ll_rect = pygame.Rect(int(block.x * cell_size), int(block.y * cell_size), cell_size-5, cell_size-5)
-                pygame.draw.rect(screen, (250,0,0), ll_rect)
+
+                if self.level == (self.colour_rotation_counter * 6) + 0:
+                    screen.blit(self.lightblue, ll_rect)
+                if self.level == (self.colour_rotation_counter * 6) + 1:
+                    screen.blit(self.snakegreen, ll_rect)
+                if self.level == (self.colour_rotation_counter * 6) + 2:
+                    screen.blit(self.lightpink, ll_rect)
+                if self.level == (self.colour_rotation_counter * 6) + 3:
+                    screen.blit(self.babyblue, ll_rect)
+                if self.level == (self.colour_rotation_counter * 6) + 4:
+                    screen.blit(self.forestgreen, ll_rect)
+                if self.level == (self.colour_rotation_counter * 6) + 5:
+                    screen.blit(self.babyblue, ll_rect)
+
         elif self.current_block == 3:
             for block in self.lr:
                 lr_rect = pygame.Rect(int(block.x * cell_size), int(block.y * cell_size), cell_size-5, cell_size-5)
-                pygame.draw.rect(screen, (250,0,0), lr_rect)
+
+                if self.level == (self.colour_rotation_counter * 6) + 0:
+                    screen.blit(self.darkblue, lr_rect)
+                if self.level == (self.colour_rotation_counter * 6) + 1:
+                    screen.blit(self.darkgreen, lr_rect)
+                if self.level == (self.colour_rotation_counter * 6) + 2:
+                    screen.blit(self.darkpink, lr_rect)
+                if self.level == (self.colour_rotation_counter * 6) + 3:
+                    screen.blit(self.mintgreen, lr_rect)
+                if self.level == (self.colour_rotation_counter * 6) + 4:
+                    screen.blit(self.purple, lr_rect)
+                if self.level == (self.colour_rotation_counter * 6) + 5:
+                    screen.blit(self.otherpink, lr_rect)
+
         elif self.current_block == 4:
             for block in self.crown:
                 crown_rect = pygame.Rect(int(block.x * cell_size), int(block.y * cell_size), cell_size-5, cell_size-5)
-                pygame.draw.rect(screen, (250,0,0), crown_rect)
+
+                if self.level == (self.colour_rotation_counter * 6) + 0:
+                    screen.blit(self.darkbluehole, crown_rect)
+                if self.level == (self.colour_rotation_counter * 6) + 1:
+                    screen.blit(self.darkgreenhole, crown_rect)
+                if self.level == (self.colour_rotation_counter * 6) + 2:
+                    screen.blit(self.darkpinkhole, crown_rect)
+                if self.level == (self.colour_rotation_counter * 6) + 3:
+                    screen.blit(self.mintgreenhole, crown_rect)
+                if self.level == (self.colour_rotation_counter * 6) + 4:
+                    screen.blit(self.purplehole, crown_rect)
+                if self.level == (self.colour_rotation_counter * 6) + 5:
+                    screen.blit(self.otherpinkhole, crown_rect)
+
         elif self.current_block == 5:
             for block in self.gun_r:
                 gun_r_rect = pygame.Rect(int(block.x * cell_size), int(block.y * cell_size), cell_size-5, cell_size-5)
-                pygame.draw.rect(screen, (250,0,0), gun_r_rect)
+
+                if self.level == (self.colour_rotation_counter * 6) + 0:
+                    screen.blit(self.darkblue, gun_r_rect)
+                if self.level == (self.colour_rotation_counter * 6) + 1:
+                    screen.blit(self.darkgreen, gun_r_rect)
+                if self.level == (self.colour_rotation_counter * 6) + 2:
+                    screen.blit(self.darkpink, gun_r_rect)
+                if self.level == (self.colour_rotation_counter * 6) + 3:
+                    screen.blit(self.mintgreen, gun_r_rect)
+                if self.level == (self.colour_rotation_counter * 6) + 4:
+                    screen.blit(self.purple, gun_r_rect)
+                if self.level == (self.colour_rotation_counter * 6) + 5:
+                    screen.blit(self.otherpink, gun_r_rect)
+
         elif self.current_block == 6:
             for block in self.gun_l:
                 gun_l_rect = pygame.Rect(int(block.x * cell_size), int(block.y * cell_size), cell_size-5, cell_size-5)
-                pygame.draw.rect(screen, (250,0,0), gun_l_rect)
+
+                if self.level == (self.colour_rotation_counter * 6) + 0:
+                    screen.blit(self.lightblue, gun_l_rect)
+                if self.level == (self.colour_rotation_counter * 6) + 1:
+                    screen.blit(self.snakegreen, gun_l_rect)
+                if self.level == (self.colour_rotation_counter * 6) + 2:
+                    screen.blit(self.lightpink, gun_l_rect)
+                if self.level == (self.colour_rotation_counter * 6) + 3:
+                    screen.blit(self.babyblue, gun_l_rect)
+                if self.level == (self.colour_rotation_counter * 6) + 4:
+                    screen.blit(self.forestgreen, gun_l_rect)
+                if self.level == (self.colour_rotation_counter * 6) + 5:
+                    screen.blit(self.babyblue, gun_l_rect)
+
         elif self.current_block == 7:
             for block in self.beam:
                 beam_rect = pygame.Rect(int(block.x * cell_size), int(block.y * cell_size), cell_size-5, cell_size-5)
-                pygame.draw.rect(screen, (250,0,0), beam_rect)
+
+                if self.level == (self.colour_rotation_counter * 6) + 0:
+                    screen.blit(self.darkbluehole, beam_rect)
+                if self.level == (self.colour_rotation_counter * 6) + 1:
+                    screen.blit(self.darkgreenhole, beam_rect)
+                if self.level == (self.colour_rotation_counter * 6) + 2:
+                    screen.blit(self.darkpinkhole, beam_rect)
+                if self.level == (self.colour_rotation_counter * 6) + 3:
+                    screen.blit(self.mintgreenhole, beam_rect)
+                if self.level == (self.colour_rotation_counter * 6) + 4:
+                    screen.blit(self.purplehole, beam_rect)
+                if self.level == (self.colour_rotation_counter * 6) + 5:
+                    screen.blit(self.otherpinkhole, beam_rect)
 
     def draw_placed_blocks(self):
         for block in self.placed_blocks:
             placed_blocks_rect = pygame.Rect(int(block.x * cell_size), int(block.y * cell_size), cell_size-5, cell_size-5)
             pygame.draw.rect(screen, (0,240,100), placed_blocks_rect)
+            '''
+            if self.current_block == 1:
+                for block in self.twobytwo:
+                    twobytwo_rect = pygame.Rect(int(block.x * cell_size), int(block.y * cell_size), cell_size - 5,
+                                                cell_size - 5)
+
+                    if self.level == (self.colour_rotation_counter * 6) + 1:
+                        screen.blit(self.darkbluehole, placed_blocks_rect)
+                    if self.level == (self.colour_rotation_counter * 6) + 2:
+                        screen.blit(self.darkgreenhole, twobytwo_rect)
+                    if self.level == (self.colour_rotation_counter * 6) + 3:
+                        screen.blit(self.darkpinkhole, twobytwo_rect)
+                    if self.level == (self.colour_rotation_counter * 6) + 4:
+                        screen.blit(self.mintgreenhole, twobytwo_rect)
+                    if self.level == (self.colour_rotation_counter * 6) + 5:
+                        screen.blit(self.purplehole, twobytwo_rect)
+                    if self.level == (self.colour_rotation_counter * 6) + 6:
+                        screen.blit(self.otherpinkhole, twobytwo_rect)
+
+
+            elif self.current_block == 2:
+                for block in self.ll:
+                    ll_rect = pygame.Rect(int(block.x * cell_size), int(block.y * cell_size), cell_size - 5, cell_size - 5)
+
+                    if self.level == (self.colour_rotation_counter * 6) + 1:
+                        screen.blit(self.lightblue, ll_rect)
+                    if self.level == (self.colour_rotation_counter * 6) + 2:
+                        screen.blit(self.snakegreen, ll_rect)
+                    if self.level == (self.colour_rotation_counter * 6) + 3:
+                        screen.blit(self.lightpink, ll_rect)
+                    if self.level == (self.colour_rotation_counter * 6) + 4:
+                        screen.blit(self.babyblue, ll_rect)
+                    if self.level == (self.colour_rotation_counter * 6) + 5:
+                        screen.blit(self.forestgreen, ll_rect)
+                    if self.level == (self.colour_rotation_counter * 6) + 6:
+                        screen.blit(self.babyblue, ll_rect)
+
+            elif self.current_block == 3:
+                for block in self.lr:
+                    lr_rect = pygame.Rect(int(block.x * cell_size), int(block.y * cell_size), cell_size - 5, cell_size - 5)
+
+                    if self.level == (self.colour_rotation_counter * 6) + 1:
+                        screen.blit(self.darkblue, lr_rect)
+                    if self.level == (self.colour_rotation_counter * 6) + 2:
+                        screen.blit(self.darkgreen, lr_rect)
+                    if self.level == (self.colour_rotation_counter * 6) + 3:
+                        screen.blit(self.darkpink, lr_rect)
+                    if self.level == (self.colour_rotation_counter * 6) + 4:
+                        screen.blit(self.mintgreen, lr_rect)
+                    if self.level == (self.colour_rotation_counter * 6) + 5:
+                        screen.blit(self.purple, lr_rect)
+                    if self.level == (self.colour_rotation_counter * 6) + 6:
+                        screen.blit(self.otherpink, lr_rect)
+
+            elif self.current_block == 4:
+                for block in self.crown:
+                    crown_rect = pygame.Rect(int(block.x * cell_size), int(block.y * cell_size), cell_size - 5,
+                                             cell_size - 5)
+
+                    if self.level == (self.colour_rotation_counter * 6) + 1:
+                        screen.blit(self.darkbluehole, crown_rect)
+                    if self.level == (self.colour_rotation_counter * 6) + 2:
+                        screen.blit(self.darkgreenhole, crown_rect)
+                    if self.level == (self.colour_rotation_counter * 6) + 3:
+                        screen.blit(self.darkpinkhole, crown_rect)
+                    if self.level == (self.colour_rotation_counter * 6) + 4:
+                        screen.blit(self.mintgreenhole, crown_rect)
+                    if self.level == (self.colour_rotation_counter * 6) + 5:
+                        screen.blit(self.purplehole, crown_rect)
+                    if self.level == (self.colour_rotation_counter * 6) + 6:
+                        screen.blit(self.otherpinkhole, crown_rect)
+
+            elif self.current_block == 5:
+                for block in self.gun_r:
+                    gun_r_rect = pygame.Rect(int(block.x * cell_size), int(block.y * cell_size), cell_size - 5,
+                                             cell_size - 5)
+
+                    if self.level == (self.colour_rotation_counter * 6) + 1:
+                        screen.blit(self.darkblue, gun_r_rect)
+                    if self.level == (self.colour_rotation_counter * 6) + 2:
+                        screen.blit(self.darkgreen, gun_r_rect)
+                    if self.level == (self.colour_rotation_counter * 6) + 3:
+                        screen.blit(self.darkpink, gun_r_rect)
+                    if self.level == (self.colour_rotation_counter * 6) + 4:
+                        screen.blit(self.mintgreen, gun_r_rect)
+                    if self.level == (self.colour_rotation_counter * 6) + 5:
+                        screen.blit(self.purple, gun_r_rect)
+                    if self.level == (self.colour_rotation_counter * 6) + 6:
+                        screen.blit(self.otherpink, gun_r_rect)
+
+            elif self.current_block == 6:
+                for block in self.gun_l:
+                    gun_l_rect = pygame.Rect(int(block.x * cell_size), int(block.y * cell_size), cell_size - 5,
+                                             cell_size - 5)
+
+                    if self.level == (self.colour_rotation_counter * 6) + 1:
+                        screen.blit(self.lightblue, gun_l_rect)
+                    if self.level == (self.colour_rotation_counter * 6) + 2:
+                        screen.blit(self.snakegreen, gun_l_rect)
+                    if self.level == (self.colour_rotation_counter * 6) + 3:
+                        screen.blit(self.lightpink, gun_l_rect)
+                    if self.level == (self.colour_rotation_counter * 6) + 4:
+                        screen.blit(self.babyblue, gun_l_rect)
+                    if self.level == (self.colour_rotation_counter * 6) + 5:
+                        screen.blit(self.forestgreen, gun_l_rect)
+                    if self.level == (self.colour_rotation_counter * 6) + 6:
+                        screen.blit(self.babyblue, gun_l_rect)
+
+            elif self.current_block == 7:
+                for block in self.beam:
+                    beam_rect = pygame.Rect(int(block.x * cell_size), int(block.y * cell_size), cell_size - 5,
+                                            cell_size - 5)
+
+                    if self.level == (self.colour_rotation_counter * 6) + 1:
+                        screen.blit(self.darkbluehole, beam_rect)
+                    if self.level == (self.colour_rotation_counter * 6) + 2:
+                        screen.blit(self.darkgreenhole, beam_rect)
+                    if self.level == (self.colour_rotation_counter * 6) + 3:
+                        screen.blit(self.darkpinkhole, beam_rect)
+                    if self.level == (self.colour_rotation_counter * 6) + 4:
+                        screen.blit(self.mintgreenhole, beam_rect)
+                    if self.level == (self.colour_rotation_counter * 6) + 5:
+                        screen.blit(self.purplehole, beam_rect)
+                    if self.level == (self.colour_rotation_counter * 6) + 6:
+                        screen.blit(self.otherpinkhole, beam_rect)
+                    '''
 
     def draw_controls(self):
         controls_text = 'Use A,S,D to move'
@@ -2167,7 +2393,7 @@ class Main():
         else:
             self.block.reset()
             self.block.current_block = self.block.next_block
-            self.block.next_block = random.randint(1,4)
+            self.block.next_block = random.randint(1,7)
             self.block.check_game_over()
             self.block.block_placed = False
 
@@ -2195,7 +2421,7 @@ cell_count_hor = 20
 screen = pygame.display.set_mode((cell_size*cell_count_hor, cell_size*cell_count_vert))
 clock = pygame.time.Clock()
 clock2 = pygame.time.Clock()
-pygame.key.set_repeat(200, 40) # for keeping button pressed
+pygame.key.set_repeat(200, 50) # for keeping button pressed
 controls_font = pygame.font.Font(None, 90)
 score_font = pygame.font.Font(None, 60)
 score_num_font = pygame.font.Font(None, 100)
