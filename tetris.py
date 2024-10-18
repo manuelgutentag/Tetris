@@ -39,6 +39,23 @@ class Blocks():
         self.firstclear = False
         self.settimerflag = False
 
+        self.darkblue = pygame.image.load('Graphics/darkblue.png')
+        self.darkbluehole = pygame.image.load('Graphics/darkbluehole.png')
+        self.lightblue = pygame.image.load('Graphics/lightblue.png')
+        self.snakegreen = pygame.image.load('Graphics/pixil-frame-0.png')
+        self.darkgreen = pygame.image.load('Graphics/pixil-frame-0.png')
+        self.darkgreenhole = pygame.image.load('Graphics/pixil-frame-0.png')
+        self.lightpink = pygame.image.load('Graphics/pixil-frame-0.png')
+        self.darkpink = pygame.image.load('Graphics/pixil-frame-0.png')
+        self.darkpinkhole = pygame.image.load('Graphics/pixil-frame-0.png')
+        self.babyblue = pygame.image.load('Graphics/pixil-frame-0.png')
+        self.mintgreen = pygame.image.load('Graphics/pixil-frame-0.png')
+        self.mintgreenhole = pygame.image.load('Graphics/pixil-frame-0.png')
+        self.purple = pygame.image.load('Graphics/pixil-frame-0.png')
+        self.purplehole = pygame.image.load('Graphics/pixil-frame-0.png')
+        self.forestgreen = pygame.image.load('Graphics/pixil-frame-0.png')
+        self.darkblue = pygame.image.load('Graphics/pixil-frame-0.png')
+
     def move_block_auto(self):
         self.tick = True
         # Important: At the if-statement always use the last element of the block list. If not, the blocks will keep adding
@@ -2011,7 +2028,8 @@ class Blocks():
         if self.current_block == 1:
             for block in self.twobytwo:
                 twobytwo_rect = pygame.Rect(int(block.x * cell_size), int(block.y * cell_size), cell_size-5, cell_size-5)
-                pygame.draw.rect(screen, (250,0,0), twobytwo_rect)
+                #pygame.draw.rect(screen, (5, 18, 247), twobytwo_rect)
+                screen.blit(self.darkblue, twobytwo_rect)
         elif self.current_block == 2:
             for block in self.ll:
                 ll_rect = pygame.Rect(int(block.x * cell_size), int(block.y * cell_size), cell_size-5, cell_size-5)
@@ -2170,7 +2188,7 @@ cell_count_hor = 20
 screen = pygame.display.set_mode((cell_size*cell_count_hor, cell_size*cell_count_vert))
 clock = pygame.time.Clock()
 clock2 = pygame.time.Clock()
-pygame.key.set_repeat(200, 40) # für Taste gedrückt halten
+pygame.key.set_repeat(200, 40) # for keeping button pressed
 controls_font = pygame.font.Font(None, 90)
 score_font = pygame.font.Font(None, 60)
 score_num_font = pygame.font.Font(None, 100)
