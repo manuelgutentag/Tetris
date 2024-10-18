@@ -250,6 +250,48 @@ class Blocks():
                         self.current_rotation = 1
                         break
 
+        if self.current_block == 7:
+            if self.current_rotation == 1:
+                for block in self.beam:
+                    if self.beam[3].y < 19.0 and not self.bottom_collision:
+                        block.y += 1
+                    else:
+                        self.block_placed = True
+                        self.placed_blocks += self.beam
+                        self.current_rotation = 1
+                        break
+
+            if self.current_rotation == 2:
+                for block in self.beam:
+                    if self.beam[3].y < 19.0 and not self.bottom_collision:
+                        block.y += 1
+                    else:
+                        self.block_placed = True
+                        self.placed_blocks += self.beam
+                        self.current_rotation = 1
+                        break
+
+            if self.current_rotation == 3:
+                for block in self.beam:
+                    if self.beam[3].y < 19.0 and not self.bottom_collision:
+                        block.y += 1
+                    else:
+                        self.block_placed = True
+                        self.placed_blocks += self.beam
+                        self.current_rotation = 1
+                        break
+
+            if self.current_rotation == 4:
+                for block in self.beam:
+                    if self.beam[3].y < 16.0 and not self.bottom_collision:
+                        block.y += 1
+                    else:
+                        self.block_placed = True
+                        self.placed_blocks += self.beam
+                        self.current_rotation = 1
+                        break
+
+
 
         self.tick = True
 
@@ -376,8 +418,34 @@ class Blocks():
             if self.current_rotation == 4 and not self.rotation_collision:
                 self.gun_l[0] += Vector2(1, -1)
                 self.gun_l[1] += Vector2(0, 0)
-                self.gun_l[2] += Vector2(1, -1)
+                self.gun_l[2] += Vector2(-1, -1)
                 self.gun_l[3] += Vector2(-2, 0)
+
+        if self.current_block == 7:
+            if self.current_rotation == 1 and not self.rotation_collision:
+                self.beam[0] += Vector2(2, -1)
+                self.beam[1] += Vector2(1, 0)
+                self.beam[2] += Vector2(0, 1)
+                self.beam[3] += Vector2(-1, 2)
+
+            if self.current_rotation == 2 and not self.rotation_collision:
+                self.beam[0] += Vector2(1, 1)
+                self.beam[1] += Vector2(0, 0)
+                self.beam[2] += Vector2(-1, -1)
+                self.beam[3] += Vector2(-2, -2)
+
+            if self.current_rotation == 3 and not self.rotation_collision:
+                self.beam[0] += Vector2(-2, 2)
+                self.beam[1] += Vector2(-1, 1)
+                self.beam[2] += Vector2(0, 0)
+                self.beam[3] += Vector2(1, -1)
+
+            if self.current_rotation == 4 and not self.rotation_collision:
+                self.beam[0] += Vector2(-1, -2)
+                self.beam[1] += Vector2(0, -1)
+                self.beam[2] += Vector2(1, 0)
+                self.beam[3] += Vector2(2, 1)
+
 
 
     def check_rotation_collision(self):
@@ -567,6 +635,48 @@ class Blocks():
                         self.rotation_collision = True
                     elif self.gun_l[3].x - 2 == placedblock.x and self.gun_l[3].y == placedblock.y:
                         self.rotation_collision = True
+
+        if self.current_block == 7:
+            if self.current_rotation == 1:
+                for placedblock in self.placed_blocks:
+                    if self.beam[0].x + 2 == placedblock.x and self.beam[0].y - 1 == placedblock.y:
+                        self.rotation_collision = True
+                    elif self.beam[1].x + 1 == placedblock.x and self.beam[1].y == placedblock.y:
+                        self.rotation_collision = True
+                    elif self.beam[2].x == placedblock.x and self.beam[2].y + 1 == placedblock.y:
+                        self.rotation_collision = True
+                    elif self.beam[3].x - 1 == placedblock.x and self.beam[3].y + 2 == placedblock.y:
+                        self.rotation_collision = True
+
+            if self.current_rotation == 2:
+                for placedblock in self.placed_blocks:
+                    if self.beam[0].x + 1 == placedblock.x and self.beam[0].y + 1 == placedblock.y:
+                        self.rotation_collision = True
+                    elif self.beam[2].x - 1 == placedblock.x and self.beam[2].y - 1 == placedblock.y:
+                        self.rotation_collision = True
+                    elif self.beam[3].x - 2 == placedblock.x and self.beam[3].y - 2 == placedblock.y:
+                        self.rotation_collision = True
+
+            if self.current_rotation == 3:
+                for placedblock in self.placed_blocks:
+                    if self.beam[0].x - 2 == placedblock.x and self.beam[0].y + 2 == placedblock.y:
+                        self.rotation_collision = True
+                    elif self.beam[1].x - 1 == placedblock.x and self.beam[1].y + 1 == placedblock.y:
+                        self.rotation_collision = True
+                    elif self.beam[3].x + 1 == placedblock.x and self.beam[3].y - 1 == placedblock.y:
+                        self.rotation_collision = True
+
+            if self.current_rotation == 4:
+                for placedblock in self.placed_blocks:
+                    if self.beam[0].x - 1 == placedblock.x and self.beam[0].y - 2 == placedblock.y:
+                        self.rotation_collision = True
+                    elif self.beam[1].x == placedblock.x and self.beam[1].y - 1 == placedblock.y:
+                        self.rotation_collision = True
+                    elif self.beam[2].x + 1 == placedblock.x and self.beam[2].y  == placedblock.y:
+                        self.rotation_collision = True
+                    elif self.beam[3].x + 2 == placedblock.x and self.beam[3].y + 1== placedblock.y:
+                        self.rotation_collision = True
+
 
 
 
@@ -992,6 +1102,89 @@ class Blocks():
                     if int(self.gun_l[2].y + 1) == placedblock.y and int(self.gun_l[2].x) == placedblock.x:
                         self.bottom_collision = True
 
+        if self.current_block == 7:
+            if self.current_rotation == 1:
+                for placedblock in self.placed_blocks:
+                    if int(self.beam[0].x - 1) == placedblock.x and int(self.beam[0].y) == placedblock.y:
+                        self.left_collision = True
+
+                    if int(self.beam[3].x + 1) == placedblock.x and int(self.beam[3].y) == placedblock.y:
+                        self.right_collision = True
+
+                    if int(self.beam[0].y + 1) == placedblock.y and int(self.beam[0].x) == placedblock.x:
+                        self.bottom_collision = True
+                    elif int(self.beam[1].y + 1) == placedblock.y and int(self.beam[1].x) == placedblock.x:
+                        self.bottom_collision = True
+                    elif int(self.beam[3].y + 1) == placedblock.y and int(self.beam[3].x) == placedblock.x:
+                        self.bottom_collision = True
+                    elif int(self.beam[2].y + 1) == placedblock.y and int(self.beam[2].x) == placedblock.x:
+                        self.bottom_collision = True
+
+            if self.current_rotation == 2:
+                for placedblock in self.placed_blocks:
+                    if int(self.beam[0].x - 1) == placedblock.x and int(self.beam[0].y) == placedblock.y:
+                        self.left_collision = True
+                    elif int(self.beam[2].x - 1) == placedblock.x and int(self.beam[2].y) == placedblock.y:
+                        self.left_collision = True
+                    elif int(self.beam[3].x - 1) == placedblock.x and int(self.beam[3].y) == placedblock.y:
+                        self.left_collision = True
+                    elif int(self.beam[1].x - 1) == placedblock.x and int(self.beam[1].y) == placedblock.y:
+                        self.left_collision = True
+
+                    if int(self.beam[1].x + 1) == placedblock.x and int(self.beam[1].y) == placedblock.y:
+                        self.right_collision = True
+                    elif int(self.beam[0].x + 1) == placedblock.x and int(self.beam[0].y) == placedblock.y:
+                        self.right_collision = True
+                    elif int(self.beam[3].x + 1) == placedblock.x and int(self.beam[3].y) == placedblock.y:
+                        self.right_collision = True
+                    elif int(self.beam[2].x + 1) == placedblock.x and int(self.beam[2].y) == placedblock.y:
+                        self.right_collision = True
+
+                    if int(self.beam[3].y + 1) == placedblock.y and int(self.beam[3].x) == placedblock.x:
+                        self.bottom_collision = True
+
+            if self.current_rotation == 3:
+                for placedblock in self.placed_blocks:
+                    if int(self.beam[3].x - 1) == placedblock.x and int(self.beam[3].y) == placedblock.y:
+                        self.left_collision = True
+
+                    if int(self.beam[0].x + 1) == placedblock.x and int(self.beam[0].y) == placedblock.y:
+                        self.right_collision = True
+
+                    if int(self.beam[0].y + 1) == placedblock.y and int(self.beam[0].x) == placedblock.x:
+                        self.bottom_collision = True
+                    elif int(self.beam[2].y + 1) == placedblock.y and int(self.beam[2].x) == placedblock.x:
+                        self.bottom_collision = True
+                    elif int(self.beam[3].y + 1) == placedblock.y and int(self.beam[3].x) == placedblock.x:
+                        self.bottom_collision = True
+                    elif int(self.beam[1].y + 1) == placedblock.y and int(self.beam[1].x) == placedblock.x:
+                        self.bottom_collision = True
+
+            if self.current_rotation == 4:
+                for placedblock in self.placed_blocks:
+                    if int(self.beam[1].x - 1) == placedblock.x and int(self.beam[1].y) == placedblock.y:
+                        self.left_collision = True
+                    elif int(self.beam[0].x - 1) == placedblock.x and int(self.beam[0].y) == placedblock.y:
+                        self.left_collision = True
+                    elif int(self.beam[3].x - 1) == placedblock.x and int(self.beam[3].y) == placedblock.y:
+                        self.left_collision = True
+                    elif int(self.beam[2].x - 1) == placedblock.x and int(self.beam[2].y) == placedblock.y:
+                        self.left_collision = True
+
+                    if int(self.beam[0].x + 1) == placedblock.x and int(self.beam[0].y) == placedblock.y:
+                        self.right_collision = True
+                    elif int(self.beam[2].x + 1) == placedblock.x and int(self.beam[2].y) == placedblock.y:
+                        self.right_collision = True
+                    elif int(self.beam[3].x + 1) == placedblock.x and int(self.beam[3].y) == placedblock.y:
+                        self.right_collision = True
+                    elif int(self.beam[1].x + 1) == placedblock.x and int(self.beam[1].y) == placedblock.y:
+                        self.right_collision = True
+
+                    if int(self.beam[0].y + 1) == placedblock.y and int(self.beam[0].x) == placedblock.x:
+                        self.bottom_collision = True
+
+
+
 
     def reset(self):
         self.twobytwo = [Vector2(9, 1), Vector2(9, 0), Vector2(10, 1), Vector2(10, 0)]
@@ -1166,6 +1359,36 @@ class Blocks():
                     self.gun_l[2].x -= 1
                     self.gun_l[3].x -= 1
 
+        if self.current_block == 7:
+            if self.current_rotation == 1:
+                if self.beam[0].x > 5 and self.beam[0].y < 20.0 and not self.left_collision:
+                    self.beam[0].x -= 1
+                    self.beam[1].x -= 1
+                    self.beam[2].x -= 1
+                    self.beam[3].x -= 1
+
+            if self.current_rotation == 2:
+                if self.beam[2].x > 5 and self.beam[3].y < 20.0 and not self.left_collision:
+                    self.beam[0].x -= 1
+                    self.beam[1].x -= 1
+                    self.beam[2].x -= 1
+                    self.beam[3].x -= 1
+
+            if self.current_rotation == 3:
+                if self.beam[3].x > 5 and self.beam[3].y < 20.0 and not self.left_collision:
+                    self.beam[0].x -= 1
+                    self.beam[1].x -= 1
+                    self.beam[2].x -= 1
+                    self.beam[3].x -= 1
+
+            if self.current_rotation == 4:
+                if self.beam[1].x > 5 and self.beam[0].y < 20.0 and not self.left_collision:
+                    self.beam[0].x -= 1
+                    self.beam[1].x -= 1
+                    self.beam[2].x -= 1
+                    self.beam[3].x -= 1
+
+
 
     def move_block_right(self):
         if self.current_block == 1:
@@ -1319,6 +1542,36 @@ class Blocks():
                     self.gun_l[1].x += 1
                     self.gun_l[2].x += 1
                     self.gun_l[3].x += 1
+
+        if self.current_block == 7:
+            if self.current_rotation == 1:
+                if self.beam[3].x < 14 and self.beam[0].y < 20.0 and not self.right_collision:
+                    self.beam[0].x += 1
+                    self.beam[1].x += 1
+                    self.beam[2].x += 1
+                    self.beam[3].x += 1
+
+            if self.current_rotation == 2:
+                if self.beam[0].x < 14 and self.beam[3].y < 20.0 and not self.right_collision:
+                    self.beam[0].x += 1
+                    self.beam[1].x += 1
+                    self.beam[2].x += 1
+                    self.beam[3].x += 1
+
+            if self.current_rotation == 3:
+                if self.beam[0].x < 14 and self.beam[2].y < 20.0 and not self.right_collision:
+                    self.beam[0].x += 1
+                    self.beam[1].x += 1
+                    self.beam[2].x += 1
+                    self.beam[3].x += 1
+
+            if self.current_rotation == 4:
+                if self.beam[3].x < 14 and self.beam[0].y < 20.0 and not self.right_collision:
+                    self.beam[0].x += 1
+                    self.beam[1].x += 1
+                    self.beam[2].x += 1
+                    self.beam[3].x += 1
+
 
 
     def move_block_down(self):
@@ -1558,6 +1811,52 @@ class Blocks():
                     self.block_placed = True
                     self.placed_blocks += self.gun_l
                     self.current_rotation = 1
+
+        if self.current_block == 7:
+            if self.current_rotation == 1:
+                if self.beam[0].y < 19.0 and not self.bottom_collision:
+                    self.beam[0].y += 1
+                    self.beam[1].y += 1
+                    self.beam[2].y += 1
+                    self.beam[3].y += 1
+                else:
+                    self.block_placed = True
+                    self.placed_blocks += self.beam
+                    self.current_rotation = 1
+
+            if self.current_rotation == 2:
+                if self.beam[3].y < 19.0 and not self.bottom_collision:
+                    self.beam[0].y += 1
+                    self.beam[1].y += 1
+                    self.beam[2].y += 1
+                    self.beam[3].y += 1
+                else:
+                    self.block_placed = True
+                    self.placed_blocks += self.beam
+                    self.current_rotation = 1
+
+            if self.current_rotation == 3:
+                if self.beam[3].y < 19.0 and not self.bottom_collision:
+                    self.beam[0].y += 1
+                    self.beam[1].y += 1
+                    self.beam[2].y += 1
+                    self.beam[3].y += 1
+                else:
+                    self.block_placed = True
+                    self.placed_blocks += self.beam
+                    self.current_rotation = 1
+
+            if self.current_rotation == 4:
+                if self.beam[0].y < 19.0 and not self.bottom_collision:
+                    self.beam[0].y += 1
+                    self.beam[1].y += 1
+                    self.beam[2].y += 1
+                    self.beam[3].y += 1
+                else:
+                    self.block_placed = True
+                    self.placed_blocks += self.beam
+                    self.current_rotation = 1
+
 
 
     def check_row(self):
