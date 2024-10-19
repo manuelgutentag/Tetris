@@ -74,7 +74,6 @@ class Blocks():
         self.otherpinkhole = pygame.image.load('Graphics/otherpinkhole.png')
 
     def move_block_auto(self):
-        print(self.placed_beams)
         self.tick = True
         # Important: At the if-statement always use the last element of the block list. If not, the blocks will keep adding
 
