@@ -43,11 +43,10 @@ class Blocks():
         self.tick = False
         self.blockscleared = 0
         self.totalblockscleared = 0
-        self.firstclear = False
+        self.linescleared_counter = 0
         self.settimerflag = False
 
         self.colour_rotation_counter = 0
-        self.flag = True
 
         self.darkblue = pygame.image.load('Graphics/darkblue.png')
         self.darkbluehole = pygame.image.load('Graphics/darkbluehole.png')
@@ -1980,18 +1979,13 @@ class Blocks():
 
 
     def check_row(self):
+        self.settimerflag = False
+
         # checks for filled rows
         self.x = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
-
-        # lots of room for better runtime here...
+        print(self.x)
 
         #tracks how many blocks are in every row
-        '''for j in range(20):
-            for i in range(len(self.placed_blocks)):
-                if self.placed_blocks[i].y == j:
-                    self.x[j] += self.placed_blocks[i].x
-        '''
-        #tracks how many blocks are in every row (new version with all unique blocks)
         for j in range(20):
             for i in range(len(self.placed_twobytwos)):
                 if self.placed_twobytwos[i].y == j:
@@ -2025,38 +2019,6 @@ class Blocks():
                     self.blockscleared += 1
                     self.totalblockscleared += 1
 
-        # updates the score for rows cleared
-        if self.blockscleared == 10:
-            self.score += 40 * (self.level + 1)
-            self.firstclear = True
-            self.settimerflag = True
-        elif self.blockscleared == 20:
-            self.score += 100 * (self.level + 1)
-            self.firstclear = True
-            self.settimerflag = True
-        elif self.blockscleared == 30:
-            self.score += 300 * (self.level + 1)
-            self.firstclear = True
-            self.settimerflag = True
-        elif self.blockscleared == 40:
-            self.score += 1200 * (self.level + 1)
-            self.firstclear = True
-            self.settimerflag = True
-
-        self.blockscleared = 0
-
-        # level up every 10 rows cleared
-        #if (self.level + 1) * 100 == self.totalblockscleared and self.firstclear:
-        #if (self.totalblockscleared == 10 or self.totalblockscleared == 20 or self.totalblockscleared == 30 or self.totalblockscleared == 40) and self.firstclear:
-        if len(self.placed_blocks) > 0 and self.flag:
-            self.level += 1
-            self.flag = False
-
-        if self.level == (self.colour_rotation_counter + 1) * 6:
-            self.colour_rotation_counter += 1
-
-        self.firstclear = False
-
         # let all blocks above the removed row "fall down"
         for j in range(20):
             for i in range(len(self.placed_blocks)):
@@ -2064,6 +2026,46 @@ class Blocks():
                     self.placed_blocks[i].y += 1
         for j in range(20):
             self.x[j] = 0
+
+        # updates the score for rows cleared
+        if self.blockscleared == 10:
+            self.score += 40 * (self.level + 1)
+            self.linescleared_counter += 1
+        elif self.blockscleared == 20:
+            self.score += 100 * (self.level + 1)
+            self.linescleared_counter += 2
+        elif self.blockscleared == 30:
+            self.score += 300 * (self.level + 1)
+            self.linescleared_counter += 3
+        elif self.blockscleared == 40:
+            self.score += 1200 * (self.level + 1)
+            self.linescleared_counter += 4
+
+        self.blockscleared = 0
+
+        # level up every 10 rows cleared
+        #if (self.level + 1) * 100 == self.totalblockscleared and self.firstclear:
+        #if (self.totalblockscleared == 10 or self.totalblockscleared == 20 or self.totalblockscleared == 30 or self.totalblockscleared == 40) and self.firstclear:
+
+
+        self.firstclear = False
+
+        #später linesclearedcounter auf 10
+        if self.linescleared_counter == 1:
+            self.level += 1
+            self.settimerflag = True
+            self.linescleared_counter = 0
+
+        if self.level == (self.colour_rotation_counter + 1) * 6:
+            self.colour_rotation_counter += 1
+
+        # let all blocks above the removed row "fall down"
+        for j in range(20):
+            for i in range(len(self.placed_blocks)):
+                if self.x[j] == 95 and j > self.placed_blocks[i].y > 0:
+                    self.placed_blocks[i].y += 1
+#        for j in range(20):
+#            self.x[j] = 0
 
     def check_game_over(self):
         for k in range(4):
