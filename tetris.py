@@ -2050,7 +2050,7 @@ class Blocks():
         self.firstclear = False
 
         #später linesclearedcounter auf 10
-        if self.linescleared_counter == 1:
+        if self.linescleared_counter == 1 or self.linescleared_counter == 2 or self.linescleared_counter == 3 or self.linescleared_counter == 4:
             self.level += 1
             self.settimerflag = True
             self.linescleared_counter = 0
