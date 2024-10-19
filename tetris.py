@@ -1983,7 +1983,6 @@ class Blocks():
 
         # checks for filled rows
         self.x = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
-        print(self.x)
 
         #tracks how many blocks are in every row
         for j in range(20):
