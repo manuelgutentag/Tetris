@@ -27,6 +27,13 @@ class Blocks():
 
         self.placed_blocks = []
         self.block_placed = False
+        self.placed_twobytwos = []
+        self.placed_lls = []
+        self.placed_lrs = []
+        self.placed_crowns = []
+        self.placed_gun_rs = []
+        self.placed_gun_ls = []
+        self.placed_beams = []
 
         self.left_collision = False
         self.right_collision = False
@@ -1936,6 +1943,17 @@ class Blocks():
             for i in range(len(self.placed_blocks)):
                 if self.placed_blocks[i].y == j:
                     self.x[j] += self.placed_blocks[i].x
+        #tracks how many blocks are in every row (new version with all unique blocks)
+        for j in range(20):
+            for i in range(len(self.placed_twobytwos)):
+                if self.placed_twobytwos[i].y == j:
+                    self.x[j] += self.placed_twobytwos[i].x
+            for i in range(len(self.placed_lls)):
+                if self.placed_lls[i].y == j:
+                    self.x[j] += self.placed_lls[i].x
+            for i in range(len(self.placed_lrs)):
+                if self.placed_lrs[i].y == j:
+                    self.x[j] += self.placed_lrs[i].x
 
         # reset the vectors of the blocks that are removed
         # if a variable in the list = 95 then this row is full
@@ -1971,7 +1989,7 @@ class Blocks():
         #if (self.level + 1) * 100 == self.totalblockscleared and self.firstclear:
         #if (self.totalblockscleared == 10 or self.totalblockscleared == 20 or self.totalblockscleared == 30 or self.totalblockscleared == 40) and self.firstclear:
         if len(self.placed_blocks) > 0 and self.flag:
-            self.level += 6
+            self.level += 1
             self.block_placed = False
             if self.level == (self.colour_rotation_counter + 1) * 6:
                 self.colour_rotation_counter += 1
@@ -2163,9 +2181,29 @@ class Blocks():
                     screen.blit(self.otherpinkhole, beam_rect)
 
     def draw_placed_blocks(self):
-        for block in self.placed_blocks:
-            placed_blocks_rect = pygame.Rect(int(block.x * cell_size), int(block.y * cell_size), cell_size-5, cell_size-5)
-            pygame.draw.rect(screen, (0,240,100), placed_blocks_rect)
+        #for block in self.placed_blocks:
+            #placed_blocks_rect = pygame.Rect(int(block.x * cell_size), int(block.y * cell_size), cell_size-5, cell_size-5)
+            #pygame.draw.rect(screen, (0,240,100), placed_blocks_rect)
+
+        #placed_blocks_rect = pygame.Rect(int(block.x * cell_size), int(block.y * cell_size), cell_size - 5, cell_size - 5)
+
+        if self.current_block == 1:
+            for block in self.placed_twobytwos:
+                placed_blocks_rect = pygame.Rect(int(block.x * cell_size), int(block.y * cell_size), cell_size - 5,
+                                                 cell_size - 5)
+                if self.level == (self.colour_rotation_counter * 6) + 1:
+                    screen.blit(self.darkbluehole, placed_blocks_rect)
+                if self.level == (self.colour_rotation_counter * 6) + 2:
+                    screen.blit(self.darkgreenhole, placed_blocks_rect)
+                if self.level == (self.colour_rotation_counter * 6) + 3:
+                    screen.blit(self.darkpinkhole, placed_blocks_rect)
+                if self.level == (self.colour_rotation_counter * 6) + 4:
+                    screen.blit(self.mintgreenhole, placed_blocks_rect)
+                if self.level == (self.colour_rotation_counter * 6) + 5:
+                    screen.blit(self.purplehole, placed_blocks_rect)
+                if self.level == (self.colour_rotation_counter * 6) + 6:
+                    screen.blit(self.otherpinkhole, placed_blocks_rect)
+
             '''
             if self.current_block == 1:
                 for block in self.twobytwo:
@@ -2399,7 +2437,7 @@ class Main():
 
     def draw_game_elements(self):
         self.block.draw_block()
-        self.block.draw_placed_blocks()
+        #self.block.draw_placed_blocks()
         self.draw_sidelines()
         self.block.draw_score()
         self.block.draw_level()
