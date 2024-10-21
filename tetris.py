@@ -2622,7 +2622,7 @@ pygame.init()
 cell_size = 90
 cell_count_vert = 20
 cell_count_hor = 20
-screen = pygame.display.set_mode((cell_size*cell_count_hor, cell_size*cell_count_vert))
+screen = pygame.display.set_mode((cell_size*cell_count_hor, cell_size*cell_count_vert), pygame.FULLSCREEN)
 clock = pygame.time.Clock()
 clock2 = pygame.time.Clock()
 pygame.key.set_repeat(200, 50) # for keeping button pressed
