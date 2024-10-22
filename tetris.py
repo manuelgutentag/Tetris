@@ -48,29 +48,29 @@ class Blocks():
 
         self.colour_rotation_counter = 0
 
-        self.darkblue = pygame.image.load('Graphics/darkblue.png')
-        self.darkbluehole = pygame.image.load('Graphics/darkbluehole.png')
-        self.lightblue = pygame.image.load('Graphics/lightblue.png')
+        self.darkblue = pygame.image.load('Graphics/darkblue.png').convert_alpha()
+        self.darkbluehole = pygame.image.load('Graphics/darkbluehole.png').convert_alpha()
+        self.lightblue = pygame.image.load('Graphics/lightblue.png').convert_alpha()
 
-        self.snakegreen = pygame.image.load('Graphics/snakegreen.png')
-        self.darkgreen = pygame.image.load('Graphics/darkgreen.png')
-        self.darkgreenhole = pygame.image.load('Graphics/darkgreenhole.png')
+        self.snakegreen = pygame.image.load('Graphics/snakegreen.png').convert_alpha()
+        self.darkgreen = pygame.image.load('Graphics/darkgreen.png').convert_alpha()
+        self.darkgreenhole = pygame.image.load('Graphics/darkgreenhole.png').convert_alpha()
 
-        self.lightpink = pygame.image.load('Graphics/lightpink.png')
-        self.darkpink = pygame.image.load('Graphics/darkpink.png')
-        self.darkpinkhole = pygame.image.load('Graphics/darkpinkhole.png')
+        self.lightpink = pygame.image.load('Graphics/lightpink.png').convert_alpha()
+        self.darkpink = pygame.image.load('Graphics/darkpink.png').convert_alpha()
+        self.darkpinkhole = pygame.image.load('Graphics/darkpinkhole.png').convert_alpha()
 
-        self.babyblue = pygame.image.load('Graphics/babyblue.png')
-        self.mintgreen = pygame.image.load('Graphics/mintgreen.png')
-        self.mintgreenhole = pygame.image.load('Graphics/mintgreenhole.png')
+        self.babyblue = pygame.image.load('Graphics/babyblue.png').convert_alpha()
+        self.mintgreen = pygame.image.load('Graphics/mintgreen.png').convert_alpha()
+        self.mintgreenhole = pygame.image.load('Graphics/mintgreenhole.png').convert_alpha()
 
-        self.purple = pygame.image.load('Graphics/purple.png')
-        self.purplehole = pygame.image.load('Graphics/purplehole.png')
-        self.forestgreen = pygame.image.load('Graphics/forestgreen.png')
+        self.purple = pygame.image.load('Graphics/purple.png').convert_alpha()
+        self.purplehole = pygame.image.load('Graphics/purplehole.png').convert_alpha()
+        self.forestgreen = pygame.image.load('Graphics/forestgreen.png').convert_alpha()
 
-        self.babyblue = pygame.image.load('Graphics/babyblue.png')
-        self.otherpink = pygame.image.load('Graphics/otherpink.png')
-        self.otherpinkhole = pygame.image.load('Graphics/otherpinkhole.png')
+        self.babyblue = pygame.image.load('Graphics/babyblue.png').convert_alpha()
+        self.otherpink = pygame.image.load('Graphics/otherpink.png').convert_alpha()
+        self.otherpinkhole = pygame.image.load('Graphics/otherpinkhole.png').convert_alpha()
 
     def move_block_auto(self):
         self.tick = True
@@ -1281,7 +1281,7 @@ class Blocks():
 
 
     def reset(self):
-        self.twobytwo = [Vector2(9, 1), Vector2(9, 0), Vector2(10, 1), Vector2(10, 0)]
+        self.twobytwo = [Vector2(9 + 70/9, 1), Vector2(9 + 70/9, 0), Vector2(10 + 70/9, 1), Vector2(10 + 70/9, 0)]
         self.ll = [Vector2(8, 0), Vector2(8, 1), Vector2(9, 1), Vector2(10, 1)]
         self.lr = [Vector2(10, 0), Vector2(10, 1), Vector2(9, 1), Vector2(8, 1)]
         self.crown = [Vector2(8,1), Vector2(9, 0), Vector2(9, 1), Vector2(10, 1)]
@@ -2063,8 +2063,6 @@ class Blocks():
             for i in range(len(self.placed_blocks)):
                 if self.x[j] == 95 and j > self.placed_blocks[i].y > 0:
                     self.placed_blocks[i].y += 1
-#        for j in range(20):
-#            self.x[j] = 0
 
     def check_game_over(self):
         for k in range(4):
@@ -2575,6 +2573,13 @@ class Blocks():
                 if self.level == (self.colour_rotation_counter * 6) + 5:
                     screen.blit(self.otherpinkhole, beam_rect)
 
+    def draw_sidelines(self):
+        sideline_rect_l = pygame.Rect(0, 0, 1150, cell_size * 20)
+        sideline_rect_r = pygame.Rect(2050, 0, 1150, cell_size * 20)
+        pygame.draw.rect(screen, (125, 125, 125), sideline_rect_l)
+        pygame.draw.rect(screen, (125, 125, 125), sideline_rect_r)
+
+
 
 
 
@@ -2604,19 +2609,12 @@ class Main():
     def draw_game_elements(self):
         self.block.draw_block()
         self.block.draw_placed_blocks()
-        self.draw_sidelines()
         self.block.draw_score()
         self.block.draw_level()
         self.block.draw_next_block()
+        self.block.draw_sidelines()
         if self.block.blocksfrozen:
             self.block.draw_controls()
-
-    def draw_sidelines(self):
-        sideline_rect_l = pygame.Rect(0,0, cell_size * 5, cell_size * 20)
-        sideline_rect_r = pygame.Rect(cell_size * 15, 0, cell_size * 5, cell_size * 20)
-        pygame.draw.rect(screen, (125,125,125), sideline_rect_l)
-        pygame.draw.rect(screen, (125,125,125), sideline_rect_r)
-
 
 pygame.init()
 cell_size = 90
@@ -2624,7 +2622,6 @@ cell_count_vert = 20
 cell_count_hor = 20
 screen = pygame.display.set_mode((cell_size*cell_count_hor, cell_size*cell_count_vert), pygame.FULLSCREEN)
 clock = pygame.time.Clock()
-clock2 = pygame.time.Clock()
 pygame.key.set_repeat(200, 50) # for keeping button pressed
 controls_font = pygame.font.Font(None, 90)
 score_font = pygame.font.Font(None, 60)
@@ -2636,7 +2633,8 @@ screen_update = pygame.USEREVENT
 pygame.time.set_timer(screen_update, 900)
 
 main = Main()
-while True:
+running = True
+while running:
     for event in pygame.event.get():
         if event.type == pygame.quit:
             pygame.quit()
@@ -2645,6 +2643,8 @@ while True:
             main.update()
         if event.type == pygame.KEYDOWN:
             main.block.blocksfrozen = False
+            if event.key == pygame.K_ESCAPE:
+                running = False
             if event.key == pygame.K_a and not main.block.block_placed:
                 main.block.move_block_left()
                 main.block.check_collision()
