@@ -2014,7 +2014,7 @@ class Blocks():
         # if a variable in the list = 95 then this row is full
         for j in range(20):
             for i in range(len(self.placed_blocks)):
-                if self.x[j] == 95 and self.placed_blocks[i].y == j:
+                if self.x[j] == 175 and self.placed_blocks[i].y == j:
                     self.placed_blocks[i].x = 0
                     self.placed_blocks[i].y = 0
                     self.blockscleared += 1
@@ -2023,7 +2023,7 @@ class Blocks():
         # let all blocks above the removed row "fall down"
         for j in range(20):
             for i in range(len(self.placed_blocks)):
-                if self.x[j] == 95 and j > self.placed_blocks[i].y > 0:
+                if self.x[j] == 175 and j > self.placed_blocks[i].y > 0:
                     self.placed_blocks[i].y += 1
         for j in range(20):
             self.x[j] = 0
@@ -2063,7 +2063,7 @@ class Blocks():
         # let all blocks above the removed row "fall down"
         for j in range(20):
             for i in range(len(self.placed_blocks)):
-                if self.x[j] == 95 and j > self.placed_blocks[i].y > 0:
+                if self.x[j] == 175 and j > self.placed_blocks[i].y > 0:
                     self.placed_blocks[i].y += 1
 
     def check_game_over(self):
@@ -2561,7 +2561,7 @@ class Blocks():
 
         elif self.next_block == 7:
             for block in self.beam_next:
-                beam_rect = pygame.Rect(int((block.x + 8.9) * (cell_size - 7)) + 20, int((block.y + 9) * (cell_size - 7)), cell_size-12, cell_size-12)
+                beam_rect = pygame.Rect(int((block.x + 9.55) * (cell_size - 7)) + 20, int((block.y + 9) * (cell_size - 7)), cell_size-12, cell_size-12)
 
                 if self.level == (self.colour_rotation_counter * 6) + 0:
                     screen.blit(self.darkbluehole, beam_rect)
