@@ -4,6 +4,8 @@ from pygame.math import Vector2
 class Blocks():
     def __init__(self):
         self.blocksfrozen = True
+        self.blockspaused = False
+        self.quit = False
         self.score = 0
         self.level = 0
         self.current_block = random.randint(1,7)
@@ -73,7 +75,11 @@ class Blocks():
         self.otherpinkhole = pygame.image.load('Graphics/otherpinkhole.png').convert_alpha()
 
         self.pausebutton = pygame.image.load('Graphics/pausebutton.png').convert_alpha()
+        self.pausebuttonpressed = pygame.image.load('Graphics/pausebuttonpressed.png').convert_alpha()
+        self.pausebutton_hover = False
         self.quitbutton = pygame.image.load('Graphics/quitbutton.png').convert_alpha()
+        self.quitbuttonpressed = pygame.image.load('Graphics/quitbuttonpressed.png').convert_alpha()
+        self.quitbutton_hover = False
 
     def move_block_auto(self):
         self.tick = True
@@ -2577,25 +2583,43 @@ class Blocks():
                     screen.blit(self.otherpinkhole, beam_rect)
 
     def draw_buttons(self):
-        next_block_text = ' Next'
-        next_block_surface = score_num_font.render(next_block_text, True, (255,255,255))
-        block_posx = (17.5 + 8) * cell_size
-        block_posy = 8 * cell_size
-        next_block_rect = next_block_surface.get_rect(center=(block_posx, block_posy))
-        background_rect = pygame.rect.Rect(next_block_rect.left - 90, next_block_rect.top - 20, 370, 350)
 
-        pygame.draw.rect(screen, (0,0,0), background_rect)
-        screen.blit(next_block_surface, next_block_rect)
-
-        pausebutton_rect = pygame.Rect(50, 50, 400, 400)
-        quitbutton_rect = pygame.Rect(400, 47, 400, 400)
-        quitbutton_text_rect = pygame.Rect(467, 179, 400, 400)
+        self.pausebutton_rect = pygame.Rect(145, 150, 240, 245)
+        self.quitbutton_rect = pygame.Rect(423, 150, 400, 180)
+        quitbutton_text_rect = pygame.Rect(467, 185, 360, 160)
         quitbutton_text = 'QUIT'
         quitbutton_text_surface = quitbutton_font.render(quitbutton_text, True,(255,255,255))
+        quitbutton_text_surface_pressed = quitbutton_font.render(quitbutton_text, True, (0,0,0))
 
-        screen.blit(self.pausebutton, pausebutton_rect)
-        screen.blit(self.quitbutton, quitbutton_rect)
-        screen.blit(quitbutton_text_surface, quitbutton_text_rect)
+        if self.pausebutton_hover:
+            screen.blit(self.pausebuttonpressed, self.pausebutton_rect)
+        else:
+            screen.blit(self.pausebutton, self.pausebutton_rect)
+        if self.quitbutton_hover:
+            screen.blit(self.quitbuttonpressed, self.quitbutton_rect)
+            screen.blit(quitbutton_text_surface_pressed, quitbutton_text_rect)
+        else:
+            screen.blit(self.quitbutton, self.quitbutton_rect)
+            screen.blit(quitbutton_text_surface, quitbutton_text_rect)
+
+
+    def buttonfunctions(self):
+        pos = pygame.mouse.get_pos()
+
+        if self.pausebutton_rect.collidepoint(pos):
+            self.pausebutton_hover = True
+            if pygame.mouse.get_pressed()[0] == 1 and not self.blockspaused:
+                self.blockspaused = True
+        else:
+            self.pausebutton_hover = False
+
+
+        if self.quitbutton_rect.collidepoint(pos):
+            self.quitbutton_hover = True
+            if pygame.mouse.get_pressed()[0] == 1:
+                self.quit = True
+        else:
+            self.quitbutton_hover = False
 
     def draw_sidelines(self):
         sideline_rect_l = pygame.Rect(0, 0, 1165, cell_size * 20)
@@ -2614,7 +2638,7 @@ class Main():
 
     def update(self):
         self.update_call = True
-        if not self.block.block_placed and not self.block.blocksfrozen:
+        if not self.block.block_placed and not self.block.blocksfrozen and not self.block.blockspaused:
             self.block.move_block_auto()
             self.block.collision_reset()
 
@@ -2635,11 +2659,13 @@ class Main():
         self.block.draw_placed_blocks()
         self.block.draw_sidelines()
         self.block.draw_buttons()
+        self.block.buttonfunctions()
         self.block.draw_score()
         self.block.draw_level()
         self.block.draw_next_block()
         if self.block.blocksfrozen:
-            self.block.draw_controls()
+            #self.block.draw_controls()
+            pass
 
 pygame.init()
 cell_size = 90
@@ -2661,6 +2687,8 @@ pygame.time.set_timer(screen_update, 900)
 main = Main()
 running = True
 while running:
+    if main.block.quit:
+        running = False
     for event in pygame.event.get():
         if event.type == pygame.quit:
             pygame.quit()
@@ -2671,16 +2699,16 @@ while running:
             main.block.blocksfrozen = False
             if event.key == pygame.K_ESCAPE:
                 running = False
-            if event.key == pygame.K_a and not main.block.block_placed:
+            if event.key == pygame.K_a and not main.block.block_placed and not main.block.blockspaused:
                 main.block.move_block_left()
                 main.block.check_collision()
-            if event.key == pygame.K_d and not main.block.block_placed:
+            if event.key == pygame.K_d and not main.block.block_placed and not main.block.blockspaused:
                 main.block.move_block_right()
                 main.block.check_collision()
-            if event.key == pygame.K_s and not main.block.block_placed:
+            if event.key == pygame.K_s and not main.block.block_placed and not main.block.blockspaused:
                 main.block.move_block_down()
                 main.block.check_collision()
-            if event.key == pygame.K_SPACE and not main.block.block_placed:
+            if event.key == pygame.K_SPACE and not main.block.block_placed and not main.block.blockspaused:
                 # determine the needed rotation and call rotate-function
                 if main.block.current_block != 1:
                     main.block.rotate()
