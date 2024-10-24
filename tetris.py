@@ -81,6 +81,10 @@ class Blocks():
         self.quitbuttonpressed = pygame.image.load('Graphics/quitbuttonpressed.png').convert_alpha()
         self.quitbutton_hover = False
 
+        self.pausemenubackground = pygame.image.load('Graphics/pausemenubackground.png').convert_alpha()
+        self.pausemenubutton = pygame.image.load('Graphics/pausemenubutton.png').convert_alpha()
+        self.pausemenubuttonpressed = pygame.image.load('Graphics/pausemenubuttonpressed.png').convert_alpha()
+
     def move_block_auto(self):
         self.tick = True
         # Important: At the if-statement always use the last element of the block list. If not, the blocks will keep adding
@@ -2621,6 +2625,29 @@ class Blocks():
         else:
             self.quitbutton_hover = False
 
+        pausebackground_rect = pygame.Rect(1260, 360, 720, 630)
+        pausebackgroundbutton_rect = pygame.Rect(1545, 780, 150, 150)
+        pausebackground_text = 'PAUSED'
+        pausebackground_text2 = 'CONTINUE?'
+        pausebackgroundtext_rect = pygame.Rect(1350, 450, 400, 400)
+        pausebackgroundtext2_rect = pygame.Rect(1480, 700, 400, 400)
+        pausebackground_text_surface = pausebackground_font.render(pausebackground_text, True, (0,0,0))
+        pausebackground_text2_surface = pausebackground_font2.render(pausebackground_text2, True, (0,0,0))
+
+        if self.blockspaused:
+            if pausebackgroundbutton_rect.collidepoint(pos):
+                screen.blit(self.pausemenubackground, pausebackground_rect)
+                screen.blit(self.pausemenubuttonpressed, pausebackgroundbutton_rect)
+                screen.blit(pausebackground_text_surface, pausebackgroundtext_rect)
+                screen.blit(pausebackground_text2_surface, pausebackgroundtext2_rect)
+                if pygame.mouse.get_pressed()[0] == 1:
+                    self.blockspaused = False
+            else:
+                screen.blit(self.pausemenubackground, pausebackground_rect)
+                screen.blit(self.pausemenubutton, pausebackgroundbutton_rect)
+                screen.blit(pausebackground_text_surface, pausebackgroundtext_rect)
+                screen.blit(pausebackground_text2_surface, pausebackgroundtext2_rect)
+
     def draw_sidelines(self):
         sideline_rect_l = pygame.Rect(0, 0, 1165, cell_size * 20)
         sideline_rect_r = pygame.Rect(2070, 0, 1165, cell_size * 20)
@@ -2680,6 +2707,8 @@ score_num_font = pygame.font.Font(None, 100)
 level_font = pygame.font.Font(None, 60)
 level_num_font = pygame.font.Font(None, 150)
 quitbutton_font = pygame.font.Font(None, 155)
+pausebackground_font = pygame.font.Font(None, 200)
+pausebackground_font2 = pygame.font.Font(None, 70)
 
 screen_update = pygame.USEREVENT
 pygame.time.set_timer(screen_update, 900)
