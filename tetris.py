@@ -82,6 +82,16 @@ class Blocks():
         self.orangehole = pygame.image.load('Graphics/orangehole.png').convert_alpha()
         self.lightorange = pygame.image.load('Graphics/lightorange.png').convert_alpha()
 
+        self.babybluehole = pygame.image.load('Graphics/babybluehole.png').convert_alpha()
+
+        self.bluegrey = pygame.image.load('Graphics/bluegrey.png').convert_alpha()
+        self.bluegreyhole = pygame.image.load('Graphics/bluegreyhole.png').convert_alpha()
+        self.lightbluegrey = pygame.image.load('Graphics/lightbluegrey.png').convert_alpha()
+
+        self.pastelorange = pygame.image.load('Graphics/pastelorange.png').convert_alpha()
+        self.pastelorangehole = pygame.image.load('Graphics/pastelorangehole.png').convert_alpha()
+        self.brown = pygame.image.load('Graphics/brown.png').convert_alpha()
+
 
         self.pausebutton = pygame.image.load('Graphics/pausebutton.png').convert_alpha()
         self.pausebuttonpressed = pygame.image.load('Graphics/pausebuttonpressed.png').convert_alpha()
@@ -2076,7 +2086,7 @@ class Blocks():
             self.settimerflag = True
             self.linescleared_counter = 0
 
-        if self.level == (self.colour_rotation_counter + 1) * 6:
+        if self.level == (self.colour_rotation_counter + 1) * 10:
             self.colour_rotation_counter += 1
 
         # let all blocks above the removed row "fall down"
@@ -2204,6 +2214,16 @@ class Blocks():
                     screen.blit(self.purplehole, twobytwo_rect)
                 if self.level == (self.colour_rotation_counter * 6) + 5:
                     screen.blit(self.otherpinkhole, twobytwo_rect)
+                if self.level == (self.colour_rotation_counter * 6) + 6:
+                    screen.blit(self.orangehole, twobytwo_rect)
+                if self.level == (self.colour_rotation_counter * 6) + 7:
+                    screen.blit(self.burgundyhole, twobytwo_rect)
+                if self.level == (self.colour_rotation_counter * 6) + 8:
+                    screen.blit(self.babybluehole, twobytwo_rect)
+                if self.level == (self.colour_rotation_counter * 6) + 9:
+                    screen.blit(self.bluegreyhole, twobytwo_rect)
+                if self.level == (self.colour_rotation_counter * 6) + 10:
+                    screen.blit(self.pastelorangehole, twobytwo_rect)
 
 
         elif self.current_block == 2:
@@ -2222,6 +2242,16 @@ class Blocks():
                     screen.blit(self.forestgreen, ll_rect)
                 if self.level == (self.colour_rotation_counter * 6) + 5:
                     screen.blit(self.babyblue, ll_rect)
+                if self.level == (self.colour_rotation_counter * 6) + 6:
+                    screen.blit(self.lightorange, ll_rect)
+                if self.level == (self.colour_rotation_counter * 6) + 7:
+                    screen.blit(self.beige, ll_rect)
+                if self.level == (self.colour_rotation_counter * 6) + 8:
+                    screen.blit(self.orange, ll_rect)
+                if self.level == (self.colour_rotation_counter * 6) + 9:
+                    screen.blit(self.lightbluegrey, ll_rect)
+                if self.level == (self.colour_rotation_counter * 6) + 10:
+                    screen.blit(self.brown, ll_rect)
 
         elif self.current_block == 3:
             for block in self.lr:
@@ -2239,6 +2269,16 @@ class Blocks():
                     screen.blit(self.purple, lr_rect)
                 if self.level == (self.colour_rotation_counter * 6) + 5:
                     screen.blit(self.otherpink, lr_rect)
+                if self.level == (self.colour_rotation_counter * 6) + 6:
+                    screen.blit(self.orange, lr_rect)
+                if self.level == (self.colour_rotation_counter * 6) + 7:
+                    screen.blit(self.burgundy, lr_rect)
+                if self.level == (self.colour_rotation_counter * 6) + 8:
+                    screen.blit(self.babyblue, lr_rect)
+                if self.level == (self.colour_rotation_counter * 6) + 9:
+                    screen.blit(self.bluegrey, lr_rect)
+                if self.level == (self.colour_rotation_counter * 6) + 10:
+                    screen.blit(self.pastelorange, lr_rect)
 
         elif self.current_block == 4:
             for block in self.crown:
@@ -2256,6 +2296,16 @@ class Blocks():
                     screen.blit(self.purplehole, crown_rect)
                 if self.level == (self.colour_rotation_counter * 6) + 5:
                     screen.blit(self.otherpinkhole, crown_rect)
+                if self.level == (self.colour_rotation_counter * 6) + 6:
+                    screen.blit(self.orangehole, crown_rect)
+                if self.level == (self.colour_rotation_counter * 6) + 7:
+                    screen.blit(self.burgundyhole, crown_rect)
+                if self.level == (self.colour_rotation_counter * 6) + 8:
+                    screen.blit(self.babybluehole, crown_rect)
+                if self.level == (self.colour_rotation_counter * 6) + 9:
+                    screen.blit(self.bluegreyhole, crown_rect)
+                if self.level == (self.colour_rotation_counter * 6) + 10:
+                    screen.blit(self.pastelorangehole, crown_rect)
 
         elif self.current_block == 5:
             for block in self.gun_r:
@@ -2273,6 +2323,16 @@ class Blocks():
                     screen.blit(self.purple, gun_r_rect)
                 if self.level == (self.colour_rotation_counter * 6) + 5:
                     screen.blit(self.otherpink, gun_r_rect)
+                if self.level == (self.colour_rotation_counter * 6) + 6:
+                    screen.blit(self.orange, gun_r_rect)
+                if self.level == (self.colour_rotation_counter * 6) + 7:
+                    screen.blit(self.burgundy, gun_r_rect)
+                if self.level == (self.colour_rotation_counter * 6) + 8:
+                    screen.blit(self.babyblue, gun_r_rect)
+                if self.level == (self.colour_rotation_counter * 6) + 9:
+                    screen.blit(self.bluegrey, gun_r_rect)
+                if self.level == (self.colour_rotation_counter * 6) + 10:
+                    screen.blit(self.pastelorange, gun_r_rect)
 
         elif self.current_block == 6:
             for block in self.gun_l:
@@ -2290,6 +2350,16 @@ class Blocks():
                     screen.blit(self.forestgreen, gun_l_rect)
                 if self.level == (self.colour_rotation_counter * 6) + 5:
                     screen.blit(self.babyblue, gun_l_rect)
+                if self.level == (self.colour_rotation_counter * 6) + 6:
+                    screen.blit(self.lightorange, gun_l_rect)
+                if self.level == (self.colour_rotation_counter * 6) + 7:
+                    screen.blit(self.beige, gun_l_rect)
+                if self.level == (self.colour_rotation_counter * 6) + 8:
+                    screen.blit(self.orange, gun_l_rect)
+                if self.level == (self.colour_rotation_counter * 6) + 9:
+                    screen.blit(self.lightbluegrey, gun_l_rect)
+                if self.level == (self.colour_rotation_counter * 6) + 10:
+                    screen.blit(self.brown, gun_l_rect)
 
         elif self.current_block == 7:
             for block in self.beam:
@@ -2307,11 +2377,18 @@ class Blocks():
                     screen.blit(self.purplehole, beam_rect)
                 if self.level == (self.colour_rotation_counter * 6) + 5:
                     screen.blit(self.otherpinkhole, beam_rect)
+                if self.level == (self.colour_rotation_counter * 6) + 6:
+                    screen.blit(self.orangehole, beam_rect)
+                if self.level == (self.colour_rotation_counter * 6) + 7:
+                    screen.blit(self.burgundyhole, beam_rect)
+                if self.level == (self.colour_rotation_counter * 6) + 8:
+                    screen.blit(self.babybluehole, beam_rect)
+                if self.level == (self.colour_rotation_counter * 6) + 9:
+                    screen.blit(self.bluegreyhole, beam_rect)
+                if self.level == (self.colour_rotation_counter * 6) + 10:
+                    screen.blit(self.pastelorangehole, beam_rect)
 
     def draw_placed_blocks(self):
-        #for block in self.placed_blocks:
-            #placed_blocks_rect = pygame.Rect(int(block.x * cell_size), int(block.y * cell_size), cell_size-5, cell_size-5)
-            #pygame.draw.rect(screen, (0,240,100), placed_blocks_rect)
 
         for block in self.placed_twobytwos:
             placed_blocks_rect = pygame.Rect(int(block.x * cell_size), int(block.y * cell_size), cell_size - 5,
@@ -2328,6 +2405,16 @@ class Blocks():
                 screen.blit(self.purplehole, placed_blocks_rect)
             if self.level == (self.colour_rotation_counter * 6) + 5:
                 screen.blit(self.otherpinkhole, placed_blocks_rect)
+            if self.level == (self.colour_rotation_counter * 6) + 6:
+                screen.blit(self.orangehole, placed_blocks_rect)
+            if self.level == (self.colour_rotation_counter * 6) + 7:
+                screen.blit(self.burgundyhole, placed_blocks_rect)
+            if self.level == (self.colour_rotation_counter * 6) + 8:
+                screen.blit(self.babybluehole, placed_blocks_rect)
+            if self.level == (self.colour_rotation_counter * 6) + 9:
+                screen.blit(self.bluegreyhole, placed_blocks_rect)
+            if self.level == (self.colour_rotation_counter * 6) + 10:
+                screen.blit(self.pastelorangehole, placed_blocks_rect)
 
         for block in self.placed_lls:
             placed_blocks_rect = pygame.Rect(int(block.x * cell_size), int(block.y * cell_size), cell_size - 5,
@@ -2344,6 +2431,16 @@ class Blocks():
                 screen.blit(self.forestgreen, placed_blocks_rect)
             if self.level == (self.colour_rotation_counter * 6) + 5:
                 screen.blit(self.babyblue, placed_blocks_rect)
+            if self.level == (self.colour_rotation_counter * 6) + 6:
+                screen.blit(self.lightorange, placed_blocks_rect)
+            if self.level == (self.colour_rotation_counter * 6) + 7:
+                screen.blit(self.beige, placed_blocks_rect)
+            if self.level == (self.colour_rotation_counter * 6) + 8:
+                screen.blit(self.orange, placed_blocks_rect)
+            if self.level == (self.colour_rotation_counter * 6) + 9:
+                screen.blit(self.lightbluegrey, placed_blocks_rect)
+            if self.level == (self.colour_rotation_counter * 6) + 10:
+                screen.blit(self.brown, placed_blocks_rect)
 
         for block in self.placed_lrs:
             placed_blocks_rect = pygame.Rect(int(block.x * cell_size), int(block.y * cell_size), cell_size - 5,
@@ -2360,6 +2457,17 @@ class Blocks():
                 screen.blit(self.purple, placed_blocks_rect)
             if self.level == (self.colour_rotation_counter * 6) + 5:
                 screen.blit(self.otherpink, placed_blocks_rect)
+            if self.level == (self.colour_rotation_counter * 6) + 6:
+                screen.blit(self.orange, placed_blocks_rect)
+            if self.level == (self.colour_rotation_counter * 6) + 7:
+                screen.blit(self.burgundy, placed_blocks_rect)
+            if self.level == (self.colour_rotation_counter * 6) + 8:
+                screen.blit(self.babyblue, placed_blocks_rect)
+            if self.level == (self.colour_rotation_counter * 6) + 9:
+                screen.blit(self.bluegrey, placed_blocks_rect)
+            if self.level == (self.colour_rotation_counter * 6) + 10:
+                screen.blit(self.pastelorange, placed_blocks_rect)
+
 
         for block in self.placed_crowns:
             placed_blocks_rect = pygame.Rect(int(block.x * cell_size), int(block.y * cell_size), cell_size - 5,
@@ -2376,6 +2484,17 @@ class Blocks():
                 screen.blit(self.purplehole, placed_blocks_rect)
             if self.level == (self.colour_rotation_counter * 6) + 5:
                 screen.blit(self.otherpinkhole, placed_blocks_rect)
+            if self.level == (self.colour_rotation_counter * 6) + 6:
+                screen.blit(self.orangehole, placed_blocks_rect)
+            if self.level == (self.colour_rotation_counter * 6) + 7:
+                screen.blit(self.burgundyhole, placed_blocks_rect)
+            if self.level == (self.colour_rotation_counter * 6) + 8:
+                screen.blit(self.babybluehole, placed_blocks_rect)
+            if self.level == (self.colour_rotation_counter * 6) + 9:
+                screen.blit(self.bluegreyhole, placed_blocks_rect)
+            if self.level == (self.colour_rotation_counter * 6) + 10:
+                screen.blit(self.pastelorangehole, placed_blocks_rect)
+
 
         for block in self.placed_gun_rs:
             placed_blocks_rect = pygame.Rect(int(block.x * cell_size), int(block.y * cell_size), cell_size - 5,
@@ -2392,6 +2511,17 @@ class Blocks():
                 screen.blit(self.purple, placed_blocks_rect)
             if self.level == (self.colour_rotation_counter * 6) + 5:
                 screen.blit(self.otherpink, placed_blocks_rect)
+            if self.level == (self.colour_rotation_counter * 6) + 6:
+                screen.blit(self.orange, placed_blocks_rect)
+            if self.level == (self.colour_rotation_counter * 6) + 7:
+                screen.blit(self.burgundy, placed_blocks_rect)
+            if self.level == (self.colour_rotation_counter * 6) + 8:
+                screen.blit(self.babyblue, placed_blocks_rect)
+            if self.level == (self.colour_rotation_counter * 6) + 9:
+                screen.blit(self.bluegrey, placed_blocks_rect)
+            if self.level == (self.colour_rotation_counter * 6) + 10:
+                screen.blit(self.pastelorange, placed_blocks_rect)
+
 
         for block in self.placed_gun_ls:
             placed_blocks_rect = pygame.Rect(int(block.x * cell_size), int(block.y * cell_size), cell_size - 5,
@@ -2408,6 +2538,17 @@ class Blocks():
                 screen.blit(self.forestgreen, placed_blocks_rect)
             if self.level == (self.colour_rotation_counter * 6) + 5:
                 screen.blit(self.babyblue, placed_blocks_rect)
+            if self.level == (self.colour_rotation_counter * 6) + 6:
+                screen.blit(self.lightorange, placed_blocks_rect)
+            if self.level == (self.colour_rotation_counter * 6) + 7:
+                screen.blit(self.beige, placed_blocks_rect)
+            if self.level == (self.colour_rotation_counter * 6) + 8:
+                screen.blit(self.orange, placed_blocks_rect)
+            if self.level == (self.colour_rotation_counter * 6) + 9:
+                screen.blit(self.lightbluegrey, placed_blocks_rect)
+            if self.level == (self.colour_rotation_counter * 6) + 10:
+                screen.blit(self.brown, placed_blocks_rect)
+
 
         for block in self.placed_beams:
             placed_blocks_rect = pygame.Rect(int(block.x * cell_size), int(block.y * cell_size), cell_size - 5,
@@ -2424,6 +2565,17 @@ class Blocks():
                 screen.blit(self.purplehole, placed_blocks_rect)
             if self.level == (self.colour_rotation_counter * 6) + 5:
                 screen.blit(self.otherpinkhole, placed_blocks_rect)
+            if self.level == (self.colour_rotation_counter * 6) + 6:
+                screen.blit(self.orangehole, placed_blocks_rect)
+            if self.level == (self.colour_rotation_counter * 6) + 7:
+                screen.blit(self.burgundyhole, placed_blocks_rect)
+            if self.level == (self.colour_rotation_counter * 6) + 8:
+                screen.blit(self.babybluehole, placed_blocks_rect)
+            if self.level == (self.colour_rotation_counter * 6) + 9:
+                screen.blit(self.bluegreyhole, placed_blocks_rect)
+            if self.level == (self.colour_rotation_counter * 6) + 10:
+                screen.blit(self.pastelorangehole, placed_blocks_rect)
+
 
     def draw_controls(self):
         controls_text = 'Use A,S,D to move'
@@ -2492,6 +2644,16 @@ class Blocks():
                     screen.blit(self.purplehole, twobytwo_rect)
                 if self.level == (self.colour_rotation_counter * 6) + 5:
                     screen.blit(self.otherpinkhole, twobytwo_rect)
+                if self.level == (self.colour_rotation_counter * 6) + 6:
+                    screen.blit(self.orangehole, twobytwo_rect)
+                if self.level == (self.colour_rotation_counter * 6) + 7:
+                    screen.blit(self.burgundyhole, twobytwo_rect)
+                if self.level == (self.colour_rotation_counter * 6) + 8:
+                    screen.blit(self.babybluehole, twobytwo_rect)
+                if self.level == (self.colour_rotation_counter * 6) + 9:
+                    screen.blit(self.bluegreyhole, twobytwo_rect)
+                if self.level == (self.colour_rotation_counter * 6) + 10:
+                    screen.blit(self.pastelorangehole, twobytwo_rect)
 
         elif self.next_block == 2:
             for block in self.ll_next:
@@ -2509,6 +2671,17 @@ class Blocks():
                     screen.blit(self.forestgreen, ll_rect)
                 if self.level == (self.colour_rotation_counter * 6) + 5:
                     screen.blit(self.babyblue, ll_rect)
+                if self.level == (self.colour_rotation_counter * 6) + 6:
+                    screen.blit(self.lightorange, ll_rect)
+                if self.level == (self.colour_rotation_counter * 6) + 7:
+                    screen.blit(self.beige, ll_rect)
+                if self.level == (self.colour_rotation_counter * 6) + 8:
+                    screen.blit(self.orange, ll_rect)
+                if self.level == (self.colour_rotation_counter * 6) + 9:
+                    screen.blit(self.lightbluegrey, ll_rect)
+                if self.level == (self.colour_rotation_counter * 6) + 10:
+                    screen.blit(self.brown, ll_rect)
+
 
         elif self.next_block == 3:
             for block in self.lr_next:
@@ -2526,6 +2699,16 @@ class Blocks():
                     screen.blit(self.purple, lr_rect)
                 if self.level == (self.colour_rotation_counter * 6) + 5:
                     screen.blit(self.otherpink, lr_rect)
+                if self.level == (self.colour_rotation_counter * 6) + 6:
+                    screen.blit(self.orange, lr_rect)
+                if self.level == (self.colour_rotation_counter * 6) + 7:
+                    screen.blit(self.burgundy, lr_rect)
+                if self.level == (self.colour_rotation_counter * 6) + 8:
+                    screen.blit(self.babyblue, lr_rect)
+                if self.level == (self.colour_rotation_counter * 6) + 9:
+                    screen.blit(self.bluegrey, lr_rect)
+                if self.level == (self.colour_rotation_counter * 6) + 10:
+                    screen.blit(self.pastelorange, lr_rect)
 
         elif self.next_block == 4:
             for block in self.crown_next:
@@ -2543,6 +2726,17 @@ class Blocks():
                     screen.blit(self.purplehole, crown_rect)
                 if self.level == (self.colour_rotation_counter * 6) + 5:
                     screen.blit(self.otherpinkhole, crown_rect)
+                if self.level == (self.colour_rotation_counter * 6) + 6:
+                    screen.blit(self.orangehole, crown_rect)
+                if self.level == (self.colour_rotation_counter * 6) + 7:
+                    screen.blit(self.burgundyhole, crown_rect)
+                if self.level == (self.colour_rotation_counter * 6) + 8:
+                    screen.blit(self.babybluehole, crown_rect)
+                if self.level == (self.colour_rotation_counter * 6) + 9:
+                    screen.blit(self.bluegreyhole, crown_rect)
+                if self.level == (self.colour_rotation_counter * 6) + 10:
+                    screen.blit(self.pastelorangehole, crown_rect)
+
 
         elif self.next_block == 5:
             for block in self.gun_r_next:
@@ -2560,6 +2754,17 @@ class Blocks():
                     screen.blit(self.purple, gun_r_rect)
                 if self.level == (self.colour_rotation_counter * 6) + 5:
                     screen.blit(self.otherpink, gun_r_rect)
+                if self.level == (self.colour_rotation_counter * 6) + 6:
+                    screen.blit(self.orange, gun_r_rect)
+                if self.level == (self.colour_rotation_counter * 6) + 7:
+                    screen.blit(self.burgundy, gun_r_rect)
+                if self.level == (self.colour_rotation_counter * 6) + 8:
+                    screen.blit(self.babyblue, gun_r_rect)
+                if self.level == (self.colour_rotation_counter * 6) + 9:
+                    screen.blit(self.bluegrey, gun_r_rect)
+                if self.level == (self.colour_rotation_counter * 6) + 10:
+                    screen.blit(self.pastelorange, gun_r_rect)
+
 
         elif self.next_block == 6:
             for block in self.gun_l_next:
@@ -2577,6 +2782,17 @@ class Blocks():
                     screen.blit(self.forestgreen, gun_l_rect)
                 if self.level == (self.colour_rotation_counter * 6) + 5:
                     screen.blit(self.babyblue, gun_l_rect)
+                if self.level == (self.colour_rotation_counter * 6) + 6:
+                    screen.blit(self.lightorange, gun_l_rect)
+                if self.level == (self.colour_rotation_counter * 6) + 7:
+                    screen.blit(self.beige, gun_l_rect)
+                if self.level == (self.colour_rotation_counter * 6) + 8:
+                    screen.blit(self.orange, gun_l_rect)
+                if self.level == (self.colour_rotation_counter * 6) + 9:
+                    screen.blit(self.lightbluegrey, gun_l_rect)
+                if self.level == (self.colour_rotation_counter * 6) + 10:
+                    screen.blit(self.brown, gun_l_rect)
+
 
         elif self.next_block == 7:
             for block in self.beam_next:
@@ -2594,6 +2810,17 @@ class Blocks():
                     screen.blit(self.purplehole, beam_rect)
                 if self.level == (self.colour_rotation_counter * 6) + 5:
                     screen.blit(self.otherpinkhole, beam_rect)
+                if self.level == (self.colour_rotation_counter * 6) + 6:
+                    screen.blit(self.orangehole, beam_rect)
+                if self.level == (self.colour_rotation_counter * 6) + 7:
+                    screen.blit(self.burgundyhole, beam_rect)
+                if self.level == (self.colour_rotation_counter * 6) + 8:
+                    screen.blit(self.babybluehole, beam_rect)
+                if self.level == (self.colour_rotation_counter * 6) + 9:
+                    screen.blit(self.bluegreyhole, beam_rect)
+                if self.level == (self.colour_rotation_counter * 6) + 10:
+                    screen.blit(self.pastelorangehole, beam_rect)
+
 
     def draw_buttons(self):
 
@@ -2787,15 +3014,15 @@ while running:
         main.block.settimerflag = False
 
     if main.block.level == 8 and main.block.settimerflag:
-        pygame.time.set_timer(screen_update, 150)
+        pygame.time.set_timer(screen_update, 200)
         main.block.settimerflag = False
 
     if main.block.level == 9 and main.block.settimerflag:
-        pygame.time.set_timer(screen_update, 150)
+        pygame.time.set_timer(screen_update, 200)
         main.block.settimerflag = False
 
     if main.block.level == 10 and main.block.settimerflag:
-        pygame.time.set_timer(screen_update, 100)
+        pygame.time.set_timer(screen_update, 200)
         main.block.settimerflag = False
 
     screen.fill((0,0,0))
