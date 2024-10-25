@@ -74,6 +74,15 @@ class Blocks():
         self.otherpink = pygame.image.load('Graphics/otherpink.png').convert_alpha()
         self.otherpinkhole = pygame.image.load('Graphics/otherpinkhole.png').convert_alpha()
 
+        self.burgundy = pygame.image.load('Graphics/burgundy.png').convert_alpha()
+        self.burgundyhole = pygame.image.load('Graphics/burgundyhole.png').convert_alpha()
+        self.beige = pygame.image.load('Graphics/beige.png').convert_alpha()
+
+        self.orange = pygame.image.load('Graphics/orange.png').convert_alpha()
+        self.orangehole = pygame.image.load('Graphics/orangehole.png').convert_alpha()
+        self.lightorange = pygame.image.load('Graphics/lightorange.png').convert_alpha()
+
+
         self.pausebutton = pygame.image.load('Graphics/pausebutton.png').convert_alpha()
         self.pausebuttonpressed = pygame.image.load('Graphics/pausebuttonpressed.png').convert_alpha()
         self.pausebutton_hover = False
