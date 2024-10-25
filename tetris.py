@@ -5,6 +5,7 @@ class Blocks():
     def __init__(self):
         self.blocksfrozen = True
         self.blockspaused = False
+        self.gameover = False
         self.quit = False
         self.score = 0
         self.level = 0
@@ -103,6 +104,12 @@ class Blocks():
         self.pausemenubackground = pygame.image.load('Graphics/pausemenubackground.png').convert_alpha()
         self.pausemenubutton = pygame.image.load('Graphics/pausemenubutton.png').convert_alpha()
         self.pausemenubuttonpressed = pygame.image.load('Graphics/pausemenubuttonpressed.png').convert_alpha()
+
+        self.playbutton = pygame.image.load('Graphics/pausemenubutton.png').convert_alpha()
+        self.playbuttonpressed = pygame.image.load('Graphics/pausemenubuttonpressed.png').convert_alpha()
+        playbutton_hover = False
+        self.gameoverquitbutton = pygame.image.load('Graphics/gameoverquitbutton.png').convert_alpha()
+        self.gameoverquitbuttonpressed = pygame.image.load('Graphics/gameoverquitbuttonpressed.png').convert_alpha()
 
     def move_block_auto(self):
         self.tick = True
@@ -2108,6 +2115,7 @@ class Blocks():
                     self.placed_gun_ls = []
                     self.placed_beams = []
                     self.blocksfrozen = True
+                    self.gameover = True
                     self.score = 0
                     self.level = 0
                     print('game over')
@@ -2122,6 +2130,7 @@ class Blocks():
                     self.placed_gun_ls = []
                     self.placed_beams = []
                     self.blocksfrozen = True
+                    self.gameover = True
                     self.score = 0
                     self.level = 0
                     print('game over')
@@ -2136,6 +2145,7 @@ class Blocks():
                     self.placed_gun_ls = []
                     self.placed_beams = []
                     self.blocksfrozen = True
+                    self.gameover = True
                     self.score = 0
                     self.level = 0
                     print('game over')
@@ -2150,6 +2160,7 @@ class Blocks():
                     self.placed_gun_ls = []
                     self.placed_beams = []
                     self.blocksfrozen = True
+                    self.gameover = True
                     self.score = 0
                     self.level = 0
                     print('game over')
@@ -2164,6 +2175,7 @@ class Blocks():
                     self.placed_gun_ls = []
                     self.placed_beams = []
                     self.blocksfrozen = True
+                    self.gameover = True
                     self.score = 0
                     self.level = 0
                     print('game over')
@@ -2178,6 +2190,7 @@ class Blocks():
                     self.placed_gun_ls = []
                     self.placed_beams = []
                     self.blocksfrozen = True
+                    self.gameover = True
                     self.score = 0
                     self.level = 0
                     print('game over')
@@ -2192,6 +2205,7 @@ class Blocks():
                     self.placed_gun_ls = []
                     self.placed_beams = []
                     self.blocksfrozen = True
+                    self.gameover = True
                     self.score = 0
                     self.level = 0
                     print('game over')
@@ -2884,6 +2898,50 @@ class Blocks():
                 screen.blit(pausebackground_text_surface, pausebackgroundtext_rect)
                 screen.blit(pausebackground_text2_surface, pausebackgroundtext2_rect)
 
+        gameoverbackground_text = 'GAME'
+        gameoverbackground_text2 = 'OVER'
+        quittext = 'QUIT'
+        gameoverbackgroundtext_rect = pygame.Rect(1400, 450, 400, 400)
+        gameoverbackgroundtext2_rect = pygame.Rect(1420, 580, 400, 400)
+        gameoverbackground_text_surface = pausebackground_font.render(gameoverbackground_text, True, (0,0,0))
+        gameoverbackground_text2_surface = pausebackground_font.render(gameoverbackground_text2, True, (0,0,0))
+        quittext_surface = gameoverquitbutton_font.render(quittext, True, (255,255,255))
+        quittext2_surface = gameoverquitbutton_font.render(quittext, True, (0,0,0))
+
+        playbutton_rect = pygame.Rect(1700, 740, 150, 150)
+        quitbutton_rect = pygame.Rect(1380, 740, 300, 150)
+        quittext_rect = pygame.Rect(1410, 770, 150, 150)
+
+        if self.gameover:
+            if playbutton_rect.collidepoint(pos):
+                screen.blit(self.pausemenubackground, pausebackground_rect)
+                screen.blit(self.gameoverquitbutton, quitbutton_rect)
+                screen.blit(self.playbuttonpressed, playbutton_rect)
+                screen.blit(gameoverbackground_text_surface, gameoverbackgroundtext_rect)
+                screen.blit(gameoverbackground_text2_surface, gameoverbackgroundtext2_rect)
+                screen.blit(quittext_surface, quittext_rect)
+                if pygame.mouse.get_pressed()[0] == 1:
+                    self.blockspaused = False
+                    self.gameover = False
+            elif quitbutton_rect.collidepoint(pos):
+                screen.blit(self.pausemenubackground, pausebackground_rect)
+                screen.blit(self.gameoverquitbuttonpressed, quitbutton_rect)
+                screen.blit(self.playbutton, playbutton_rect)
+                screen.blit(gameoverbackground_text_surface, gameoverbackgroundtext_rect)
+                screen.blit(gameoverbackground_text2_surface, gameoverbackgroundtext2_rect)
+                screen.blit(quittext2_surface, quittext_rect)
+                if pygame.mouse.get_pressed()[0] == 1:
+                    self.quit = True
+            else:
+                screen.blit(self.pausemenubackground, pausebackground_rect)
+                screen.blit(self.gameoverquitbutton, quitbutton_rect)
+                screen.blit(self.playbutton, playbutton_rect)
+                screen.blit(gameoverbackground_text_surface, gameoverbackgroundtext_rect)
+                screen.blit(gameoverbackground_text2_surface, gameoverbackgroundtext2_rect)
+                screen.blit(quittext_surface, quittext_rect)
+
+
+
     def draw_sidelines(self):
         sideline_rect_l = pygame.Rect(0, 0, 1165, cell_size * 20)
         sideline_rect_r = pygame.Rect(2070, 0, 1165, cell_size * 20)
@@ -2943,6 +3001,7 @@ score_num_font = pygame.font.Font(None, 100)
 level_font = pygame.font.Font(None, 60)
 level_num_font = pygame.font.Font(None, 150)
 quitbutton_font = pygame.font.Font(None, 155)
+gameoverquitbutton_font = pygame.font.Font(None, 140)
 pausebackground_font = pygame.font.Font(None, 200)
 pausebackground_font2 = pygame.font.Font(None, 70)
 
