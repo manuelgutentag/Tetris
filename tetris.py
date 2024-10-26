@@ -6,6 +6,7 @@ class Blocks():
         self.blocksfrozen = True
         self.blockspaused = False
         self.gameover = False
+        self.start = True
         self.quit = False
         self.score = 0
         self.level = 0
@@ -50,6 +51,8 @@ class Blocks():
         self.settimerflag = False
 
         self.colour_rotation_counter = 0
+
+        self.startbackground = pygame.image.load('Graphics/startbackground.png').convert_alpha()
 
         self.darkblue = pygame.image.load('Graphics/darkblue.png').convert_alpha()
         self.darkbluehole = pygame.image.load('Graphics/darkbluehole.png').convert_alpha()
@@ -2024,6 +2027,10 @@ class Blocks():
 
         #tracks how many blocks are in every row
         for j in range(20):
+            for i in range(len(self.placed_blocks)):
+                if self.placed_blocks[i].y == j:
+                    self.x[j] += self.placed_blocks[i].x
+            '''
             for i in range(len(self.placed_twobytwos)):
                 if self.placed_twobytwos[i].y == j:
                     self.x[j] += self.placed_twobytwos[i].x
@@ -2045,9 +2052,10 @@ class Blocks():
             for i in range(len(self.placed_beams)):
                 if self.placed_beams[i].y == j:
                     self.x[j] += self.placed_beams[i].x
+            '''
 
         # reset the vectors of the blocks that are removed
-        # if a variable in the list = 95 then this row is full
+        # if a variable in the list x equals 175 then this row is full
         for j in range(20):
             for i in range(len(self.placed_blocks)):
                 if self.x[j] == 175 and self.placed_blocks[i].y == j:
@@ -2056,27 +2064,36 @@ class Blocks():
                     self.blockscleared += 1
                     self.totalblockscleared += 1
 
+        print(self.x)
+        if self.blockscleared != 0:
+            print(self.blockscleared)
+
         # let all blocks above the removed row "fall down"
+        '''
         for j in range(20):
             for i in range(len(self.placed_blocks)):
                 if self.x[j] == 175 and j > self.placed_blocks[i].y > 0:
-                    self.placed_blocks[i].y += 1
-        for j in range(20):
-            self.x[j] = 0
+                    if self.blockscleared == 10:
+                        self.placed_blocks[i].y += 1
+                        self.score += 40 * (self.level + 1)
+                        self.linescleared_counter += 1
+                    elif self.blockscleared == 20:
+                        self.placed_blocks[i].y += 2
+                        self.score += 100 * (self.level + 1)
+                        self.linescleared_counter += 2
+                    elif self.blockscleared == 30:
+                        self.placed_blocks[i].y += 3
+                        self.score += 300 * (self.level + 1)
+                        self.linescleared_counter += 3
+                    elif self.blockscleared == 40:
+                        self.placed_blocks[i].y += 4
+                        self.score += 1200 * (self.level + 1)
+                        self.linescleared_counter += 4
+        '''
 
-        # updates the score for rows cleared
-        if self.blockscleared == 10:
-            self.score += 40 * (self.level + 1)
-            self.linescleared_counter += 1
-        elif self.blockscleared == 20:
-            self.score += 100 * (self.level + 1)
-            self.linescleared_counter += 2
-        elif self.blockscleared == 30:
-            self.score += 300 * (self.level + 1)
-            self.linescleared_counter += 3
-        elif self.blockscleared == 40:
-            self.score += 1200 * (self.level + 1)
-            self.linescleared_counter += 4
+        for j in range(20):
+            for i in range(len(self.placed_blocks)):
+                self.x[j] = 0
 
         self.blockscleared = 0
 
@@ -2592,13 +2609,8 @@ class Blocks():
 
 
     def draw_controls(self):
-        controls_text = 'Use A,S,D to move'
-        controls_surface = controls_font.render(controls_text, True, (56,74,12))
-        controls_x = int(cell_size * cell_count_hor/2)
-        controls_y = int(cell_size * cell_count_vert/2) - 150
-        controls_rect = controls_surface.get_rect(center = (controls_x, controls_y))
-
-        screen.blit(controls_surface, controls_rect)
+        startbackground_rect = pygame.Rect(1260, 360, 720, 1000)
+        screen.blit(self.startbackground, startbackground_rect)
 
     def draw_score(self):
         score_text = 'Score'
@@ -2959,7 +2971,7 @@ class Main():
 
     def update(self):
         self.update_call = True
-        if not self.block.block_placed and not self.block.blocksfrozen and not self.block.blockspaused:
+        if not self.block.block_placed and not self.block.blocksfrozen and not self.block.blockspaused and not self.block.gameover:
             self.block.move_block_auto()
             self.block.collision_reset()
 
@@ -2984,8 +2996,8 @@ class Main():
         self.block.draw_score()
         self.block.draw_level()
         self.block.draw_next_block()
-        if self.block.blocksfrozen:
-            #self.block.draw_controls()
+        if self.block.blocksfrozen and self.block.start:
+            self.block.draw_controls()
             pass
 
 pygame.init()
@@ -3023,16 +3035,20 @@ while running:
             main.block.blocksfrozen = False
             if event.key == pygame.K_ESCAPE:
                 running = False
-            if event.key == pygame.K_a and not main.block.block_placed and not main.block.blockspaused:
+            if (event.key == pygame.K_a or event.key == pygame.K_LEFT) and not main.block.block_placed and not main.block.blockspaused and not main.block.gameover:
                 main.block.move_block_left()
                 main.block.check_collision()
-            if event.key == pygame.K_d and not main.block.block_placed and not main.block.blockspaused:
+                main.block.start = False
+            if (event.key == pygame.K_d or event.key == pygame.K_RIGHT) and not main.block.block_placed and not main.block.blockspaused and not main.block.gameover:
                 main.block.move_block_right()
                 main.block.check_collision()
-            if event.key == pygame.K_s and not main.block.block_placed and not main.block.blockspaused:
+                main.block.start = False
+            if (event.key == pygame.K_s or event.key == pygame.K_DOWN)and not main.block.block_placed and not main.block.blockspaused and not main.block.gameover:
                 main.block.move_block_down()
                 main.block.check_collision()
-            if event.key == pygame.K_SPACE and not main.block.block_placed and not main.block.blockspaused:
+                main.block.start = False
+            if event.key == pygame.K_SPACE and not main.block.block_placed and not main.block.blockspaused and not main.block.gameover:
+                main.block.start = False
                 # determine the needed rotation and call rotate-function
                 if main.block.current_block != 1:
                     main.block.rotate()
