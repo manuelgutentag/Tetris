@@ -2114,141 +2114,150 @@ class Blocks():
         self.placed_gun_rs_copy = self.placed_gun_rs
         self.placed_gun_ls_copy = self.placed_gun_ls
         self.placed_beams_copy = self.placed_beams
+        count = 0
 
         # let all blocks above the removed row "fall down"
         for j in range(20):
-            for i in range(len(self.placed_twobytwos)):
-                if self.x[j] == 175 and j > self.placed_twobytwos[i].y > 0:
-                    if self.blockscleared == 10:
-                        self.placed_twobytwos_copy[i].y += 1
-                        self.score += 40 * (self.level + 1)
-                        self.linescleared_counter += 1
-                    elif self.blockscleared == 20:
-                        self.placed_twobytwos_copy[i].y += 2
-                        self.score += 100 * (self.level + 1)
-                        self.linescleared_counter += 2
-                    elif self.blockscleared == 30:
-                        self.placed_twobytwos_copy[i].y += 3
-                        self.score += 300 * (self.level + 1)
-                        self.linescleared_counter += 3
-                    elif self.blockscleared == 40:
-                        self.placed_twobytwos_copy[i].y += 4
-                        self.score += 1200 * (self.level + 1)
-                        self.linescleared_counter += 4
+            if self.x[j] == 175:
+                for i in range(len(self.placed_twobytwos)):
+                    if j > self.placed_twobytwos[i].y > 0:
+                        count += 1
+                        if self.blockscleared == 10:
+                            self.placed_twobytwos_copy[i].y += 1
+                            self.score += 40 * (self.level + 1)
+                            self.linescleared_counter += 1
+                        elif self.blockscleared == 20:
+                            print(' ')
+                            print(' ')
+                            print('called')
+                            print('counter for big if:', count)
+                            print(' ')
+                            print(' ')
+                            self.placed_twobytwos_copy[i].y += 2
+                            self.score += 100 * (self.level + 1)
+                            self.linescleared_counter += 2
+                        elif self.blockscleared == 30:
+                            self.placed_twobytwos_copy[i].y += 3
+                            self.score += 300 * (self.level + 1)
+                            self.linescleared_counter += 3
+                        elif self.blockscleared == 40:
+                            self.placed_twobytwos_copy[i].y += 4
+                            self.score += 1200 * (self.level + 1)
+                            self.linescleared_counter += 4
 
-            for i in range(len(self.placed_lls)):
-                if self.x[j] == 175 and j > self.placed_lls[i].y > 0:
-                    if self.blockscleared == 10:
-                        self.placed_lls_copy[i].y += 1
-                        self.score += 40 * (self.level + 1)
-                        self.linescleared_counter += 1
-                    elif self.blockscleared == 20:
-                        self.placed_lls_copy[i].y += 2
-                        self.score += 100 * (self.level + 1)
-                        self.linescleared_counter += 2
-                    elif self.blockscleared == 30:
-                        self.placed_lls_copy[i].y += 3
-                        self.score += 300 * (self.level + 1)
-                        self.linescleared_counter += 3
-                    elif self.blockscleared == 40:
-                        self.placed_lls_copy[i].y += 4
-                        self.score += 1200 * (self.level + 1)
-                        self.linescleared_counter += 4
+                for i in range(len(self.placed_lls)):
+                    if self.x[j] == 175 and j > self.placed_lls[i].y > 0:
+                        if self.blockscleared == 10:
+                            self.placed_lls_copy[i].y += 1
+                            self.score += 40 * (self.level + 1)
+                            self.linescleared_counter += 1
+                        elif self.blockscleared == 20:
+                            self.placed_lls_copy[i].y += 2
+                            self.score += 100 * (self.level + 1)
+                            self.linescleared_counter += 2
+                        elif self.blockscleared == 30:
+                            self.placed_lls_copy[i].y += 3
+                            self.score += 300 * (self.level + 1)
+                            self.linescleared_counter += 3
+                        elif self.blockscleared == 40:
+                            self.placed_lls_copy[i].y += 4
+                            self.score += 1200 * (self.level + 1)
+                            self.linescleared_counter += 4
 
-            for i in range(len(self.placed_lrs)):
-                if self.x[j] == 175 and j > self.placed_lrs[i].y > 0:
-                    if self.blockscleared == 10:
-                        self.placed_lrs_copy[i].y += 1
-                        self.score += 40 * (self.level + 1)
-                        self.linescleared_counter += 1
-                    elif self.blockscleared == 20:
-                        self.placed_lrs_copy[i].y += 2
-                        self.score += 100 * (self.level + 1)
-                        self.linescleared_counter += 2
-                    elif self.blockscleared == 30:
-                        self.placed_lrs_copy[i].y += 3
-                        self.score += 300 * (self.level + 1)
-                        self.linescleared_counter += 3
-                    elif self.blockscleared == 40:
-                        self.placed_lrs_copy[i].y += 4
-                        self.score += 1200 * (self.level + 1)
-                        self.linescleared_counter += 4
+                for i in range(len(self.placed_lrs)):
+                    if self.x[j] == 175 and j > self.placed_lrs[i].y > 0:
+                        if self.blockscleared == 10:
+                            self.placed_lrs_copy[i].y += 1
+                            self.score += 40 * (self.level + 1)
+                            self.linescleared_counter += 1
+                        elif self.blockscleared == 20:
+                            self.placed_lrs_copy[i].y += 2
+                            self.score += 100 * (self.level + 1)
+                            self.linescleared_counter += 2
+                        elif self.blockscleared == 30:
+                            self.placed_lrs_copy[i].y += 3
+                            self.score += 300 * (self.level + 1)
+                            self.linescleared_counter += 3
+                        elif self.blockscleared == 40:
+                            self.placed_lrs_copy[i].y += 4
+                            self.score += 1200 * (self.level + 1)
+                            self.linescleared_counter += 4
 
-            for i in range(len(self.placed_crowns)):
-                if self.x[j] == 175 and j > self.placed_crowns[i].y > 0:
-                    if self.blockscleared == 10:
-                        self.placed_crowns_copy[i].y += 1
-                        self.score += 40 * (self.level + 1)
-                        self.linescleared_counter += 1
-                    elif self.blockscleared == 20:
-                        self.placed_crowns_copy[i].y += 2
-                        self.score += 100 * (self.level + 1)
-                        self.linescleared_counter += 2
-                    elif self.blockscleared == 30:
-                        self.placed_crowns_copy[i].y += 3
-                        self.score += 300 * (self.level + 1)
-                        self.linescleared_counter += 3
-                    elif self.blockscleared == 40:
-                        self.placed_crowns_copy[i].y += 4
-                        self.score += 1200 * (self.level + 1)
-                        self.linescleared_counter += 4
+                for i in range(len(self.placed_crowns)):
+                    if self.x[j] == 175 and j > self.placed_crowns[i].y > 0:
+                        if self.blockscleared == 10:
+                            self.placed_crowns_copy[i].y += 1
+                            self.score += 40 * (self.level + 1)
+                            self.linescleared_counter += 1
+                        elif self.blockscleared == 20:
+                            self.placed_crowns_copy[i].y += 2
+                            self.score += 100 * (self.level + 1)
+                            self.linescleared_counter += 2
+                        elif self.blockscleared == 30:
+                            self.placed_crowns_copy[i].y += 3
+                            self.score += 300 * (self.level + 1)
+                            self.linescleared_counter += 3
+                        elif self.blockscleared == 40:
+                            self.placed_crowns_copy[i].y += 4
+                            self.score += 1200 * (self.level + 1)
+                            self.linescleared_counter += 4
 
-            for i in range(len(self.placed_gun_rs)):
-                if self.x[j] == 175 and j > self.placed_gun_rs[i].y > 0:
-                    if self.blockscleared == 10:
-                        self.placed_gun_rs_copy[i].y += 1
-                        self.score += 40 * (self.level + 1)
-                        self.linescleared_counter += 1
-                    elif self.blockscleared == 20:
-                        self.placed_gun_rs_copy[i].y += 2
-                        self.score += 100 * (self.level + 1)
-                        self.linescleared_counter += 2
-                    elif self.blockscleared == 30:
-                        self.placed_gun_rs_copy[i].y += 3
-                        self.score += 300 * (self.level + 1)
-                        self.linescleared_counter += 3
-                    elif self.blockscleared == 40:
-                        self.placed_gun_rs_copy[i].y += 4
-                        self.score += 1200 * (self.level + 1)
-                        self.linescleared_counter += 4
+                for i in range(len(self.placed_gun_rs)):
+                    if self.x[j] == 175 and j > self.placed_gun_rs[i].y > 0:
+                        if self.blockscleared == 10:
+                            self.placed_gun_rs_copy[i].y += 1
+                            self.score += 40 * (self.level + 1)
+                            self.linescleared_counter += 1
+                        elif self.blockscleared == 20:
+                            self.placed_gun_rs_copy[i].y += 2
+                            self.score += 100 * (self.level + 1)
+                            self.linescleared_counter += 2
+                        elif self.blockscleared == 30:
+                            self.placed_gun_rs_copy[i].y += 3
+                            self.score += 300 * (self.level + 1)
+                            self.linescleared_counter += 3
+                        elif self.blockscleared == 40:
+                            self.placed_gun_rs_copy[i].y += 4
+                            self.score += 1200 * (self.level + 1)
+                            self.linescleared_counter += 4
 
-            for i in range(len(self.placed_gun_ls)):
-                if self.x[j] == 175 and j > self.placed_gun_ls[i].y > 0:
-                    if self.blockscleared == 10:
-                        self.placed_gun_ls_copy[i].y += 1
-                        self.score += 40 * (self.level + 1)
-                        self.linescleared_counter += 1
-                    elif self.blockscleared == 20:
-                        self.placed_gun_ls_copy[i].y += 2
-                        self.score += 100 * (self.level + 1)
-                        self.linescleared_counter += 2
-                    elif self.blockscleared == 30:
-                        self.placed_gun_ls_copy[i].y += 3
-                        self.score += 300 * (self.level + 1)
-                        self.linescleared_counter += 3
-                    elif self.blockscleared == 40:
-                        self.placed_gun_ls_copy[i].y += 4
-                        self.score += 1200 * (self.level + 1)
-                        self.linescleared_counter += 4
+                for i in range(len(self.placed_gun_ls)):
+                    if self.x[j] == 175 and j > self.placed_gun_ls[i].y > 0:
+                        if self.blockscleared == 10:
+                            self.placed_gun_ls_copy[i].y += 1
+                            self.score += 40 * (self.level + 1)
+                            self.linescleared_counter += 1
+                        elif self.blockscleared == 20:
+                            self.placed_gun_ls_copy[i].y += 2
+                            self.score += 100 * (self.level + 1)
+                            self.linescleared_counter += 2
+                        elif self.blockscleared == 30:
+                            self.placed_gun_ls_copy[i].y += 3
+                            self.score += 300 * (self.level + 1)
+                            self.linescleared_counter += 3
+                        elif self.blockscleared == 40:
+                            self.placed_gun_ls_copy[i].y += 4
+                            self.score += 1200 * (self.level + 1)
+                            self.linescleared_counter += 4
 
-            for i in range(len(self.placed_beams)):
-                if self.x[j] == 175 and j > self.placed_beams[i].y > 0:
-                    if self.blockscleared == 10:
-                        self.placed_beams_copy[i].y += 1
-                        self.score += 40 * (self.level + 1)
-                        self.linescleared_counter += 1
-                    elif self.blockscleared == 20:
-                        self.placed_beams_copy[i].y += 2
-                        self.score += 100 * (self.level + 1)
-                        self.linescleared_counter += 2
-                    elif self.blockscleared == 30:
-                        self.placed_beams_copy[i].y += 3
-                        self.score += 300 * (self.level + 1)
-                        self.linescleared_counter += 3
-                    elif self.blockscleared == 40:
-                        self.placed_beams_copy[i].y += 4
-                        self.score += 1200 * (self.level + 1)
-                        self.linescleared_counter += 4
+                for i in range(len(self.placed_beams)):
+                    if self.x[j] == 175 and j > self.placed_beams[i].y > 0:
+                        if self.blockscleared == 10:
+                            self.placed_beams_copy[i].y += 1
+                            self.score += 40 * (self.level + 1)
+                            self.linescleared_counter += 1
+                        elif self.blockscleared == 20:
+                            self.placed_beams_copy[i].y += 2
+                            self.score += 100 * (self.level + 1)
+                            self.linescleared_counter += 2
+                        elif self.blockscleared == 30:
+                            self.placed_beams_copy[i].y += 3
+                            self.score += 300 * (self.level + 1)
+                            self.linescleared_counter += 3
+                        elif self.blockscleared == 40:
+                            self.placed_beams_copy[i].y += 4
+                            self.score += 1200 * (self.level + 1)
+                            self.linescleared_counter += 4
 
         #self.placed_blocks = self.placed_blocks_copy
         self.placed_twobytwos = self.placed_twobytwos_copy
