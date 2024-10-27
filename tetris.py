@@ -1,3 +1,5 @@
+from optparse import Option
+
 import pygame,sys,random
 from pygame.math import Vector2
 
@@ -30,6 +32,7 @@ class Blocks():
         self.beam_next = [Vector2(8 + 8,1), Vector2(9 + 8, 1), Vector2(10 + 8, 1), Vector2(11 + 8, 1)]
 
         self.placed_blocks = []
+        self.placed_blocks_copy = []
         self.block_placed = False
         self.placed_twobytwos = []
         self.placed_lls = []
@@ -2027,6 +2030,7 @@ class Blocks():
 
         #tracks how many blocks are in every row
         for j in range(20):
+            '''
             for i in range(len(self.placed_blocks)):
                 if self.placed_blocks[i].y == j:
                     self.x[j] += self.placed_blocks[i].x
@@ -2052,44 +2056,83 @@ class Blocks():
             for i in range(len(self.placed_beams)):
                 if self.placed_beams[i].y == j:
                     self.x[j] += self.placed_beams[i].x
-            '''
 
         # reset the vectors of the blocks that are removed
         # if a variable in the list x equals 175 then this row is full
         for j in range(20):
-            for i in range(len(self.placed_blocks)):
-                if self.x[j] == 175 and self.placed_blocks[i].y == j:
-                    self.placed_blocks[i].x = 0
-                    self.placed_blocks[i].y = 0
+            for i in range(len(self.placed_twobytwos)):
+                if self.x[j] == 175 and self.placed_twobytwos[i].y == j:
+                    #self.placed_blocks[i].x = 0
+                    #self.placed_blocks[i].y = 0
+                    self.placed_twobytwos[i].x = 0
+                    self.placed_twobytwos[i].y = 0
+                    self.blockscleared += 1
+                    self.totalblockscleared += 1
+            for i in range(len(self.placed_lls)):
+                if self.x[j] == 175 and self.placed_lls[i].y == j:
+                    self.placed_lls[i].x = 0
+                    self.placed_lls[i].y = 0
+                    self.blockscleared += 1
+                    self.totalblockscleared += 1
+            for i in range(len(self.placed_lrs)):
+                if self.x[j] == 175 and self.placed_lrs[i].y == j:
+                    self.placed_lrs[i].x = 0
+                    self.placed_lrs[i].y = 0
+                    self.blockscleared += 1
+                    self.totalblockscleared += 1
+            for i in range(len(self.placed_crowns)):
+                if self.x[j] == 175 and self.placed_crowns[i].y == j:
+                    self.placed_crowns[i].x = 0
+                    self.placed_crowns[i].y = 0
+                    self.blockscleared += 1
+                    self.totalblockscleared += 1
+            for i in range(len(self.placed_gun_rs)):
+                if self.x[j] == 175 and self.placed_gun_rs[i].y == j:
+                    self.placed_gun_rs[i].x = 0
+                    self.placed_gun_rs[i].y = 0
+                    self.blockscleared += 1
+                    self.totalblockscleared += 1
+            for i in range(len(self.placed_gun_ls)):
+                if self.x[j] == 175 and self.placed_gun_ls[i].y == j:
+                    self.placed_gun_ls[i].x = 0
+                    self.placed_gun_ls[i].y = 0
+                    self.blockscleared += 1
+                    self.totalblockscleared += 1
+            for i in range(len(self.placed_beams)):
+                if self.x[j] == 175 and self.placed_beams[i].y == j:
+                    self.placed_beams[i].x = 0
+                    self.placed_beams[i].y = 0
                     self.blockscleared += 1
                     self.totalblockscleared += 1
 
-        print(self.x)
+        #print(self.x)
         if self.blockscleared != 0:
             print(self.blockscleared)
 
+        self.placed_blocks_copy = self.placed_blocks
+
         # let all blocks above the removed row "fall down"
-        '''
         for j in range(20):
             for i in range(len(self.placed_blocks)):
                 if self.x[j] == 175 and j > self.placed_blocks[i].y > 0:
                     if self.blockscleared == 10:
-                        self.placed_blocks[i].y += 1
+                        self.placed_blocks_copy[i].y += 1
                         self.score += 40 * (self.level + 1)
                         self.linescleared_counter += 1
                     elif self.blockscleared == 20:
-                        self.placed_blocks[i].y += 2
+                        self.placed_blocks_copy[i].y += 2
                         self.score += 100 * (self.level + 1)
                         self.linescleared_counter += 2
                     elif self.blockscleared == 30:
-                        self.placed_blocks[i].y += 3
+                        self.placed_blocks_copy[i].y += 3
                         self.score += 300 * (self.level + 1)
                         self.linescleared_counter += 3
                     elif self.blockscleared == 40:
-                        self.placed_blocks[i].y += 4
+                        self.placed_blocks_copy[i].y += 4
                         self.score += 1200 * (self.level + 1)
                         self.linescleared_counter += 4
-        '''
+
+        self.placed_blocks = self.placed_blocks_copy
 
         for j in range(20):
             for i in range(len(self.placed_blocks)):
@@ -2113,11 +2156,7 @@ class Blocks():
         if self.level == (self.colour_rotation_counter + 1) * 10:
             self.colour_rotation_counter += 1
 
-        # let all blocks above the removed row "fall down"
-        for j in range(20):
-            for i in range(len(self.placed_blocks)):
-                if self.x[j] == 175 and j > self.placed_blocks[i].y > 0:
-                    self.placed_blocks[i].y += 1
+
 
     def check_game_over(self):
         for k in range(4):
