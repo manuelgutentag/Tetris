@@ -42,6 +42,15 @@ class Blocks():
         self.placed_gun_ls = []
         self.placed_beams = []
 
+
+        self.placed_twobytwos_copy = []
+        self.placed_lls_copy = []
+        self.placed_lrs_copy = []
+        self.placed_crowns_copy = []
+        self.placed_gun_rs_copy = []
+        self.placed_gun_ls_copy = []
+        self.placed_beams_copy = []
+
         self.left_collision = False
         self.right_collision = False
         self.bottom_collision = False
@@ -2115,13 +2124,14 @@ class Blocks():
         self.placed_gun_ls_copy = self.placed_gun_ls
         self.placed_beams_copy = self.placed_beams
         count = 0
+        flagx = True
 
         # let all blocks above the removed row "fall down"
         for j in range(20):
-            if self.x[j] == 175:
+            if self.x[j] == 175 and flagx:
+                flagx = False
                 for i in range(len(self.placed_twobytwos)):
                     if j > self.placed_twobytwos[i].y > 0:
-                        count += 1
                         if self.blockscleared == 10:
                             self.placed_twobytwos_copy[i].y += 1
                             self.score += 40 * (self.level + 1)
@@ -2129,11 +2139,17 @@ class Blocks():
                         elif self.blockscleared == 20:
                             print(' ')
                             print(' ')
-                            print('called')
-                            print('counter for big if:', count)
-                            print(' ')
+                            print('called_twobytwos')
+                            print('j: ', j)
+                            print('x: ', self.placed_twobytwos_copy[i].x)
+                            print('y: ', self.placed_twobytwos_copy[i].y)
                             print(' ')
                             self.placed_twobytwos_copy[i].y += 2
+                            print('nach erhöhung:')
+                            print('x: ', self.placed_twobytwos_copy[i].x)
+                            print('y: ', self.placed_twobytwos_copy[i].y)
+                            print(' ')
+                            print(' ')
                             self.score += 100 * (self.level + 1)
                             self.linescleared_counter += 2
                         elif self.blockscleared == 30:
@@ -2152,7 +2168,19 @@ class Blocks():
                             self.score += 40 * (self.level + 1)
                             self.linescleared_counter += 1
                         elif self.blockscleared == 20:
+                            print(' ')
+                            print(' ')
+                            print('called_lls')
+                            print('j: ', j)
+                            print('x: ', self.placed_lls_copy[i].x)
+                            print('y: ', self.placed_lls_copy[i].y)
+                            print(' ')
                             self.placed_lls_copy[i].y += 2
+                            print('nach erhöhung:')
+                            print('x: ', self.placed_lls_copy[i].x)
+                            print('y: ', self.placed_lls_copy[i].y)
+                            print(' ')
+                            print(' ')
                             self.score += 100 * (self.level + 1)
                             self.linescleared_counter += 2
                         elif self.blockscleared == 30:
@@ -2171,7 +2199,19 @@ class Blocks():
                             self.score += 40 * (self.level + 1)
                             self.linescleared_counter += 1
                         elif self.blockscleared == 20:
+                            print(' ')
+                            print(' ')
+                            print('called_lrs')
+                            print('j: ', j)
+                            print('x: ', self.placed_lrs_copy[i].x)
+                            print('y: ', self.placed_lrs_copy[i].y)
+                            print(' ')
                             self.placed_lrs_copy[i].y += 2
+                            print('nach erhöhung:')
+                            print('x: ', self.placed_lrs_copy[i].x)
+                            print('y: ', self.placed_lrs_copy[i].y)
+                            print(' ')
+                            print(' ')
                             self.score += 100 * (self.level + 1)
                             self.linescleared_counter += 2
                         elif self.blockscleared == 30:
@@ -2190,7 +2230,19 @@ class Blocks():
                             self.score += 40 * (self.level + 1)
                             self.linescleared_counter += 1
                         elif self.blockscleared == 20:
+                            print(' ')
+                            print(' ')
+                            print('called_crowns')
+                            print('j: ', j)
+                            print('x: ', self.placed_crowns_copy[i].x)
+                            print('y: ', self.placed_crowns_copy[i].y)
+                            print(' ')
                             self.placed_crowns_copy[i].y += 2
+                            print('nach erhöhung:')
+                            print('x: ', self.placed_crowns_copy[i].x)
+                            print('y: ', self.placed_crowns_copy[i].y)
+                            print(' ')
+                            print(' ')
                             self.score += 100 * (self.level + 1)
                             self.linescleared_counter += 2
                         elif self.blockscleared == 30:
@@ -2209,7 +2261,19 @@ class Blocks():
                             self.score += 40 * (self.level + 1)
                             self.linescleared_counter += 1
                         elif self.blockscleared == 20:
+                            print(' ')
+                            print(' ')
+                            print('called_gun_rs')
+                            print('j: ', j)
+                            print('x: ', self.placed_gun_rs_copy[i].x)
+                            print('y: ', self.placed_gun_rs_copy[i].y)
+                            print(' ')
                             self.placed_gun_rs_copy[i].y += 2
+                            print('nach erhöhung:')
+                            print('x: ', self.placed_gun_rs_copy[i].x)
+                            print('y: ', self.placed_gun_rs_copy[i].y)
+                            print(' ')
+                            print(' ')
                             self.score += 100 * (self.level + 1)
                             self.linescleared_counter += 2
                         elif self.blockscleared == 30:
@@ -2228,7 +2292,19 @@ class Blocks():
                             self.score += 40 * (self.level + 1)
                             self.linescleared_counter += 1
                         elif self.blockscleared == 20:
+                            print(' ')
+                            print(' ')
+                            print('called_gun_ls')
+                            print('j: ', j)
+                            print('x: ', self.placed_gun_ls_copy[i].x)
+                            print('y: ', self.placed_gun_ls_copy[i].y)
+                            print(' ')
                             self.placed_gun_ls_copy[i].y += 2
+                            print('nach erhöhung:')
+                            print('x: ', self.placed_gun_ls_copy[i].x)
+                            print('y: ', self.placed_gun_ls_copy[i].y)
+                            print(' ')
+                            print(' ')
                             self.score += 100 * (self.level + 1)
                             self.linescleared_counter += 2
                         elif self.blockscleared == 30:
@@ -2247,7 +2323,19 @@ class Blocks():
                             self.score += 40 * (self.level + 1)
                             self.linescleared_counter += 1
                         elif self.blockscleared == 20:
+                            print(' ')
+                            print(' ')
+                            print('called_beams')
+                            print('j: ', j)
+                            print('x: ', self.placed_beams_copy[i].x)
+                            print('y: ', self.placed_beams_copy[i].y)
+                            print(' ')
                             self.placed_beams_copy[i].y += 2
+                            print('nach erhöhung:')
+                            print('x: ', self.placed_beams_copy[i].x)
+                            print('y: ', self.placed_beams_copy[i].y)
+                            print(' ')
+                            print(' ')
                             self.score += 100 * (self.level + 1)
                             self.linescleared_counter += 2
                         elif self.blockscleared == 30:
