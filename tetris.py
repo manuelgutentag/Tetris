@@ -2130,12 +2130,12 @@ class Blocks():
         for j in range(20):
             if self.x[j] == 175 and flagx:
                 flagx = False
+                self.firstclear = True
                 for i in range(len(self.placed_twobytwos)):
                     if j > self.placed_twobytwos[i].y > 0:
                         if self.blockscleared == 10:
                             self.placed_twobytwos_copy[i].y += 1
                             self.score += 40 * (self.level + 1)
-                            self.linescleared_counter += 1
                         elif self.blockscleared == 20:
                             print(' ')
                             print(' ')
@@ -2151,22 +2151,18 @@ class Blocks():
                             print(' ')
                             print(' ')
                             self.score += 100 * (self.level + 1)
-                            self.linescleared_counter += 2
                         elif self.blockscleared == 30:
                             self.placed_twobytwos_copy[i].y += 3
                             self.score += 300 * (self.level + 1)
-                            self.linescleared_counter += 3
                         elif self.blockscleared == 40:
                             self.placed_twobytwos_copy[i].y += 4
                             self.score += 1200 * (self.level + 1)
-                            self.linescleared_counter += 4
 
                 for i in range(len(self.placed_lls)):
                     if self.x[j] == 175 and j > self.placed_lls[i].y > 0:
                         if self.blockscleared == 10:
                             self.placed_lls_copy[i].y += 1
                             self.score += 40 * (self.level + 1)
-                            self.linescleared_counter += 1
                         elif self.blockscleared == 20:
                             print(' ')
                             print(' ')
@@ -2182,22 +2178,18 @@ class Blocks():
                             print(' ')
                             print(' ')
                             self.score += 100 * (self.level + 1)
-                            self.linescleared_counter += 2
                         elif self.blockscleared == 30:
                             self.placed_lls_copy[i].y += 3
                             self.score += 300 * (self.level + 1)
-                            self.linescleared_counter += 3
                         elif self.blockscleared == 40:
                             self.placed_lls_copy[i].y += 4
                             self.score += 1200 * (self.level + 1)
-                            self.linescleared_counter += 4
 
                 for i in range(len(self.placed_lrs)):
                     if self.x[j] == 175 and j > self.placed_lrs[i].y > 0:
                         if self.blockscleared == 10:
                             self.placed_lrs_copy[i].y += 1
                             self.score += 40 * (self.level + 1)
-                            self.linescleared_counter += 1
                         elif self.blockscleared == 20:
                             print(' ')
                             print(' ')
@@ -2213,22 +2205,18 @@ class Blocks():
                             print(' ')
                             print(' ')
                             self.score += 100 * (self.level + 1)
-                            self.linescleared_counter += 2
                         elif self.blockscleared == 30:
                             self.placed_lrs_copy[i].y += 3
                             self.score += 300 * (self.level + 1)
-                            self.linescleared_counter += 3
                         elif self.blockscleared == 40:
                             self.placed_lrs_copy[i].y += 4
                             self.score += 1200 * (self.level + 1)
-                            self.linescleared_counter += 4
 
                 for i in range(len(self.placed_crowns)):
                     if self.x[j] == 175 and j > self.placed_crowns[i].y > 0:
                         if self.blockscleared == 10:
                             self.placed_crowns_copy[i].y += 1
                             self.score += 40 * (self.level + 1)
-                            self.linescleared_counter += 1
                         elif self.blockscleared == 20:
                             print(' ')
                             print(' ')
@@ -2244,22 +2232,18 @@ class Blocks():
                             print(' ')
                             print(' ')
                             self.score += 100 * (self.level + 1)
-                            self.linescleared_counter += 2
                         elif self.blockscleared == 30:
                             self.placed_crowns_copy[i].y += 3
                             self.score += 300 * (self.level + 1)
-                            self.linescleared_counter += 3
                         elif self.blockscleared == 40:
                             self.placed_crowns_copy[i].y += 4
                             self.score += 1200 * (self.level + 1)
-                            self.linescleared_counter += 4
 
                 for i in range(len(self.placed_gun_rs)):
                     if self.x[j] == 175 and j > self.placed_gun_rs[i].y > 0:
                         if self.blockscleared == 10:
                             self.placed_gun_rs_copy[i].y += 1
                             self.score += 40 * (self.level + 1)
-                            self.linescleared_counter += 1
                         elif self.blockscleared == 20:
                             print(' ')
                             print(' ')
@@ -2275,22 +2259,18 @@ class Blocks():
                             print(' ')
                             print(' ')
                             self.score += 100 * (self.level + 1)
-                            self.linescleared_counter += 2
                         elif self.blockscleared == 30:
                             self.placed_gun_rs_copy[i].y += 3
                             self.score += 300 * (self.level + 1)
-                            self.linescleared_counter += 3
                         elif self.blockscleared == 40:
                             self.placed_gun_rs_copy[i].y += 4
                             self.score += 1200 * (self.level + 1)
-                            self.linescleared_counter += 4
 
                 for i in range(len(self.placed_gun_ls)):
                     if self.x[j] == 175 and j > self.placed_gun_ls[i].y > 0:
                         if self.blockscleared == 10:
                             self.placed_gun_ls_copy[i].y += 1
                             self.score += 40 * (self.level + 1)
-                            self.linescleared_counter += 1
                         elif self.blockscleared == 20:
                             print(' ')
                             print(' ')
@@ -2306,22 +2286,18 @@ class Blocks():
                             print(' ')
                             print(' ')
                             self.score += 100 * (self.level + 1)
-                            self.linescleared_counter += 2
                         elif self.blockscleared == 30:
                             self.placed_gun_ls_copy[i].y += 3
                             self.score += 300 * (self.level + 1)
-                            self.linescleared_counter += 3
                         elif self.blockscleared == 40:
                             self.placed_gun_ls_copy[i].y += 4
                             self.score += 1200 * (self.level + 1)
-                            self.linescleared_counter += 4
 
                 for i in range(len(self.placed_beams)):
                     if self.x[j] == 175 and j > self.placed_beams[i].y > 0:
                         if self.blockscleared == 10:
                             self.placed_beams_copy[i].y += 1
                             self.score += 40 * (self.level + 1)
-                            self.linescleared_counter += 1
                         elif self.blockscleared == 20:
                             print(' ')
                             print(' ')
@@ -2337,15 +2313,12 @@ class Blocks():
                             print(' ')
                             print(' ')
                             self.score += 100 * (self.level + 1)
-                            self.linescleared_counter += 2
                         elif self.blockscleared == 30:
                             self.placed_beams_copy[i].y += 3
                             self.score += 300 * (self.level + 1)
-                            self.linescleared_counter += 3
                         elif self.blockscleared == 40:
                             self.placed_beams_copy[i].y += 4
                             self.score += 1200 * (self.level + 1)
-                            self.linescleared_counter += 4
 
         #self.placed_blocks = self.placed_blocks_copy
         self.placed_twobytwos = self.placed_twobytwos_copy
@@ -2356,29 +2329,26 @@ class Blocks():
         self.placed_gun_ls = self.placed_gun_ls_copy
         self.placed_beams = self.placed_beams_copy
 
-        print(self.x)
-        print(self.placed_blocks)
         print(' ')
+        print(self.linescleared_counter)
         print(' ')
 
         for j in range(20):
             for i in range(len(self.placed_blocks)):
                 self.x[j] = 0
 
-        self.blockscleared = 0
 
         # level up every 10 rows cleared
         #if (self.level + 1) * 100 == self.totalblockscleared and self.firstclear:
         #if (self.totalblockscleared == 10 or self.totalblockscleared == 20 or self.totalblockscleared == 30 or self.totalblockscleared == 40) and self.firstclear:
-
-
-        self.firstclear = False
-
         #später linesclearedcounter auf 10
-        if self.linescleared_counter == 1 or self.linescleared_counter == 2 or self.linescleared_counter == 3 or self.linescleared_counter == 4:
+
+        if self.blockscleared == 10 or self.blockscleared == 20 or self.blockscleared == 30 or self.blockscleared == 40:
             self.level += 1
             self.settimerflag = True
-            self.linescleared_counter = 0
+            self.firstclear = False
+
+        self.blockscleared = 0
 
         if self.level == (self.colour_rotation_counter + 1) * 10:
             self.colour_rotation_counter += 1
