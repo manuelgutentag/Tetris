@@ -2123,13 +2123,12 @@ class Blocks():
         self.placed_gun_rs_copy = self.placed_gun_rs
         self.placed_gun_ls_copy = self.placed_gun_ls
         self.placed_beams_copy = self.placed_beams
-        count = 0
-        flagx = True
+        self.linescleared_counter = 0
 
         # let all blocks above the removed row "fall down"
         for j in range(20):
-            if self.x[j] == 175 and flagx:
-                flagx = False
+            if self.x[j] == 175:
+                self.linescleared_counter += 1
                 self.firstclear = True
                 for i in range(len(self.placed_twobytwos)):
                     if j > self.placed_twobytwos[i].y > 0:
