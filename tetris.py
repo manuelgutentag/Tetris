@@ -2136,8 +2136,6 @@ class Blocks():
                     if self.x[j] == 175 and j > self.placed_beams[i].y > 0:
                         self.placed_beams[i].y += 1
 
-        if self.linescleared != 0:
-            print(self.linescleared)
 
         if self.linescleared == 1:
             self.score += 40 * (self.level + 1)
@@ -2173,115 +2171,48 @@ class Blocks():
             self.colour_rotation_counter += 1
 
 
-
     def check_game_over(self):
         for k in range(4):
+            if self.gameover:
+                break
             for i in range(len(self.placed_blocks)):
                 if self.twobytwo[k].x == self.placed_blocks[i].x and self.twobytwo[k].y == self.placed_blocks[i].y:
-                    self.placed_blocks = []
-                    self.placed_twobytwos = []
-                    self.placed_lls = []
-                    self.placed_lrs = []
-                    self.placed_crowns = []
-                    self.placed_gun_rs = []
-                    self.placed_gun_ls = []
-                    self.placed_beams = []
-                    self.blocksfrozen = True
                     self.gameover = True
-                    self.score = 0
-                    self.level = 0
-                    print('game over')
                     break
                 elif self.ll[k].x == self.placed_blocks[i].x and self.ll[k].y == self.placed_blocks[i].y:
-                    self.placed_blocks = []
-                    self.placed_twobytwos = []
-                    self.placed_lls = []
-                    self.placed_lrs = []
-                    self.placed_crowns = []
-                    self.placed_gun_rs = []
-                    self.placed_gun_ls = []
-                    self.placed_beams = []
-                    self.blocksfrozen = True
                     self.gameover = True
-                    self.score = 0
-                    self.level = 0
-                    print('game over')
                     break
                 elif self.lr[k].x == self.placed_blocks[i].x and self.lr[k].y == self.placed_blocks[i].y:
-                    self.placed_blocks = []
-                    self.placed_twobytwos = []
-                    self.placed_lls = []
-                    self.placed_lrs = []
-                    self.placed_crowns = []
-                    self.placed_gun_rs = []
-                    self.placed_gun_ls = []
-                    self.placed_beams = []
-                    self.blocksfrozen = True
                     self.gameover = True
-                    self.score = 0
-                    self.level = 0
-                    print('game over')
                     break
                 elif self.crown[k].x == self.placed_blocks[i].x and self.crown[k].y == self.placed_blocks[i].y:
-                    self.placed_blocks = []
-                    self.placed_twobytwos = []
-                    self.placed_lls = []
-                    self.placed_lrs = []
-                    self.placed_crowns = []
-                    self.placed_gun_rs = []
-                    self.placed_gun_ls = []
-                    self.placed_beams = []
-                    self.blocksfrozen = True
                     self.gameover = True
-                    self.score = 0
-                    self.level = 0
-                    print('game over')
                     break
                 elif self.gun_r[k].x == self.placed_blocks[i].x and self.gun_r[k].y == self.placed_blocks[i].y:
-                    self.placed_blocks = []
-                    self.placed_twobytwos = []
-                    self.placed_lls = []
-                    self.placed_lrs = []
-                    self.placed_crowns = []
-                    self.placed_gun_rs = []
-                    self.placed_gun_ls = []
-                    self.placed_beams = []
-                    self.blocksfrozen = True
                     self.gameover = True
-                    self.score = 0
-                    self.level = 0
-                    print('game over')
                     break
                 elif self.gun_l[k].x == self.placed_blocks[i].x and self.gun_l[k].y == self.placed_blocks[i].y:
-                    self.placed_blocks = []
-                    self.placed_twobytwos = []
-                    self.placed_lls = []
-                    self.placed_lrs = []
-                    self.placed_crowns = []
-                    self.placed_gun_rs = []
-                    self.placed_gun_ls = []
-                    self.placed_beams = []
-                    self.blocksfrozen = True
                     self.gameover = True
-                    self.score = 0
-                    self.level = 0
-                    print('game over')
                     break
                 elif self.beam[k].x == self.placed_blocks[i].x and self.beam[k].y == self.placed_blocks[i].y:
-                    self.placed_blocks = []
-                    self.placed_twobytwos = []
-                    self.placed_lls = []
-                    self.placed_lrs = []
-                    self.placed_crowns = []
-                    self.placed_gun_rs = []
-                    self.placed_gun_ls = []
-                    self.placed_beams = []
-                    self.blocksfrozen = True
                     self.gameover = True
-                    self.score = 0
-                    self.level = 0
-                    print('game over')
                     break
+
+        if self.gameover:
+            self.placed_blocks = []
+            self.placed_twobytwos = []
+            self.placed_lls = []
+            self.placed_lrs = []
+            self.placed_crowns = []
+            self.placed_gun_rs = []
+            self.placed_gun_ls = []
+            self.placed_beams = []
+            self.blocksfrozen = True
+            self.settimerflag = True
+            self.score = 0
+            self.level = 0
+            self.totallinescleared = 0
+
 
     def draw_block(self):
         if self.current_block == 1:
@@ -3113,6 +3044,9 @@ while running:
                         if not main.block.rotation_collision:
                             main.block.current_rotation += 1
 
+    if main.block.level == 0 and main.block.settimerflag:
+        pygame.time.set_timer(screen_update, 900)
+        main.block.settimerflag = False
 
     if main.block.level == 1 and main.block.settimerflag:
         # settimerflag for the purpose of only calling this timer-update once after a level-up
